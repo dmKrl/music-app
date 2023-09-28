@@ -1,4 +1,5 @@
 import './SideBar.css';
+import SideBarItem from './UI/SideBarItem';
 
 function SideBar() {
   return (
@@ -12,35 +13,9 @@ function SideBar() {
         </div>
       </div>
       <div className="sidebar__block">
-        <div className="sidebar__list">
-          <div className="sidebar__item">
-            <a className="sidebar__link" href="./">
-              <img
-                className="sidebar__img"
-                src="img/playlist01.png"
-                alt="day's playlist"
-              />
-            </a>
-          </div>
-          <div className="sidebar__item">
-            <a className="sidebar__link" href="./">
-              <img
-                className="sidebar__img"
-                src="img/playlist02.png"
-                alt="day's playlist"
-              />
-            </a>
-          </div>
-          <div className="sidebar__item">
-            <a className="sidebar__link" href="./">
-              <img
-                className="sidebar__img"
-                src="img/playlist03.png"
-                alt="day's playlist"
-              />
-            </a>
-          </div>
-        </div>
+        <SideBarItem image="img/playlist01.png" />
+        <SideBarItem image="img/playlist02.png" />
+        <SideBarItem image="img/playlist03.png" />
       </div>
     </div>
   );
