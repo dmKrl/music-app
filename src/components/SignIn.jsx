@@ -1,4 +1,5 @@
 import './SignIn.css';
+import ModalInput from './UI/ModalInput';
 
 function SignIn() {
   return (
@@ -11,13 +12,13 @@ function SignIn() {
                 <img src="./img/logo_modal.png" alt="logo" />
               </div>
             </a>
-            <input
+            <ModalInput
               className="modal__input login"
               type="text"
               name="login"
               placeholder="Почта"
             />
-            <input
+            <ModalInput
               className="modal__input password"
               type="password"
               name="password"
