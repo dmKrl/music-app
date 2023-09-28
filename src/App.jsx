@@ -1,5 +1,6 @@
 import './App.css';
 import CenterBlockFilter from './components/CenterBlockFilter';
+import SectionMusicList from './components/SectionMusicList';
 import SectionsNav from './components/SectionsNav';
 
 function App() {
@@ -23,7 +24,7 @@ function App() {
               </div>
               <h2 className="centerblock__h2">Треки</h2>
               <CenterBlockFilter />
-            
+              <SectionMusicList />
             </div>
             <div className="main__sidebar sidebar">
               <div className="sidebar__personal">
