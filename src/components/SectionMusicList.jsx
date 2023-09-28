@@ -1,6 +1,7 @@
 import './SectionMusicList.css';
 
 function SectionMusicList() {
+  // Здесь по хорошему мы должны получать GET запрос и выводить данные, например через map
   return (
     <div className="centerblock__content">
       <div className="content__title playlist-title">
