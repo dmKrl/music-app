@@ -1,7 +1,7 @@
-import './CetnerBlockFilter.css';
+import './CenterBlockFilter.css';
 import ButtonFilter from './UI/ButtonFilter';
 
-function CetnerBlockFilter() {
+function CenterBlockFilter() {
   return (
     <div className="centerblock__filter filter">
       <div className="filter__title">Искать по:</div>
@@ -11,4 +11,4 @@ function CetnerBlockFilter() {
     </div>
   );
 }
-export default CetnerBlockFilter;
+export default CenterBlockFilter;
