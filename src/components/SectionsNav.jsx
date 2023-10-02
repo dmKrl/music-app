@@ -1,24 +1,26 @@
 import './SectionsNav.css';
 import SectionNavItem from './UI/SectionNavItem';
 
-function SectionsNav() {
+function SectionsNav({ onClick, visible }) {
   return (
     <nav className="main__nav nav">
       <div className="nav__logo logo">
         <img className="logo__image" src="img/logo.png" alt="logo" />
       </div>
-      <div className="nav__burger burger">
+      <button onClick={onClick} className="nav__burger burger" type="button">
         <span className="burger__line" />
         <span className="burger__line" />
         <span className="burger__line" />
-      </div>
-      <div className="nav__menu menu">
-        <ul className="menu__list">
-          <SectionNavItem text="Главное" />
-          <SectionNavItem text="Мой плейлист" />
-          <SectionNavItem text="Войти" />
-        </ul>
-      </div>
+      </button>
+      {visible && (
+        <div className="nav__menu menu">
+          <ul className="menu__list">
+            <SectionNavItem text="Главное" />
+            <SectionNavItem text="Мой плейлист" />
+            <SectionNavItem text="Войти" />
+          </ul>
+        </div>
+      )}
     </nav>
   );
 }
