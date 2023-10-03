@@ -1,5 +1,5 @@
 import './SectionsNav.css';
-import SectionNavItem from './UI/SectionNavItem';
+import SectionNavItem from '../UI/SectionNavItem';
 
 function SectionsNav({ onClick, visible }) {
   return (

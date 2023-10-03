@@ -1,6 +1,6 @@
 import './SectionMusicList.css';
-import tracks from '../data/tracks';
-import ItemPlaylist from './UI/ItemPlaylist';
+import tracks from '../../data/tracks';
+import ItemPlaylist from '../UI/ItemPlaylist';
 
 function SectionMusicList({ loadingPage }) {
   // Здесь по хорошему мы должны получать GET запрос и выводить данные, например через map

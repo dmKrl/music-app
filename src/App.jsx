@@ -1,11 +1,11 @@
 import { useEffect, useState } from 'react';
 import './App.css';
-import BarPlayer from './components/BarPlayer';
-import CenterBlockFilter from './components/CenterBlockFilter';
-import SearchInput from './components/SearchInput';
-import SectionMusicList from './components/SectionMusicList';
-import SectionsNav from './components/SectionsNav';
-import SideBar from './components/SideBar';
+import BarPlayer from './components/BarPlayer/BarPlayer';
+import CenterBlockFilter from './components/Main/CenterBlockFilter';
+import SearchInput from './components/Main/SearchInput';
+import SectionMusicList from './components/Main/SectionMusicList';
+import SectionsNav from './components/SectionNav/SectionsNav';
+import SideBar from './components/Main/SideBar';
 
 function App() {
   const [visibleNav, setVisibleNav] = useState(true);

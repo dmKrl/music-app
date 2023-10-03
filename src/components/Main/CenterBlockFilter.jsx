@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import './CenterBlockFilter.css';
-import FilterItem from './FilterItem';
-import tracks from '../data/tracks';
+import FilterItem from '../UI/FilterItem';
+import tracks from '../../data/tracks';
 
 function CenterBlockFilter() {
   const [visibilityOne, setVisibilityOne] = useState(false);
@@ -33,7 +33,9 @@ function CenterBlockFilter() {
           visibility={visibilityOne}
           id="1"
           artists={tracks.map((track) => (
-            <p key={track.id} className='popup-text-info'>{track.musician}</p>
+            <p key={track.id} className="popup-text-info">
+              {track.musician}
+            </p>
           ))}
         >
           Исполнителю
@@ -43,7 +45,9 @@ function CenterBlockFilter() {
           visibility={visibilityTwo}
           id="2"
           artists={tracks.map((track) => (
-            <p key={track.id} className='popup-text-info'>{track.time}</p>
+            <p key={track.id} className="popup-text-info">
+              {track.time}
+            </p>
           ))}
         >
           Продолжительности
@@ -53,7 +57,9 @@ function CenterBlockFilter() {
           visibility={visibilityThree}
           id="3"
           artists={tracks.map((track) => (
-            <p key={track.id} className='popup-text-info'>{track.album}</p>
+            <p key={track.id} className="popup-text-info">
+              {track.album}
+            </p>
           ))}
         >
           Альбому

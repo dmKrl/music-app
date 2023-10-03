@@ -1,5 +1,5 @@
 import './SideBar.css';
-import SideBarItem from './UI/SideBarItem';
+import SideBarItem from '../UI/SideBarItem';
 
 function SideBar({ loadingPage }) {
   return (

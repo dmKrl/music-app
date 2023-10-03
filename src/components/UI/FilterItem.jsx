@@ -1,5 +1,5 @@
-import ButtonFilter from './UI/ButtonFilter';
-import PopupFilter from './UI/PopupFilter';
+import ButtonFilter from './ButtonFilter';
+import PopupFilter from './PopupFilter';
 
 function FilterItem(props) {
   const { onClick, visibility, children, id, artists } = props;
