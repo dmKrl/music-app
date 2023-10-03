@@ -19,7 +19,7 @@ function SectionMusicList({ loadingPage }) {
       <div className="content__playlist playlist">
         {tracks.map((track) => (
           // eslint-disable-next-line react/jsx-props-no-spreading
-          <ItemPlaylist {...track} loadingPage={loadingPage} />
+          <ItemPlaylist {...track} key={track.id} loadingPage={loadingPage} />
         ))}
       </div>
     </div>

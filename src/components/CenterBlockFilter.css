@@ -10,6 +10,7 @@
   -ms-flex-align: center;
   align-items: center;
   margin-bottom: 51px;
+  position: relative;
 }
 .filter__title {
   font-style: normal;
