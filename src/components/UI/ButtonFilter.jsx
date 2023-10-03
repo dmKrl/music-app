@@ -1,7 +1,17 @@
-function ButtonFilter(props) {
-  const { children } = props;
+import filters from '../../data/filters';
+
+function ButtonFilter() {
   return (
-    <div className="filter__button button-author _btn-text">{children}</div>
+    <>
+      {filters.map((filter) => (
+        <button
+          className="filter__button button-author _btn-text"
+          type="button"
+        >
+          {filter.buttonName}
+        </button>
+      ))}
+    </>
   );
 }
 
