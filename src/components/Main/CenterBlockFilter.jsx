@@ -32,7 +32,7 @@ function CenterBlockFilter() {
           onClick={handlerChangeVisionPopupOne}
           visibility={visibilityOne}
           id="1"
-          artists={tracks.map((track) => (
+          tracks={tracks.map((track) => (
             <p key={track.id} className="popup-text-info">
               {track.musician}
             </p>
@@ -44,7 +44,7 @@ function CenterBlockFilter() {
           onClick={handlerChangeVisionPopupTwo}
           visibility={visibilityTwo}
           id="2"
-          artists={tracks.map((track) => (
+          tracks={tracks.map((track) => (
             <p key={track.id} className="popup-text-info">
               {track.time}
             </p>
@@ -56,7 +56,7 @@ function CenterBlockFilter() {
           onClick={handlerChangeVisionPopupThree}
           visibility={visibilityThree}
           id="3"
-          artists={tracks.map((track) => (
+          tracks={tracks.map((track) => (
             <p key={track.id} className="popup-text-info">
               {track.album}
             </p>
