@@ -10,6 +10,10 @@ import SideBar from './components/Main/SideBar';
 function App() {
   const [visibleNav, setVisibleNav] = useState(true);
   const [loadingPage, setLoadingPage] = useState(true);
+  const [activeFilter, setActiveFilter] = useState(null);
+
+  const handlerSelectCategory = (string) =>
+    activeFilter === string ? setActiveFilter(null) : setActiveFilter(string);
 
   const handlerVisibleNav = () => setVisibleNav(!visibleNav);
 
@@ -17,6 +21,7 @@ function App() {
     setTimeout(() => {
       setLoadingPage(!loadingPage);
     }, 5000);
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (
@@ -27,7 +32,10 @@ function App() {
             <SectionsNav onClick={handlerVisibleNav} visible={visibleNav} />
             <div className="main__centerblock centerblock">
               <SearchInput />
-              <CenterBlockFilter />
+              <CenterBlockFilter
+                onClick={handlerSelectCategory}
+                activeFilter={activeFilter}
+              />
               <SectionMusicList loadingPage={loadingPage} />
             </div>
             <SideBar loadingPage={loadingPage} />

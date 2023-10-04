@@ -5,6 +5,8 @@ const tracks = [
     album: 'Welcome Reality',
     time: '4:44',
     id: 1,
+    year: 1992,
+    genre: 'Jazz',
   },
   {
     trackName: 'Elekro',
@@ -12,6 +14,8 @@ const tracks = [
     album: 'Elektro',
     time: '2:22',
     id: 2,
+    year: 1995,
+    genre: 'Bluz',
   },
   {
     trackName: 'Non Stop',
@@ -19,6 +23,8 @@ const tracks = [
     album: 'Non Stop',
     time: '4:12',
     id: 3,
+    year: 1997,
+    genre: 'Heavy metall',
   },
   {
     trackName: 'Run Run',
@@ -26,6 +32,8 @@ const tracks = [
     album: 'Run Run',
     time: '2:54',
     id: 4,
+    year: 1998,
+    genre: 'Metall',
   },
   {
     trackName: 'Eyes on Fire',
@@ -33,6 +41,8 @@ const tracks = [
     album: 'Eyes on Fire',
     time: '5:20',
     id: 5,
+    year: 1991,
+    genre: 'Rock',
   },
   {
     trackName: 'Mucho Bien',
@@ -40,6 +50,8 @@ const tracks = [
     album: 'Mucho Bien',
     time: '3:41',
     id: 6,
+    year: 1992,
+    genre: 'Pop',
   },
   {
     trackName: 'Knives n Cherries',
@@ -47,6 +59,8 @@ const tracks = [
     album: 'Captivating',
     time: '1:48',
     id: 7,
+    year: 1993,
+    genre: 'Rap',
   },
   {
     trackName: 'Knives n Cherries',
@@ -54,6 +68,8 @@ const tracks = [
     album: 'Captivating',
     time: '1:48',
     id: 8,
+    year: 1992,
+    genre: 'Classic',
   },
   {
     trackName: 'Knives n Cherries',
@@ -61,6 +77,8 @@ const tracks = [
     album: 'Captivating',
     time: '1:48',
     id: 9,
+    year: 1999,
+    genre: 'Dubstep',
   },
 ];
 export default tracks;

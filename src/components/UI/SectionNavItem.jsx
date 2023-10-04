@@ -1,5 +1,3 @@
-import './SectionNavItem.css';
-
 function SectionNavItem(props) {
   const { text } = props;
   return (
