@@ -12,6 +12,8 @@
   -webkit-box-pack: justify;
   -ms-flex-pack: justify;
   justify-content: space-between;
+  border: none;
+  background: none;
 }
 
 .burger__line {

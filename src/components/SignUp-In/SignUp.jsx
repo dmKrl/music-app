@@ -1,5 +1,5 @@
 import './SignUp.css';
-import ModalInput from './UI/ModalInput';
+import ModalInput from '../UI/ModalInput';
 
 function SignUp() {
   return (

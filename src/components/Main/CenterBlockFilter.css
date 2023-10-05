@@ -2,6 +2,7 @@
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
+  gap: 10px;
   -webkit-box-orient: horizontal;
   -webkit-box-direction: normal;
   -ms-flex-direction: row;
@@ -10,6 +11,7 @@
   -ms-flex-align: center;
   align-items: center;
   margin-bottom: 51px;
+  position: relative;
 }
 .filter__title {
   font-style: normal;
@@ -25,13 +27,17 @@
   font-size: 16px;
   line-height: 24px;
   border: 1px solid #ffffff;
+  color: white;
+  background: none;
   border-radius: 60px;
   padding: 6px 20px;
 }
 
-.filter__button:not(:last-child) {
-  margin-right: 10px;
+.filter-item {
+  display: flex;
+  flex-direction: column;
 }
+
 ._btn-text:hover {
   border-color: #d9b6ff;
   color: #d9b6ff;

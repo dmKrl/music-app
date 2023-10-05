@@ -1,7 +1,7 @@
 import './SideBar.css';
-import SideBarItem from './UI/SideBarItem';
+import SideBarItem from '../UI/SideBarItem';
 
-function SideBar() {
+function SideBar({ loadingPage }) {
   return (
     <div className="main__sidebar sidebar">
       <div className="sidebar__personal">
@@ -13,9 +13,9 @@ function SideBar() {
         </div>
       </div>
       <div className="sidebar__block">
-        <SideBarItem image="img/playlist01.png" />
-        <SideBarItem image="img/playlist02.png" />
-        <SideBarItem image="img/playlist03.png" />
+        <SideBarItem image="img/playlist01.png" loadingPage={loadingPage} />
+        <SideBarItem image="img/playlist02.png" loadingPage={loadingPage} />
+        <SideBarItem image="img/playlist03.png" loadingPage={loadingPage} />
       </div>
     </div>
   );

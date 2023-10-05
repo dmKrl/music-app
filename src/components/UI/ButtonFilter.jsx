@@ -1,7 +1,13 @@
 function ButtonFilter(props) {
-  const { children } = props;
+  const { children, onClick } = props;
   return (
-    <div className="filter__button button-author _btn-text">{children}</div>
+    <button
+      onClick={onClick}
+      className="filter__button button-author _btn-text"
+      type="button"
+    >
+      {children}
+    </button>
   );
 }
 

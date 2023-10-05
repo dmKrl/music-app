@@ -157,6 +157,12 @@
   color: #696969;
 }
 
+.track__album-link-bones {
+  width: 250px;
+  height: 19px;
+  background: #313131;
+}
+
 .track__time-svg {
   width: 14px;
   height: 12px;

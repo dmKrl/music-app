@@ -1,4 +1,3 @@
-import './ModalInput.css';
 
 function ModalInput(props) {
   const { className, type, name, placeholder } = props;
