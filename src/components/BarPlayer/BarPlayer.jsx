@@ -1,28 +1,29 @@
 import './BarPlayer.css';
+import * as S from './BarPlayer.styles';
 
 function BarPlayer() {
   return (
-    <div className="bar">
-      <div className="bar__content">
-        <div className="bar__player-progress" />
-        <div className="bar__player-block">
-          <div className="bar__player player">
-            <div className="player__controls">
-              <div className="player__btn-prev">
-                <svg className="player__btn-prev-svg" alt="prev">
+    <S.Bar>
+      <S.BarContent>
+        <S.BarPlayerProgress />
+        <S.BarPlayerBlock>
+          <S.BarPlayer>
+            <S.PlayersControls className="player__controls">
+              <S.PlayerBtnPrev className="player__btn-prev">
+                <S.PlayerBtnPrevSvg className="player__btn-prev-svg" alt="prev">
                   <use xlinkHref="img/icon/sprite.svg#icon-prev" />
-                </svg>
-              </div>
-              <div className="player__btn-play _btn">
-                <svg className="player__btn-play-svg" alt="play">
+                </S.PlayerBtnPrevSvg>
+              </S.PlayerBtnPrev>
+              <S.PlayerBtnPlay className="player__btn-play _btn">
+                <S.PlayerBtnPlaySvg className="player__btn-play-svg" alt="play">
                   <use xlinkHref="img/icon/sprite.svg#icon-play" />
-                </svg>
-              </div>
-              <div className="player__btn-next">
-                <svg className="player__btn-next-svg" alt="next">
+                </S.PlayerBtnPlaySvg>
+              </S.PlayerBtnPlay>
+              <S.PlayerBtnNext className="player__btn-next">
+                <S.PlayerBtnNextSvg className="player__btn-next-svg" alt="next">
                   <use xlinkHref="img/icon/sprite.svg#icon-next" />
-                </svg>
-              </div>
+                </S.PlayerBtnNextSvg>
+              </S.PlayerBtnNext>
               <div className="player__btn-repeat _btn-icon">
                 <svg className="player__btn-repeat-svg" alt="repeat">
                   <use xlinkHref="img/icon/sprite.svg#icon-repeat" />
@@ -33,7 +34,7 @@ function BarPlayer() {
                   <use xlinkHref="img/icon/sprite.svg#icon-shuffle" />
                 </svg>
               </div>
-            </div>
+            </S.PlayersControls>
 
             <div className="player__track-play track-play">
               <div className="track-play__contain">
@@ -67,7 +68,7 @@ function BarPlayer() {
                 </div>
               </div>
             </div>
-          </div>
+          </S.BarPlayer>
           <div className="bar__volume-block volume">
             <div className="volume__content">
               <div className="volume__image">
@@ -84,9 +85,9 @@ function BarPlayer() {
               </div>
             </div>
           </div>
-        </div>
-      </div>
-    </div>
+        </S.BarPlayerBlock>
+      </S.BarContent>
+    </S.Bar>
   );
 }
 
