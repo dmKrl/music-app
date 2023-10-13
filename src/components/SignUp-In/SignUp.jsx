@@ -1,42 +1,44 @@
-import './SignUp.css';
-import ModalInput from '../UI/ModalInput';
+import * as S from './SignComponent.styles';
 
 function SignUp() {
   return (
-    <div className="wrapper">
-      <div className="container-signup">
-        <div className="modal__block">
-          <form className="modal__form-login">
+    <S.Wrapper className="wrapper">
+      <S.ContainerSignUp className="container-signup">
+        <S.ModalBlock className="modal__block">
+          <S.ModalFormLogin className="modal__form-login">
             <a href="../">
-              <div className="modal__logo">
+              <S.ModalLogo className="modal__logo">
                 <img src="../img/logo_modal.png" alt="logo" />
-              </div>
+              </S.ModalLogo>
             </a>
-            <ModalInput
+            <S.ModalLogin
               className="modal__input login"
               type="text"
               name="login"
               placeholder="Почта"
             />
-            <ModalInput
+            <S.ModalPassword
               className="modal__input password"
               type="password"
               name="password"
               placeholder="Пароль"
             />
-            <ModalInput
+            <S.ModalPasswordDouble
               className="modal__input password-double"
               type="password"
               name="password"
               placeholder="Повторите пароль"
             />
-            <button className="modal__btn-signup-ent" type="button">
+            <S.ModalBtnSignUpEnt
+              className="modal__btn-signup-ent"
+              type="button"
+            >
               <a href="../index.html">Зарегистрироваться</a>
-            </button>
-          </form>
-        </div>
-      </div>
-    </div>
+            </S.ModalBtnSignUpEnt>
+          </S.ModalFormLogin>
+        </S.ModalBlock>
+      </S.ContainerSignUp>
+    </S.Wrapper>
   );
 }
 

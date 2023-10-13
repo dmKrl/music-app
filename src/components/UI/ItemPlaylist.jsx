@@ -1,54 +1,52 @@
+import * as S from '../Main/SectionMusicList.styles';
+
 function ItemPlaylist(props) {
   const { trackName, musician, album, time, loadingPage } = props;
   return (
-    <div className="playlist__item">
-      <div className="playlist__track track">
-        <div className="track__title">
-          <div className="track__title-image">
-            <svg className="track__title-svg" alt="music">
+    <S.PlaylistItem>
+      <S.PlaylistTrack>
+        <S.TrackTitle>
+          <S.TrackTitleImg>
+            <S.TrackTitleSvg alt="music">
               <use xlinkHref="img/icon/sprite.svg#icon-note" />
-            </svg>
-          </div>
-          <div className="track__title-text">
+            </S.TrackTitleSvg>
+          </S.TrackTitleImg>
+          <div>
             {loadingPage ? (
-              <div className="track__album-link-bones" href="http://" />
+              <S.TrackAlbumLinkBones href="http://" />
             ) : (
-              <a className="track__title-link" href="http://">
-                {trackName} <span className="track__title-span" />
-              </a>
+              <S.TrackTitleLink href="http://">
+                {trackName} <S.TrackTitleSpan />
+              </S.TrackTitleLink>
             )}
           </div>
-        </div>
-        <div className="track__author">
+        </S.TrackTitle>
+        <S.TrackAuthor>
           {loadingPage ? (
-            <div className="track__album-link-bones" href="http://" />
+            <S.TrackAlbumLinkBones href="http://" />
           ) : (
-            <a className="track__author-link" href="http://">
-              {musician}
-            </a>
+            <S.TrackAuthorLink href="http://">{musician}</S.TrackAuthorLink>
           )}
-        </div>
-        <div className="track__album">
+        </S.TrackAuthor>
+        <S.TrackAlbum>
           {loadingPage ? (
-            <div className="track__album-link-bones" href="http://" />
+            <S.TrackAlbumLinkBones href="http://" />
           ) : (
-            <a className="track__album-link" href="http://">
-              {album}
-            </a>
+            <S.TrackAlbumLink href="http://">{album}</S.TrackAlbumLink>
           )}
-        </div>
-        <div className="track__time">
-          <svg className="track__time-svg" alt="time">
+        </S.TrackAlbum>
+        <>
+          <S.TrackTimeSvg alt="time">
             <use xlinkHref="img/icon/sprite.svg#icon-like" />
-          </svg>
+          </S.TrackTimeSvg>
           {loadingPage ? (
-            <span className="track__time-text">00:00</span>
+            <S.TrackTimeText>00:00</S.TrackTimeText>
           ) : (
-            <span className="track__time-text">{time}</span>
+            <S.TrackTimeText>{time}</S.TrackTimeText>
           )}
-        </div>
-      </div>
-    </div>
+        </>
+      </S.PlaylistTrack>
+    </S.PlaylistItem>
   );
 }
 

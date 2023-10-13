@@ -1,39 +1,33 @@
-import './SignIn.css';
-import ModalInput from '../UI/ModalInput';
+import * as S from './SignComponent.styles';
 
 function SignIn() {
   return (
-    <div className="wrapper">
-      <div className="container-enter">
-        <div className="modal__block">
-          <form className="modal__form-login" action="#">
+    <S.Wrapper>
+      <S.ContainerEnter>
+        <S.ModalBlock>
+          <S.ModalFormLogin>
             <a href="../">
-              <div className="modal__logo">
+              <S.ModalLogo>
                 <img src="./img/logo_modal.png" alt="logo" />
-              </div>
+              </S.ModalLogo>
             </a>
-            <ModalInput
-              className="modal__input login"
-              type="text"
-              name="login"
-              placeholder="Почта"
-            />
-            <ModalInput
-              className="modal__input password"
+            <S.ModalLogin type="text" name="login" placeholder="Почта" />
+            12
+            <S.ModalPassword
               type="password"
               name="password"
               placeholder="Пароль"
             />
-            <button className="modal__btn-enter" type="button">
+            <S.ModalBtnEnter type="button">
               <a href="./">Войти</a>
-            </button>
-            <button className="modal__btn-signup" type="button">
+            </S.ModalBtnEnter>
+            <S.ModaBtnlSignUp type="button">
               <a href="./">Зарегистрироваться</a>
-            </button>
-          </form>
-        </div>
-      </div>
-    </div>
+            </S.ModaBtnlSignUp>
+          </S.ModalFormLogin>
+        </S.ModalBlock>
+      </S.ContainerEnter>
+    </S.Wrapper>
   );
 }
 

@@ -76,7 +76,7 @@ export const StylesSideBarImg = styled.img`
   width: 100%;
   height: auto;
 `;
-export const StylesSideBarImgBones = styled.img`
+export const StylesSideBarImgBones = styled.div`
   width: 250px;
   height: 150px;
   background: #313131;

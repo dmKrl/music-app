@@ -5,10 +5,11 @@ import CenterBlockFilter from './components/Main/CenterBlockFilter';
 import SearchInput from './components/Main/SearchInput';
 import SectionMusicList from './components/Main/SectionMusicList';
 import SectionsNav from './components/SectionNav/SectionsNav';
-import SideBar from './components/Main/SideBar';
+import SideBar from './components/SideBar/SideBar';
 import * as S from './App.styles';
 import GlobalStyle from './GlobalStyle.styles';
-
+// import SignIn from './components/SignUp-In/SignIn';
+import SignUp from './components/SignUp-In/SignUp';
 
 function App() {
   const [visibleNav, setVisibleNav] = useState(true);
@@ -48,6 +49,7 @@ function App() {
           <footer />
         </S.Container>
       </S.Wrapper>
+      <SignUp />
     </>
   );
 }

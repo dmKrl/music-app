@@ -1,4 +1,4 @@
-import * as S from '../Main/SideBar.styles';
+import * as S from '../SideBar/SideBar.styles';
 
 function SideBarItem(props) {
   const { image, loadingPage } = props;
