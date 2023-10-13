@@ -1,21 +1,21 @@
-import './CenterBlockFilter.css';
 import FilterItem from '../UI/FilterItem';
 import tracks from '../../data/tracks';
+import * as S from './CenterBlockFilter.styles';
 
 function CenterBlockFilter({ onClick, activeFilter }) {
   return (
     <>
-      <h2 className="centerblock__h2">Треки</h2>
-      <div className="centerblock__filter filter">
-        <div className="filter__title">Искать по:</div>
+      <S.CenterBlockHeading>Треки</S.CenterBlockHeading>
+      <S.CenterBlockFilter className="centerblock__filter filter">
+        <S.FilterTitle className="filter__title">Искать по:</S.FilterTitle>
         <FilterItem
           onClick={() => onClick('musician')}
           isOpen={activeFilter === 'musician'}
           id="1"
           tracks={tracks.map((track) => (
-            <p key={track.id} className="popup-text-info">
+            <S.PopupTextInfo key={track.id} className="popup-text-info">
               {track.musician}
-            </p>
+            </S.PopupTextInfo>
           ))}
         >
           Исполнителю
@@ -25,9 +25,9 @@ function CenterBlockFilter({ onClick, activeFilter }) {
           isOpen={activeFilter === 'year'}
           id="2"
           tracks={tracks.map((track) => (
-            <p key={track.id} className="popup-text-info">
+            <S.PopupTextInfo key={track.id} className="popup-text-info">
               {track.year}
-            </p>
+            </S.PopupTextInfo>
           ))}
         >
           Году выпуска
@@ -37,14 +37,14 @@ function CenterBlockFilter({ onClick, activeFilter }) {
           isOpen={activeFilter === 'genre'}
           id="3"
           tracks={tracks.map((track) => (
-            <p key={track.id} className="popup-text-info">
+            <S.PopupTextInfo key={track.id} className="popup-text-info">
               {track.genre}
-            </p>
+            </S.PopupTextInfo>
           ))}
         >
           Жанру
         </FilterItem>
-      </div>
+      </S.CenterBlockFilter>
     </>
   );
 }
