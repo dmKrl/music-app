@@ -1,17 +1,17 @@
-import './SideBarItem.css';
+import * as S from '../Main/SideBar.styles';
 
 function SideBarItem(props) {
   const { image, loadingPage } = props;
   return (
-    <div className="sidebar__item">
+    <S.StylesSideBarItem>
       {loadingPage ? (
-        <div className="sidebar__img-bones" alt="day's playlist" />
+        <S.StylesSideBarImgBones alt="day's playlist" />
       ) : (
-        <a className="sidebar__link" href="./">
-          <img className="sidebar__img" src={image} alt="day's playlist" />
-        </a>
+        <S.StylesSideBarLink href="./">
+          <S.StylesSideBarImg src={image} alt="day's playlist" />
+        </S.StylesSideBarLink>
       )}
-    </div>
+    </S.StylesSideBarItem>
   );
 }
 
