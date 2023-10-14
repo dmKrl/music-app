@@ -1,11 +1,12 @@
 import { useEffect, useState } from 'react';
-import './App.css';
 import BarPlayer from './components/BarPlayer/BarPlayer';
 import CenterBlockFilter from './components/Main/CenterBlockFilter';
 import SearchInput from './components/Main/SearchInput';
 import SectionMusicList from './components/Main/SectionMusicList';
 import SectionsNav from './components/SectionNav/SectionsNav';
-import SideBar from './components/Main/SideBar';
+import SideBar from './components/SideBar/SideBar';
+import * as S from './App.styles';
+import GlobalStyle from './GlobalStyle.styles';
 
 function App() {
   const [visibleNav, setVisibleNav] = useState(true);
@@ -25,26 +26,27 @@ function App() {
   }, []);
 
   return (
-    <div className="App">
-      <div className="wrapper">
-        <div className="container">
-          <main className="main">
+    <>
+      <GlobalStyle />
+      <S.Wrapper>
+        <S.Container>
+          <S.Main>
             <SectionsNav onClick={handlerVisibleNav} visible={visibleNav} />
-            <div className="main__centerblock centerblock">
+            <S.MainCnterBlock>
               <SearchInput />
               <CenterBlockFilter
                 onClick={handlerSelectCategory}
                 activeFilter={activeFilter}
               />
               <SectionMusicList loadingPage={loadingPage} />
-            </div>
+            </S.MainCnterBlock>
             <SideBar loadingPage={loadingPage} />
-          </main>
+          </S.Main>
           <BarPlayer />
-          <footer className="footer" />
-        </div>
-      </div>
-    </div>
+          <footer />
+        </S.Container>
+      </S.Wrapper>
+    </>
   );
 }
 

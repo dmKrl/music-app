@@ -1,13 +1,11 @@
+import { FilterButton } from '../Main/CenterBlockFilter.styles';
+
 function ButtonFilter(props) {
   const { children, onClick } = props;
   return (
-    <button
-      onClick={onClick}
-      className="filter__button button-author _btn-text"
-      type="button"
-    >
+    <FilterButton onClick={onClick} type="button">
       {children}
-    </button>
+    </FilterButton>
   );
 }
 
