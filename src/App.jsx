@@ -1,5 +1,4 @@
 import { useEffect, useState } from 'react';
-import './App.css';
 import BarPlayer from './components/BarPlayer/BarPlayer';
 import CenterBlockFilter from './components/Main/CenterBlockFilter';
 import SearchInput from './components/Main/SearchInput';
