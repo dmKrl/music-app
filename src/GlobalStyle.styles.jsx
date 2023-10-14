@@ -1,4 +1,19 @@
-import { createGlobalStyle } from 'styled-components';
+import { createGlobalStyle, css } from 'styled-components';
+import myFontUrlWoff from './fonts/StratosSkyeng.woff';
+import myFontUrlWoff2 from './fonts/StratosSkyeng.woff2';
+
+const FontFaces = css`
+  @font-face {
+    font-family: 'StratosSkyeng';
+    src:
+      local('StratosSkyeng'),
+      local('StratosSkyeng'),
+      url(${myFontUrlWoff2}) format('woff2'),
+      url(${myFontUrlWoff}) format('woff');
+    font-weight: 400;
+    font-style: normal;
+  }
+`;
 
 const GlobalStyle = createGlobalStyle`
 * {
@@ -25,7 +40,7 @@ button {
 ul li {
   list-style: none;
 }
-
+${FontFaces}
 
 html,
 body {
