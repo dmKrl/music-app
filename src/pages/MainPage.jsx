@@ -1,20 +1,15 @@
 import { useEffect, useState } from 'react';
+import { Outlet } from 'react-router-dom';
 import BarPlayer from '../components/BarPlayer/BarPlayer';
-import CenterBlockFilter from '../components/Main/CenterBlockFilter';
 import SearchInput from '../components/Main/SearchInput';
-import SectionMusicList from '../components/Main/SectionMusicList';
 import SectionsNav from '../components/SectionNav/SectionsNav';
 import SideBar from '../components/SideBar/SideBar';
 import GlobalStyle from '../GlobalStyle.styles';
 import * as S from '../App.styles';
 
-function MainPages() {
+function MainPage() {
   const [visibleNav, setVisibleNav] = useState(true);
   const [loadingPage, setLoadingPage] = useState(true);
-  const [activeFilter, setActiveFilter] = useState(null);
-
-  const handlerSelectCategory = (string) =>
-    activeFilter === string ? setActiveFilter(null) : setActiveFilter(string);
 
   const handlerVisibleNav = () => setVisibleNav(!visibleNav);
 
@@ -34,11 +29,7 @@ function MainPages() {
             <SectionsNav onClick={handlerVisibleNav} visible={visibleNav} />
             <S.MainCnterBlock>
               <SearchInput />
-              <CenterBlockFilter
-                onClick={handlerSelectCategory}
-                activeFilter={activeFilter}
-              />
-              <SectionMusicList loadingPage={loadingPage} />
+              <Outlet />
             </S.MainCnterBlock>
             <SideBar loadingPage={loadingPage} />
           </S.Main>
@@ -50,4 +41,4 @@ function MainPages() {
   );
 }
 
-export default MainPages;
+export default MainPage;

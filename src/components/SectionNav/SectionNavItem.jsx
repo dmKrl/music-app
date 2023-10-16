@@ -1,10 +1,14 @@
 import * as S from './SectionNavItem.styles';
 
-function SectionNavItem(props) {
-  const { text } = props;
+function SectionNavItem({ text, path }) {
   return (
-    <S.MenuItem className="menu__item">
-      <S.MenuLink href="./" className="menu__link">
+    <S.MenuItem>
+      <S.MenuLink
+        to={path}
+        style={({ isActive }) =>
+          isActive ? { color: '#d3d3d3', textDecoration: 'underline' } : {}
+        }
+      >
         {text}
       </S.MenuLink>
     </S.MenuItem>

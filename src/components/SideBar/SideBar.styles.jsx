@@ -1,3 +1,4 @@
+import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 
 export const SideBarMain = styled.div`
@@ -68,7 +69,7 @@ export const StylesSideBarItem = styled.div`
     margin-bottom: 30px;
   }
 `;
-export const StylesSideBarLink = styled.a`
+export const StylesSideBarLink = styled(Link)`
   width: 100%;
   height: 100%;
 `;

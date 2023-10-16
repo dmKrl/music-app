@@ -1,5 +1,6 @@
 import SideBarItem from '../UI/SideBarItem';
 import * as S from './SideBar.styles';
+import categories from '../../data/categories';
 
 function SideBar({ loadingPage }) {
   return (
@@ -13,9 +14,13 @@ function SideBar({ loadingPage }) {
         </S.SideBarIcon>
       </S.SideBarPersonal>
       <S.SideBarBlock>
-        <SideBarItem image="img/playlist01.png" loadingPage={loadingPage} />
-        <SideBarItem image="img/playlist02.png" loadingPage={loadingPage} />
-        <SideBarItem image="img/playlist03.png" loadingPage={loadingPage} />
+        {categories.map((category) => (
+          <SideBarItem
+            image={category.img}
+            loadingPage={loadingPage}
+            to={`/category/${category.id}`}
+          />
+        ))}
       </S.SideBarBlock>
     </S.SideBarMain>
   );
