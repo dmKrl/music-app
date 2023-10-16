@@ -1,8 +1,10 @@
+import { useLocation } from 'react-router-dom';
 import SideBarItem from '../UI/SideBarItem';
 import * as S from './SideBar.styles';
 import categories from '../../data/categories';
 
 function SideBar({ loadingPage }) {
+  const location = useLocation();
   return (
     <S.SideBarMain>
       <S.SideBarPersonal>
@@ -14,13 +16,16 @@ function SideBar({ loadingPage }) {
         </S.SideBarIcon>
       </S.SideBarPersonal>
       <S.SideBarBlock>
-        {categories.map((category) => (
-          <SideBarItem
-            image={category.img}
-            loadingPage={loadingPage}
-            to={`/category/${category.id}`}
-          />
-        ))}
+        {location.pathname === '/'
+          ? categories.map((category) => (
+              <SideBarItem
+                image={category.img}
+                loadingPage={loadingPage}
+                to={`/category/${category.id}`}
+                key={category.id}
+              />
+            ))
+          : ''}
       </S.SideBarBlock>
     </S.SideBarMain>
   );

@@ -10,9 +10,7 @@ import * as S from '../App.styles';
 function MainPage() {
   const [visibleNav, setVisibleNav] = useState(true);
   const [loadingPage, setLoadingPage] = useState(true);
-
   const handlerVisibleNav = () => setVisibleNav(!visibleNav);
-
   useEffect(() => {
     setTimeout(() => {
       setLoadingPage(!loadingPage);
