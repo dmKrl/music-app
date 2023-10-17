@@ -6,8 +6,9 @@ import SectionsNav from '../components/SectionNav/SectionsNav';
 import SideBar from '../components/SideBar/SideBar';
 import GlobalStyle from '../GlobalStyle.styles';
 import * as S from '../App.styles';
+import SignIn from './SignIn';
 
-function MainPage() {
+function MainPage({ isAllowed, handleLogin }) {
   const [visibleNav, setVisibleNav] = useState(true);
   const [loadingPage, setLoadingPage] = useState(true);
   const handlerVisibleNav = () => setVisibleNav(!visibleNav);
@@ -22,18 +23,22 @@ function MainPage() {
     <>
       <GlobalStyle />
       <S.Wrapper>
-        <S.Container>
-          <S.Main>
-            <SectionsNav onClick={handlerVisibleNav} visible={visibleNav} />
-            <S.MainCnterBlock>
-              <SearchInput />
-              <Outlet />
-            </S.MainCnterBlock>
-            <SideBar loadingPage={loadingPage} />
-          </S.Main>
-          <BarPlayer />
-          <footer />
-        </S.Container>
+        {isAllowed ? (
+          <S.Container>
+            <S.Main>
+              <SectionsNav onClick={handlerVisibleNav} visible={visibleNav} />
+              <S.MainCnterBlock>
+                <SearchInput />
+                <Outlet />
+              </S.MainCnterBlock>
+              <SideBar loadingPage={loadingPage} />
+            </S.Main>
+            <BarPlayer />
+            <footer />
+          </S.Container>
+        ) : (
+          <SignIn handleLogin={handleLogin} />
+        )}
       </S.Wrapper>
     </>
   );

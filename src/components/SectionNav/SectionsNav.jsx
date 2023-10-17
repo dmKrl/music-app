@@ -19,7 +19,7 @@ function SectionsNav({ onClick, visible }) {
         <S.NavMenu>
           <S.MenuList>
             <SectionNavItem text="Главная" path="/" />
-            <SectionNavItem text="Мои треки" path="favorites" />
+            <SectionNavItem text="Мои треки" path="/favorites" />
             <SectionNavItem text="Выйти" path="/" />
           </S.MenuList>
         </S.NavMenu>

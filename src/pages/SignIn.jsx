@@ -1,6 +1,6 @@
 import * as S from '../components/SignUp-In/SignComponent.styles';
 
-function SignIn() {
+function SignIn({ handleLogin }) {
   return (
     <S.Wrapper>
       <S.ContainerEnter>
@@ -12,17 +12,16 @@ function SignIn() {
               </S.ModalLogo>
             </a>
             <S.ModalLogin type="text" name="login" placeholder="Почта" />
-            12
             <S.ModalPassword
               type="password"
               name="password"
               placeholder="Пароль"
             />
-            <S.ModalBtnEnter type="button">
-              <a href="./">Войти</a>
+            <S.ModalBtnEnter type="button" onClick={handleLogin}>
+              <span>Войти</span>
             </S.ModalBtnEnter>
             <S.ModaBtnlSignUp type="button">
-              <a href="./">Зарегистрироваться</a>
+              Зарегистрироваться
             </S.ModaBtnlSignUp>
           </S.ModalFormLogin>
         </S.ModalBlock>
