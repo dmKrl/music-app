@@ -1,4 +1,4 @@
-import * as S from '../components/SignUp-In/SignComponent.styles';
+import * as S from '../../components/SignUp-In/SignComponent.styles';
 
 function SignIn({ handleLogin }) {
   return (
@@ -17,7 +17,7 @@ function SignIn({ handleLogin }) {
               name="password"
               placeholder="Пароль"
             />
-            <S.ModalBtnEnter type="button" onClick={handleLogin}>
+            <S.ModalBtnEnter onClick={handleLogin} to="/">
               <span>Войти</span>
             </S.ModalBtnEnter>
             <S.ModaBtnlSignUp type="button">

@@ -1,6 +1,6 @@
 import { useParams } from 'react-router-dom';
-import categories from '../data/categories';
-import NotFound from './NotFound';
+import categories from '../../data/categories';
+import NotFound from '../NotFound/NotFound';
 
 function Category() {
   const params = useParams();

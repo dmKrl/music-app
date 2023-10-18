@@ -1,8 +1,8 @@
 import { useEffect, useState } from 'react';
-import CenterBlockFilter from '../components/Main/CenterBlockFilter';
-import SectionMusicList from '../components/Main/SectionMusicList';
+import CenterBlockFilter from '../../components/Main/CenterBlockFilter';
+import SectionMusicList from '../../components/Main/SectionMusicList';
 
-function Home() {
+function AllTracks() {
   const [loadingPage, setLoadingPage] = useState(true);
   const [activeFilter, setActiveFilter] = useState(null);
 
@@ -26,4 +26,4 @@ function Home() {
   );
 }
 
-export default Home;
+export default AllTracks;

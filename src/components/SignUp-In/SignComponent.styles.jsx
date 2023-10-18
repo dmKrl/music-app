@@ -1,4 +1,5 @@
 import styled, { css } from 'styled-components';
+import { Link } from 'react-router-dom';
 import ModalInput from '../UI/ModalInput';
 
 const ModalInputStyles = css`
@@ -102,7 +103,7 @@ export const ModalPasswordDouble = styled(ModalInput)`
   margin-top: 30px;
   ${ModalInputStyles}
 `;
-export const ModalBtnEnter = styled.button`
+export const ModalBtnEnter = styled(Link)`
   width: 278px;
   height: 52px;
   background-color: #580ea2;

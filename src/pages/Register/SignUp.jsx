@@ -1,4 +1,4 @@
-import * as S from '../components/SignUp-In/SignComponent.styles';
+import * as S from '../../components/SignUp-In/SignComponent.styles';
 
 function SignUp() {
   return (
