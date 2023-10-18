@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { Outlet } from 'react-router-dom';
+// import { Outlet } from 'react-router-dom';
 import BarPlayer from '../components/BarPlayer/BarPlayer';
 import SearchInput from '../components/Main/SearchInput';
 import SectionsNav from '../components/SectionNav/SectionsNav';
@@ -7,6 +7,7 @@ import SideBar from '../components/SideBar/SideBar';
 import GlobalStyle from '../GlobalStyle.styles';
 import * as S from '../App.styles';
 import SignIn from './SignIn';
+import ProtectedRoute from '../components/protected-route/ProtectedRoute';
 
 function MainPage({ isAllowed, handleLogin }) {
   const [visibleNav, setVisibleNav] = useState(true);
@@ -18,7 +19,6 @@ function MainPage({ isAllowed, handleLogin }) {
     }, 5000);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
-
   return (
     <>
       <GlobalStyle />
@@ -29,7 +29,7 @@ function MainPage({ isAllowed, handleLogin }) {
               <SectionsNav onClick={handlerVisibleNav} visible={visibleNav} />
               <S.MainCnterBlock>
                 <SearchInput />
-                <Outlet />
+                <ProtectedRoute isAllowed={isAllowed} />
               </S.MainCnterBlock>
               <SideBar loadingPage={loadingPage} />
             </S.Main>

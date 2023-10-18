@@ -1,6 +1,7 @@
 import { Navigate, Outlet } from 'react-router-dom';
 
-function ProtectedRoute({ redirectPath = '/signin', isAllowed }) {
+function ProtectedRoute({ redirectPath = '/signup', isAllowed }) {
+  // console.log(isAllowed);
   if (!isAllowed) {
     return <Navigate to={redirectPath} replace />;
   }

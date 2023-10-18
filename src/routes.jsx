@@ -22,16 +22,17 @@ function AppRoutes() {
           path="/"
           element={
             <ProtectedRoute isAllowed={isAllowed}>
-              <Route path='/' element={<Home />} />
+              <Route index element={<Home />} />
               <Route path="/favorites" element={<Favorites />} />
               <Route path="/category/:id" element={<Category />} />
             </ProtectedRoute>
           }
         />
-        <Route path="/signin" element={<SignIn />} />
-        <Route path="/signup" element={<SignUp />} />
+
         <Route path="*" element={<NotFound />} />
       </Route>
+      <Route path="/signin" element={<SignIn />} />
+      <Route path="/signup" element={<SignUp />} />
     </Routes>
   );
 }
