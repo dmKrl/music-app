@@ -8,13 +8,13 @@ import MainPage from './pages/MainPage/MainPage';
 import NotFound from './pages/NotFound/NotFound';
 import ProtectedRoute from './components/protected-route/ProtectedRoute';
 
-function AppRoutes({ handleLogin, isAllowed }) {
+function AppRoutes({ handleLogin, isAllowed, handleLogout }) {
   return (
     <Routes>
       <Route path="/signin" element={<SignIn handleLogin={handleLogin} />} />
       <Route path="/signup" element={<SignUp />} />
       <Route element={<ProtectedRoute isAllowed={Boolean(isAllowed)} />}>
-        <Route path="/" element={<MainPage />}>
+        <Route path="/" element={<MainPage handleLogout={handleLogout} />}>
           <Route path="/" element={<AllTracks />} />
           <Route path="/favorites" element={<Favorites />} />
           <Route path="/category/:id" element={<Category />} />

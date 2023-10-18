@@ -2,7 +2,7 @@ import { Link } from 'react-router-dom';
 import * as S from './SectionNav.styles';
 import SectionNavItem from './SectionNavItem';
 
-function SectionsNav({ onClick, visible }) {
+function SectionsNav({ onClick, visible, handleLogout }) {
   return (
     <S.MainNav>
       <S.NavLogo>
@@ -20,7 +20,7 @@ function SectionsNav({ onClick, visible }) {
           <S.MenuList>
             <SectionNavItem text="Главная" path="/" />
             <SectionNavItem text="Мои треки" path="/favorites" />
-            <SectionNavItem text="Выйти" path="/" />
+            <SectionNavItem text="Выйти" onClick={handleLogout} path="/signin" />
           </S.MenuList>
         </S.NavMenu>
       )}

@@ -3,20 +3,27 @@ import GlobalStyle from './GlobalStyle.styles';
 import AppRoutes from './routes';
 
 function App() {
-  // const [user, setUser] = useState(false);
-  // const handleLogin = () => {
-  //   localStorage.setItem('user', true);
-  //   console.log(localStorage.getItem('user'))
-  //   setUser(localStorage.getItem('user'));
-  // };
-  const [isAllowed, setIsAllowed] = useState(false);
+  const [user, setUser] = useState(false);
   const handleLogin = () => {
-    setIsAllowed(!isAllowed);
+    localStorage.setItem('user', true);
+    setUser(localStorage.getItem('user'));
   };
+  const handleLogout = () => {
+    localStorage.setItem('user', '');
+    setUser(localStorage.getItem('user'));
+  };
+  // const [isAllowed, setIsAllowed] = useState(false);
+  // const handleLogin = () => {
+  //   setIsAllowed(!isAllowed);
+  // };
   return (
     <>
       <GlobalStyle />
-      <AppRoutes handleLogin={handleLogin} isAllowed={isAllowed} />
+      <AppRoutes
+        handleLogout={handleLogout}
+        handleLogin={handleLogin}
+        isAllowed={Boolean(user)}
+      />
     </>
   );
 }

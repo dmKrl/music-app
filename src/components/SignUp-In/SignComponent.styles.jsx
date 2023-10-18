@@ -146,7 +146,7 @@ export const ModalBtnEnter = styled(Link)`
     justify-content: center;
   }
 `;
-export const ModaBtnlSignUp = styled.button`
+export const ModaBtnlSignUp = styled(Link)`
   width: 278px;
   height: 52px;
   background-color: transparent;
@@ -200,7 +200,7 @@ export const ContainerSignUp = styled.div`
   position: relative;
   background-color: rgba(0, 0, 0, 0.85);
 `;
-export const ModalBtnSignUpEnt = styled.button`
+export const ModalBtnSignUpEnt = styled(Link)`
   width: 278px;
   height: 62px;
   background-color: #580ea2;
@@ -217,7 +217,7 @@ export const ModalBtnSignUpEnt = styled.button`
   -webkit-box-pack: center;
   -ms-flex-pack: center;
   justify-content: center;
-  a {
+  span {
     width: 100%;
     height: 100%;
     font-style: normal;

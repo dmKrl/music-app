@@ -8,7 +8,7 @@ import SideBar from '../../components/SideBar/SideBar';
 import GlobalStyle from '../../GlobalStyle.styles';
 import * as S from '../../App.styles';
 
-function MainPage() {
+function MainPage({ handleLogout }) {
   const [visibleNav, setVisibleNav] = useState(true);
   const [loadingPage, setLoadingPage] = useState(true);
   const handlerVisibleNav = () => setVisibleNav(!visibleNav);
@@ -24,7 +24,11 @@ function MainPage() {
       <S.Wrapper>
         <S.Container>
           <S.Main>
-            <SectionsNav onClick={handlerVisibleNav} visible={visibleNav} />
+            <SectionsNav
+              handleLogout={handleLogout}
+              onClick={handlerVisibleNav}
+              visible={visibleNav}
+            />
             <S.MainCnterBlock>
               <SearchInput />
               <Outlet />

@@ -20,7 +20,7 @@ function SignIn({ handleLogin }) {
             <S.ModalBtnEnter onClick={handleLogin} to="/">
               <span>Войти</span>
             </S.ModalBtnEnter>
-            <S.ModaBtnlSignUp type="button">
+            <S.ModaBtnlSignUp to='/signup'>
               Зарегистрироваться
             </S.ModaBtnlSignUp>
           </S.ModalFormLogin>
