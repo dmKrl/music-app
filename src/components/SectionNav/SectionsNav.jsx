@@ -1,11 +1,14 @@
+import { Link } from 'react-router-dom';
 import * as S from './SectionNav.styles';
 import SectionNavItem from './SectionNavItem';
 
-function SectionsNav({ onClick, visible }) {
+function SectionsNav({ onClick, visible, handleLogout }) {
   return (
     <S.MainNav>
       <S.NavLogo>
-        <S.LogoImg src="img/logo.png" alt="logo" />
+        <Link to="/">
+          <S.LogoImg src="img/logo.png" alt="logo" />
+        </Link>
       </S.NavLogo>
       <S.NavBurger onClick={onClick} type="button">
         <S.BurgerLine />
@@ -15,9 +18,9 @@ function SectionsNav({ onClick, visible }) {
       {visible && (
         <S.NavMenu>
           <S.MenuList>
-            <SectionNavItem text="Главное" />
-            <SectionNavItem text="Мой плейлист" />
-            <SectionNavItem text="Войти" />
+            <SectionNavItem text="Главная" path="/" />
+            <SectionNavItem text="Мои треки" path="/favorites" />
+            <SectionNavItem text="Выйти" onClick={handleLogout} path="/signin" />
           </S.MenuList>
         </S.NavMenu>
       )}

@@ -1,4 +1,5 @@
 import styled, { css } from 'styled-components';
+import { Link } from 'react-router-dom';
 import ModalInput from '../UI/ModalInput';
 
 const ModalInputStyles = css`
@@ -102,7 +103,7 @@ export const ModalPasswordDouble = styled(ModalInput)`
   margin-top: 30px;
   ${ModalInputStyles}
 `;
-export const ModalBtnEnter = styled.div`
+export const ModalBtnEnter = styled(Link)`
   width: 278px;
   height: 52px;
   background-color: #580ea2;
@@ -125,7 +126,7 @@ export const ModalBtnEnter = styled.div`
   :active {
     background-color: #271a58;
   }
-  a {
+  span {
     width: 100%;
     height: 100%;
     font-style: normal;
@@ -145,7 +146,7 @@ export const ModalBtnEnter = styled.div`
     justify-content: center;
   }
 `;
-export const ModaBtnlSignUp = styled.div`
+export const ModaBtnlSignUp = styled(Link)`
   width: 278px;
   height: 52px;
   background-color: transparent;
@@ -199,7 +200,7 @@ export const ContainerSignUp = styled.div`
   position: relative;
   background-color: rgba(0, 0, 0, 0.85);
 `;
-export const ModalBtnSignUpEnt = styled.div`
+export const ModalBtnSignUpEnt = styled(Link)`
   width: 278px;
   height: 62px;
   background-color: #580ea2;
@@ -216,7 +217,7 @@ export const ModalBtnSignUpEnt = styled.div`
   -webkit-box-pack: center;
   -ms-flex-pack: center;
   justify-content: center;
-  a {
+  span {
     width: 100%;
     height: 100%;
     font-style: normal;
