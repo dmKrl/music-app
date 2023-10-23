@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 // import { Outlet } from 'react-router-dom';
 import { Outlet } from 'react-router-dom';
 import BarPlayer from '../../components/BarPlayer/BarPlayer';
@@ -7,19 +7,11 @@ import SectionsNav from '../../components/SectionNav/SectionsNav';
 import SideBar from '../../components/SideBar/SideBar';
 import GlobalStyle from '../../GlobalStyle.styles';
 import * as S from '../../App.styles';
-import getTracks from '../../api/api';
 
 function MainPage() {
   const [visibleNav, setVisibleNav] = useState(true);
-  const [loadingPage, setLoadingPage] = useState(true);
   const handlerVisibleNav = () => setVisibleNav(!visibleNav);
-  useEffect(() => {
-    getTracks().then((tracks) => {
-      console.log(tracks);
-      setLoadingPage(!loadingPage);
-    });
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+
   const handleLogout = () => {
     localStorage.setItem('user', '');
   };
@@ -38,7 +30,7 @@ function MainPage() {
               <SearchInput />
               <Outlet />
             </S.MainCnterBlock>
-            <SideBar loadingPage={loadingPage} />
+            <SideBar />
           </S.Main>
           <BarPlayer />
           <footer />

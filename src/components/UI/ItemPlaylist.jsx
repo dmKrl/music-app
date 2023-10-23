@@ -1,7 +1,10 @@
+import { useContext } from 'react';
 import * as S from '../Main/SectionMusicList.styles';
+import IsLoadingPageContext from '../../context/IsLoadingPageContext';
 
 function ItemPlaylist(props) {
-  const { trackName, musician, album, time, loadingPage } = props;
+  const { trackName, musician, album, time } = props;
+  const { isLoading } = useContext(IsLoadingPageContext);
   return (
     <S.PlaylistItem>
       <S.PlaylistTrack>
@@ -12,7 +15,7 @@ function ItemPlaylist(props) {
             </S.TrackTitleSvg>
           </S.TrackTitleImg>
           <div>
-            {loadingPage ? (
+            {isLoading ? (
               <S.TrackAlbumLinkBones href="http://" />
             ) : (
               <S.TrackTitleLink href="http://">
@@ -22,14 +25,14 @@ function ItemPlaylist(props) {
           </div>
         </S.TrackTitle>
         <S.TrackAuthor>
-          {loadingPage ? (
+          {isLoading ? (
             <S.TrackAlbumLinkBones href="http://" />
           ) : (
             <S.TrackAuthorLink href="http://">{musician}</S.TrackAuthorLink>
           )}
         </S.TrackAuthor>
         <S.TrackAlbum>
-          {loadingPage ? (
+          {isLoading ? (
             <S.TrackAlbumLinkBones href="http://" />
           ) : (
             <S.TrackAlbumLink href="http://">{album}</S.TrackAlbumLink>
@@ -39,7 +42,7 @@ function ItemPlaylist(props) {
           <S.TrackTimeSvg alt="time">
             <use xlinkHref="img/icon/sprite.svg#icon-like" />
           </S.TrackTimeSvg>
-          {loadingPage ? (
+          {isLoading ? (
             <S.TrackTimeText>00:00</S.TrackTimeText>
           ) : (
             <S.TrackTimeText>{time}</S.TrackTimeText>

@@ -2,7 +2,7 @@ import tracks from '../../data/tracks';
 import ItemPlaylist from '../UI/ItemPlaylist';
 import * as S from './SectionMusicList.styles';
 
-function SectionMusicList({ loadingPage }) {
+function SectionMusicList() {
   // Здесь по хорошему мы должны получать GET запрос и выводить данные, например через map
   return (
     <S.CenterBlockContent>
@@ -19,7 +19,7 @@ function SectionMusicList({ loadingPage }) {
       <S.ContentPlaylist>
         {tracks.map((track) => (
           // eslint-disable-next-line react/jsx-props-no-spreading
-          <ItemPlaylist {...track} key={track.id} loadingPage={loadingPage} />
+          <ItemPlaylist {...track} key={track.id} />
         ))}
       </S.ContentPlaylist>
     </S.CenterBlockContent>
