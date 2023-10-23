@@ -8,16 +8,32 @@ import TracksContext from './context/TracksContext';
 
 function App() {
   const [loadingPage, setLoadingPage] = useState(true);
+  const [isLoadingError, setIsLoadingError] = useState('');
   const [allTracks, setAllTracks] = useState([]);
+
+  const getTracksCheckErrors = () => {
+    getTracks()
+      .then((tracks) => {
+        setAllTracks(tracks);
+      })
+      .catch(() => {
+        setIsLoadingError(
+          'Произошла ошибка получения списка треков, попробуйте обновить страницу',
+        );
+      })
+      .finally(() => {
+        setLoadingPage(false);
+      });
+  };
+
   useEffect(() => {
-    getTracks().then((tracks) => {
-      setAllTracks(tracks);
-      setLoadingPage(!loadingPage);
-    });
+    getTracksCheckErrors();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
   return (
-    <IsLoadingPageContext.Provider value={{ isLoading: loadingPage }}>
+    <IsLoadingPageContext.Provider
+      value={{ isLoading: loadingPage, isLoadingError }}
+    >
       <TracksContext.Provider value={{ allTracks }}>
         <GlobalStyle />
         <AppRoutes />

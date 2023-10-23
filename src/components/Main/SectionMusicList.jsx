@@ -6,8 +6,7 @@ import IsLoadingPageContext from '../../context/IsLoadingPageContext';
 import tracks from '../../data/tracks';
 
 function SectionMusicList() {
-  const { isLoading } = useContext(IsLoadingPageContext);
-
+  const { isLoading, isLoadingError } = useContext(IsLoadingPageContext);
   const { allTracks } = useContext(TracksContext);
   // Здесь по хорошему мы должны получать GET запрос и выводить данные, например через map
   return (
@@ -23,6 +22,7 @@ function SectionMusicList() {
         </S.Col04>
       </S.ContentTitle>
       <S.ContentPlaylist>
+        {isLoadingError}
         {isLoading
           ? tracks.map((track) => (
               // eslint-disable-next-line react/jsx-props-no-spreading

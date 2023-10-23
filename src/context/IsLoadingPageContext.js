@@ -1,7 +1,8 @@
 import { createContext } from 'react';
 
 const IsLoadingPageContext = createContext({
-  isLoading: Boolean(),
+  isLoading: '',
+  isLoadingError: '',
   changeIsLoading: () => {},
 });
 

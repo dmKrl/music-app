@@ -4,8 +4,8 @@ import IsLoadingPageContext from '../../context/IsLoadingPageContext';
 
 function ItemPlaylist(props) {
   const { isLoading } = useContext(IsLoadingPageContext);
-  function secondsToMinutes(s) {
-    return (s / 60).toFixed(2);
+  function secondsToMinutes(seconds) {
+    return (seconds / 60).toFixed(2);
   }
   return (
     <S.PlaylistItem>
