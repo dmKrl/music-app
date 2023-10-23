@@ -5,8 +5,7 @@ import BarPlayerContext from '../../context/BarPlayerContext';
 
 function ItemPlaylist(props) {
   const { isLoading } = useContext(IsLoadingPageContext);
-  const { changeBarPlayerInfo, changeIsShowing } =
-    useContext(BarPlayerContext);
+  const { changeBarPlayerInfo, changeIsShowing } = useContext(BarPlayerContext);
   function changeSecondsToMinutes(seconds) {
     return (seconds / 60).toFixed(2);
   }
@@ -17,7 +16,11 @@ function ItemPlaylist(props) {
     <S.PlaylistItem>
       <S.PlaylistTrack
         onClick={() => {
-          changeBarPlayerInfo({ name: props.name, author: props.author });
+          changeBarPlayerInfo({
+            name: props.name,
+            author: props.author,
+            track_file: props.track_file,
+          });
           changeIsShowing(true);
         }}
       >

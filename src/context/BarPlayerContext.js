@@ -4,6 +4,7 @@ const BarPlayerContext = createContext({
   showInfoAboutTrack: {
     name: '',
     author: '',
+    track_file: '',
   },
   isShowing: false,
   changeBarPlayerInfo: () => {},
