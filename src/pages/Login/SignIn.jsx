@@ -1,6 +1,9 @@
 import * as S from '../../components/SignUp-In/SignComponent.styles';
 
-function SignIn({ handleLogin }) {
+function SignIn() {
+  const handleLogin = () => {
+    localStorage.setItem('user', 'user');
+  };
   return (
     <S.Wrapper>
       <S.ContainerEnter>
@@ -20,9 +23,7 @@ function SignIn({ handleLogin }) {
             <S.ModalBtnEnter onClick={handleLogin} to="/">
               <span>Войти</span>
             </S.ModalBtnEnter>
-            <S.ModaBtnlSignUp to='/signup'>
-              Зарегистрироваться
-            </S.ModaBtnlSignUp>
+            <S.ModaBtnlSignUp to="/signup">Зарегистрироваться</S.ModaBtnlSignUp>
           </S.ModalFormLogin>
         </S.ModalBlock>
       </S.ContainerEnter>

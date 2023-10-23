@@ -8,7 +8,7 @@ import SideBar from '../../components/SideBar/SideBar';
 import GlobalStyle from '../../GlobalStyle.styles';
 import * as S from '../../App.styles';
 
-function MainPage({ handleLogout }) {
+function MainPage() {
   const [visibleNav, setVisibleNav] = useState(true);
   const [loadingPage, setLoadingPage] = useState(true);
   const handlerVisibleNav = () => setVisibleNav(!visibleNav);
@@ -18,6 +18,9 @@ function MainPage({ handleLogout }) {
     }, 5000);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
+  const handleLogout = () => {
+    localStorage.setItem('user', '');
+  };
   return (
     <>
       <GlobalStyle />
