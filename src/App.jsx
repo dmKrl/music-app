@@ -11,10 +11,10 @@ function App() {
   const [allTracks, setAllTracks] = useState([]);
   useEffect(() => {
     getTracks().then((tracks) => {
-      console.log(tracks);
       setAllTracks(tracks);
       setLoadingPage(!loadingPage);
     });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
   return (
     <IsLoadingPageContext.Provider value={{ isLoading: loadingPage }}>

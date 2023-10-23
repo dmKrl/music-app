@@ -3,8 +3,10 @@ import * as S from '../Main/SectionMusicList.styles';
 import IsLoadingPageContext from '../../context/IsLoadingPageContext';
 
 function ItemPlaylist(props) {
-  console.log(props);
   const { isLoading } = useContext(IsLoadingPageContext);
+  function secondsToMinutes(s) {
+    return (s / 60).toFixed(2);
+  }
   return (
     <S.PlaylistItem>
       <S.PlaylistTrack>
@@ -45,7 +47,9 @@ function ItemPlaylist(props) {
           {isLoading ? (
             <S.TrackTimeText>00:00</S.TrackTimeText>
           ) : (
-            <S.TrackTimeText>{props.duration_in_seconds}</S.TrackTimeText>
+            <S.TrackTimeText>
+              {secondsToMinutes(props.duration_in_seconds)}
+            </S.TrackTimeText>
           )}
         </>
       </S.PlaylistTrack>
