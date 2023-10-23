@@ -5,11 +5,16 @@ import IsLoadingPageContext from './context/IsLoadingPageContext';
 import AppRoutes from './routes';
 import getTracks from './api/api';
 import TracksContext from './context/TracksContext';
+import BarPlayerContext from './context/BarPlayerContext';
 
 function App() {
-  const [loadingPage, setLoadingPage] = useState(true);
+  const [isLoadingPage, setIsLoadingPage] = useState(true);
   const [isLoadingError, setIsLoadingError] = useState('');
   const [allTracks, setAllTracks] = useState([]);
+  const [showInfoAboutTrack, setShowInfoAboutTrack] = useState({
+    name: '',
+    author: '',
+  });
 
   const getTracksCheckErrors = () => {
     getTracks()
@@ -22,7 +27,7 @@ function App() {
         );
       })
       .finally(() => {
-        setLoadingPage(false);
+        setIsLoadingPage(false);
       });
   };
 
@@ -32,11 +37,18 @@ function App() {
   }, []);
   return (
     <IsLoadingPageContext.Provider
-      value={{ isLoading: loadingPage, isLoadingError }}
+      value={{ isLoading: isLoadingPage, isLoadingError }}
     >
       <TracksContext.Provider value={{ allTracks }}>
-        <GlobalStyle />
-        <AppRoutes />
+        <BarPlayerContext.Provider
+          value={{
+            showInfoAboutTrack,
+            changeBarPlayerInfo: setShowInfoAboutTrack,
+          }}
+        >
+          <GlobalStyle />
+          <AppRoutes />
+        </BarPlayerContext.Provider>
       </TracksContext.Provider>
     </IsLoadingPageContext.Provider>
   );

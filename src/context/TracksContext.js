@@ -2,7 +2,7 @@ import { createContext } from 'react';
 
 const TracksContext = createContext({
   allTracks: [],
-  changeIsLoading: () => {},
+  changeTracks: () => {},
 });
 
 export default TracksContext;

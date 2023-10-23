@@ -1,15 +1,21 @@
 import { useContext } from 'react';
 import * as S from '../Main/SectionMusicList.styles';
 import IsLoadingPageContext from '../../context/IsLoadingPageContext';
+import BarPlayerContext from '../../context/BarPlayerContext';
 
 function ItemPlaylist(props) {
   const { isLoading } = useContext(IsLoadingPageContext);
-  function secondsToMinutes(seconds) {
+  const { changeBarPlayerInfo } = useContext(BarPlayerContext);
+  function changeSecondsToMinutes(seconds) {
     return (seconds / 60).toFixed(2);
   }
   return (
     <S.PlaylistItem>
-      <S.PlaylistTrack>
+      <S.PlaylistTrack
+        onClick={() =>
+          changeBarPlayerInfo({ name: props.name, author: props.author })
+        }
+      >
         <S.TrackTitle>
           <S.TrackTitleImg>
             <S.TrackTitleSvg alt="music">
@@ -18,9 +24,9 @@ function ItemPlaylist(props) {
           </S.TrackTitleImg>
           <div>
             {isLoading ? (
-              <S.TrackAlbumLinkBones href="http://" />
+              <S.TrackAlbumLinkBones />
             ) : (
-              <S.TrackTitleLink href="http://">
+              <S.TrackTitleLink>
                 {props.name} <S.TrackTitleSpan />
               </S.TrackTitleLink>
             )}
@@ -28,16 +34,16 @@ function ItemPlaylist(props) {
         </S.TrackTitle>
         <S.TrackAuthor>
           {isLoading ? (
-            <S.TrackAlbumLinkBones href="http://" />
+            <S.TrackAlbumLinkBones />
           ) : (
-            <S.TrackAuthorLink href="http://">{props.author}</S.TrackAuthorLink>
+            <S.TrackAuthorLink>{props.author}</S.TrackAuthorLink>
           )}
         </S.TrackAuthor>
         <S.TrackAlbum>
           {isLoading ? (
-            <S.TrackAlbumLinkBones href="http://" />
+            <S.TrackAlbumLinkBones />
           ) : (
-            <S.TrackAlbumLink href="http://">{props.album}</S.TrackAlbumLink>
+            <S.TrackAlbumLink>{props.album}</S.TrackAlbumLink>
           )}
         </S.TrackAlbum>
         <>
@@ -48,7 +54,7 @@ function ItemPlaylist(props) {
             <S.TrackTimeText>00:00</S.TrackTimeText>
           ) : (
             <S.TrackTimeText>
-              {secondsToMinutes(props.duration_in_seconds)}
+              {changeSecondsToMinutes(props.duration_in_seconds)}
             </S.TrackTimeText>
           )}
         </>

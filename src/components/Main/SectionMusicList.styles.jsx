@@ -87,6 +87,10 @@ export const PlaylistTrack = styled.div`
   -webkit-box-align: center;
   -ms-flex-align: center;
   align-items: center;
+  :hover {
+    cursor: pointer;
+    background-color: 
+  }
 `;
 
 export const TrackTitle = styled.div`
