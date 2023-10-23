@@ -3,7 +3,7 @@ import * as S from '../Main/SectionMusicList.styles';
 import IsLoadingPageContext from '../../context/IsLoadingPageContext';
 
 function ItemPlaylist(props) {
-  const { trackName, musician, album, time } = props;
+  console.log(props);
   const { isLoading } = useContext(IsLoadingPageContext);
   return (
     <S.PlaylistItem>
@@ -19,7 +19,7 @@ function ItemPlaylist(props) {
               <S.TrackAlbumLinkBones href="http://" />
             ) : (
               <S.TrackTitleLink href="http://">
-                {trackName} <S.TrackTitleSpan />
+                {props.name} <S.TrackTitleSpan />
               </S.TrackTitleLink>
             )}
           </div>
@@ -28,14 +28,14 @@ function ItemPlaylist(props) {
           {isLoading ? (
             <S.TrackAlbumLinkBones href="http://" />
           ) : (
-            <S.TrackAuthorLink href="http://">{musician}</S.TrackAuthorLink>
+            <S.TrackAuthorLink href="http://">{props.author}</S.TrackAuthorLink>
           )}
         </S.TrackAuthor>
         <S.TrackAlbum>
           {isLoading ? (
             <S.TrackAlbumLinkBones href="http://" />
           ) : (
-            <S.TrackAlbumLink href="http://">{album}</S.TrackAlbumLink>
+            <S.TrackAlbumLink href="http://">{props.album}</S.TrackAlbumLink>
           )}
         </S.TrackAlbum>
         <>
@@ -45,7 +45,7 @@ function ItemPlaylist(props) {
           {isLoading ? (
             <S.TrackTimeText>00:00</S.TrackTimeText>
           ) : (
-            <S.TrackTimeText>{time}</S.TrackTimeText>
+            <S.TrackTimeText>{props.duration_in_seconds}</S.TrackTimeText>
           )}
         </>
       </S.PlaylistTrack>

@@ -1,8 +1,10 @@
+import { useContext } from 'react';
 import FilterItem from '../UI/FilterItem';
-import tracks from '../../data/tracks';
 import * as S from './CenterBlockFilter.styles';
+import TracksContext from '../../context/TracksContext';
 
 function CenterBlockFilter({ onClick, activeFilter }) {
+  const { allTracks } = useContext(TracksContext);
   return (
     <>
       <S.CenterBlockHeading>Треки</S.CenterBlockHeading>
@@ -12,9 +14,9 @@ function CenterBlockFilter({ onClick, activeFilter }) {
           onClick={() => onClick('musician')}
           isOpen={activeFilter === 'musician'}
           id="1"
-          tracks={tracks.map((track) => (
+          tracks={allTracks.map((track) => (
             <S.PopupTextInfo key={track.id} className="popup-text-info">
-              {track.musician}
+              {track.author}
             </S.PopupTextInfo>
           ))}
         >
@@ -24,9 +26,9 @@ function CenterBlockFilter({ onClick, activeFilter }) {
           onClick={() => onClick('year')}
           isOpen={activeFilter === 'year'}
           id="2"
-          tracks={tracks.map((track) => (
+          tracks={allTracks.map((track) => (
             <S.PopupTextInfo key={track.id} className="popup-text-info">
-              {track.year}
+              {track.release_date}
             </S.PopupTextInfo>
           ))}
         >
@@ -36,7 +38,7 @@ function CenterBlockFilter({ onClick, activeFilter }) {
           onClick={() => onClick('genre')}
           isOpen={activeFilter === 'genre'}
           id="3"
-          tracks={tracks.map((track) => (
+          tracks={allTracks.map((track) => (
             <S.PopupTextInfo key={track.id} className="popup-text-info">
               {track.genre}
             </S.PopupTextInfo>
