@@ -21,7 +21,6 @@ function App() {
     getTracks()
       .then((tracks) => {
         setAllTracks(tracks);
-        console.log(tracks);
       })
       .catch(() => {
         setIsLoadingError(
