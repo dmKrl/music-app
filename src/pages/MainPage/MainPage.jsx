@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useContext, useState } from 'react';
 // import { Outlet } from 'react-router-dom';
 import { Outlet } from 'react-router-dom';
 import BarPlayer from '../../components/BarPlayer/BarPlayer';
@@ -7,10 +7,12 @@ import SectionsNav from '../../components/SectionNav/SectionsNav';
 import SideBar from '../../components/SideBar/SideBar';
 import GlobalStyle from '../../GlobalStyle.styles';
 import * as S from '../../App.styles';
+import BarPlayerContext from '../../context/BarPlayerContext';
 
 function MainPage() {
   const [visibleNav, setVisibleNav] = useState(true);
   const handlerVisibleNav = () => setVisibleNav(!visibleNav);
+  const { isShowing } = useContext(BarPlayerContext);
 
   const handleLogout = () => {
     localStorage.setItem('user', '');
@@ -32,7 +34,7 @@ function MainPage() {
             </S.MainCnterBlock>
             <SideBar />
           </S.Main>
-          <BarPlayer />
+          {isShowing ? <BarPlayer /> : ''}
           <footer />
         </S.Container>
       </S.Wrapper>

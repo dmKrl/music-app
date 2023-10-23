@@ -5,7 +5,9 @@ const BarPlayerContext = createContext({
     name: '',
     author: '',
   },
+  isShowing: false,
   changeBarPlayerInfo: () => {},
+  changeIsShowing: () => {},
 });
 
 export default BarPlayerContext;

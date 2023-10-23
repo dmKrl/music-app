@@ -15,6 +15,7 @@ function App() {
     name: '',
     author: '',
   });
+  const [isShowingBarPlayer, setIsShowingBarPlayer] = useState(false);
 
   const getTracksCheckErrors = () => {
     getTracks()
@@ -44,6 +45,8 @@ function App() {
           value={{
             showInfoAboutTrack,
             changeBarPlayerInfo: setShowInfoAboutTrack,
+            isShowing: isShowingBarPlayer,
+            changeIsShowing: setIsShowingBarPlayer,
           }}
         >
           <GlobalStyle />
