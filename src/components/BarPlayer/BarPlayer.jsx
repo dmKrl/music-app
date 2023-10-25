@@ -1,8 +1,16 @@
+/* eslint-disable jsx-a11y/media-has-caption */
+import { useContext } from 'react';
 import * as S from './BarPlayer.styles';
+import BarPlayerContext from '../../context/BarPlayerContext';
 
 function BarPlayer() {
+  const { showInfoAboutTrack } = useContext(BarPlayerContext);
   return (
     <S.Bar>
+      <figure>
+        <figcaption>Track</figcaption>
+        <audio src={showInfoAboutTrack.track_file} controls />
+      </figure>
       <S.BarContent>
         <S.BarPlayerProgress />
         <S.BarPlayerBlock>
@@ -44,12 +52,12 @@ function BarPlayer() {
                 </S.TrackPlayImage>
                 <S.TrackPlayAuthor>
                   <S.TrackPlayAuthorLink href="http://">
-                    Ты та...
+                    {showInfoAboutTrack.name}
                   </S.TrackPlayAuthorLink>
                 </S.TrackPlayAuthor>
                 <S.TrackPlayAlbum>
                   <S.TrackPlayAlbumLink href="http://">
-                    Баста
+                    {showInfoAboutTrack.author}
                   </S.TrackPlayAlbumLink>
                 </S.TrackPlayAlbum>
               </S.TrackPlayContain>

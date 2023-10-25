@@ -43,6 +43,8 @@ export const ContentPlaylist = styled.div`
   -ms-flex-direction: column;
   flex-direction: column;
   overflow-y: auto;
+  max-height: 700px;
+  max-width: 1107px;
 `;
 export const Col01 = styled.div`
   width: 447px;
@@ -87,6 +89,10 @@ export const PlaylistTrack = styled.div`
   -webkit-box-align: center;
   -ms-flex-align: center;
   align-items: center;
+  :hover {
+    cursor: pointer;
+    background-color:;
+  }
 `;
 
 export const TrackTitle = styled.div`

@@ -1,9 +1,12 @@
 import { useLocation } from 'react-router-dom';
+import { useContext } from 'react';
 import SideBarItem from '../UI/SideBarItem';
 import * as S from './SideBar.styles';
 import categories from '../../data/categories';
+import IsLoadingPageContext from '../../context/IsLoadingPageContext';
 
-function SideBar({ loadingPage }) {
+function SideBar() {
+  const { isLoading } = useContext(IsLoadingPageContext);
   const location = useLocation();
   return (
     <S.SideBarMain>
@@ -20,7 +23,7 @@ function SideBar({ loadingPage }) {
           ? categories.map((category) => (
               <SideBarItem
                 image={category.img}
-                loadingPage={loadingPage}
+                loadingPage={isLoading}
                 to={`/category/${category.id}`}
                 key={category.id}
               />

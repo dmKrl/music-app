@@ -1,10 +1,29 @@
+import { useContext } from 'react';
 import * as S from '../Main/SectionMusicList.styles';
+import IsLoadingPageContext from '../../context/IsLoadingPageContext';
+import BarPlayerContext from '../../context/BarPlayerContext';
 
 function ItemPlaylist(props) {
-  const { trackName, musician, album, time, loadingPage } = props;
+  const { isLoading } = useContext(IsLoadingPageContext);
+  const { changeBarPlayerInfo, changeIsShowing } = useContext(BarPlayerContext);
+  function changeSecondsToMinutes(seconds) {
+    return (seconds / 60).toFixed(2);
+  }
+  // function changeBarPlayerContext() {
+
+  // }
   return (
     <S.PlaylistItem>
-      <S.PlaylistTrack>
+      <S.PlaylistTrack
+        onClick={() => {
+          changeBarPlayerInfo({
+            name: props.name,
+            author: props.author,
+            track_file: props.track_file,
+          });
+          changeIsShowing(true);
+        }}
+      >
         <S.TrackTitle>
           <S.TrackTitleImg>
             <S.TrackTitleSvg alt="music">
@@ -12,37 +31,39 @@ function ItemPlaylist(props) {
             </S.TrackTitleSvg>
           </S.TrackTitleImg>
           <div>
-            {loadingPage ? (
-              <S.TrackAlbumLinkBones href="http://" />
+            {isLoading ? (
+              <S.TrackAlbumLinkBones />
             ) : (
-              <S.TrackTitleLink href="http://">
-                {trackName} <S.TrackTitleSpan />
+              <S.TrackTitleLink>
+                {props.name} <S.TrackTitleSpan />
               </S.TrackTitleLink>
             )}
           </div>
         </S.TrackTitle>
         <S.TrackAuthor>
-          {loadingPage ? (
-            <S.TrackAlbumLinkBones href="http://" />
+          {isLoading ? (
+            <S.TrackAlbumLinkBones />
           ) : (
-            <S.TrackAuthorLink href="http://">{musician}</S.TrackAuthorLink>
+            <S.TrackAuthorLink>{props.author}</S.TrackAuthorLink>
           )}
         </S.TrackAuthor>
         <S.TrackAlbum>
-          {loadingPage ? (
-            <S.TrackAlbumLinkBones href="http://" />
+          {isLoading ? (
+            <S.TrackAlbumLinkBones />
           ) : (
-            <S.TrackAlbumLink href="http://">{album}</S.TrackAlbumLink>
+            <S.TrackAlbumLink>{props.album}</S.TrackAlbumLink>
           )}
         </S.TrackAlbum>
         <>
           <S.TrackTimeSvg alt="time">
             <use xlinkHref="img/icon/sprite.svg#icon-like" />
           </S.TrackTimeSvg>
-          {loadingPage ? (
+          {isLoading ? (
             <S.TrackTimeText>00:00</S.TrackTimeText>
           ) : (
-            <S.TrackTimeText>{time}</S.TrackTimeText>
+            <S.TrackTimeText>
+              {changeSecondsToMinutes(props.duration_in_seconds)}
+            </S.TrackTimeText>
           )}
         </>
       </S.PlaylistTrack>
