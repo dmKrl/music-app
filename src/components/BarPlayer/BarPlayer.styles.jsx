@@ -8,7 +8,7 @@ const BtnIcon = css`
     fill: transparent;
     stroke: #acacac;
     cursor: pointer;
-  };
+  }
   :active svg {
     fill: transparent;
     stroke: #ffffff;
@@ -112,6 +112,10 @@ export const PlayerBtnPlaySvg = styled.svg`
   height: 20px;
   fill: #d9d9d9;
   ${BtnCursor}
+  :hover {
+    stroke: #696969;
+    fill: #696969;
+  }
 `;
 export const PlayerBtnNext = styled.div`
   padding: 5px;
@@ -285,6 +289,7 @@ export const VolumeContent = styled.div`
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
+  margin-right: 31px;
   -webkit-box-orient: horizontal;
   -webkit-box-direction: normal;
   -ms-flex-direction: row;

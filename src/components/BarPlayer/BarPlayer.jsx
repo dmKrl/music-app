@@ -1,15 +1,25 @@
 /* eslint-disable jsx-a11y/media-has-caption */
-import { useContext } from 'react';
+import { useContext, useRef, useState } from 'react';
 import * as S from './BarPlayer.styles';
 import BarPlayerContext from '../../context/BarPlayerContext';
 
 function BarPlayer() {
   const { showInfoAboutTrack } = useContext(BarPlayerContext);
+  const [isPlaying, setIsPlaying] = useState(false);
+  const audioRef = useRef(null);
+  const handleStartTrack = () => {
+    audioRef.current.play();
+    setIsPlaying(true);
+  };
+  const handlePauseTrack = () => {
+    audioRef.current.pause();
+    setIsPlaying(false);
+  };
   return (
     <S.Bar>
       <figure>
         <figcaption>Track</figcaption>
-        <audio src={showInfoAboutTrack.track_file} controls />
+        <audio src={showInfoAboutTrack.track_file} controls ref={audioRef} />
       </figure>
       <S.BarContent>
         <S.BarPlayerProgress />
@@ -22,8 +32,15 @@ function BarPlayer() {
                 </S.PlayerBtnPrevSvg>
               </S.PlayerBtnPrev>
               <S.PlayerBtnPlay>
-                <S.PlayerBtnPlaySvg alt="play">
-                  <use xlinkHref="img/icon/sprite.svg#icon-play" />
+                <S.PlayerBtnPlaySvg
+                  alt="play"
+                  onClick={isPlaying ? handlePauseTrack : handleStartTrack}
+                >
+                  {isPlaying ? (
+                    <use xlinkHref="img/icon/sprite.svg#icon-pause" />
+                  ) : (
+                    <use xlinkHref="img/icon/sprite.svg#icon-play" />
+                  )}
                 </S.PlayerBtnPlaySvg>
               </S.PlayerBtnPlay>
               <S.PlayerBtnNext>
