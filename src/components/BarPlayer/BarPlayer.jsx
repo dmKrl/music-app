@@ -7,6 +7,7 @@ function BarPlayer() {
   const { showInfoAboutTrack } = useContext(BarPlayerContext);
   const [isPlaying, setIsPlaying] = useState(false);
   const [currentTime, setCurrentTime] = useState(0);
+  const [isLoop, setIsLoop] = useState(false);
   // const [volume, setVolume] = useState(null);
   const audioRef = useRef(null);
   const [duration, setDuration] = useState(2);
@@ -37,12 +38,13 @@ function BarPlayer() {
   }, [showInfoAboutTrack.track_file]);
   return (
     <S.Bar>
-        <audio
-          src={showInfoAboutTrack.track_file}
-          controls
-          ref={audioRef}
-          // style={{ visibility: 'hidden' }}
-        />
+      <audio
+        src={showInfoAboutTrack.track_file}
+        controls
+        ref={audioRef}
+        loop={isLoop}
+        // style={{ visibility: 'hidden' }}
+      />
       <S.BarContent>
         <S.BarPlayerProgress
           type="range"
@@ -79,8 +81,15 @@ function BarPlayer() {
                 </S.PlayerBtnNextSvg>
               </S.PlayerBtnNext>
               <S.PlayerBtnRepeat>
-                <S.PlayerBtnRepeatSvg alt="repeat">
-                  <use xlinkHref="img/icon/sprite.svg#icon-repeat" />
+                <S.PlayerBtnRepeatSvg
+                  alt="repeat"
+                  onClick={() => setIsLoop(!isLoop)}
+                >
+                  {isLoop ? (
+                    <use xlinkHref="img/icon/sprite.svg#icon-repeatA" />
+                  ) : (
+                    <use xlinkHref="img/icon/sprite.svg#icon-repeat" />
+                  )}
                 </S.PlayerBtnRepeatSvg>
               </S.PlayerBtnRepeat>
               <S.PlayerBtnShuffle>
