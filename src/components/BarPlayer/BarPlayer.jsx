@@ -1,12 +1,15 @@
 /* eslint-disable jsx-a11y/media-has-caption */
-import { useContext, useRef, useState } from 'react';
+import { useContext, useRef, useState, useEffect } from 'react';
 import * as S from './BarPlayer.styles';
 import BarPlayerContext from '../../context/BarPlayerContext';
 
 function BarPlayer() {
   const { showInfoAboutTrack } = useContext(BarPlayerContext);
   const [isPlaying, setIsPlaying] = useState(false);
+  const [currentTime, setCurrentTime] = useState(0);
+  // const [volume, setVolume] = useState(null);
   const audioRef = useRef(null);
+  const [duration, setDuration] = useState(2);
   const handleStartTrack = () => {
     audioRef.current.play();
     setIsPlaying(true);
@@ -15,14 +18,41 @@ function BarPlayer() {
     audioRef.current.pause();
     setIsPlaying(false);
   };
+  const changeDuration = () => {
+    setDuration(Math.floor(audioRef.current.duration));
+  };
+  const changeCurrentTime = () => {
+    setCurrentTime(Math.floor(audioRef.current.currentTime));
+  };
+  useEffect(() => {
+    handleStartTrack();
+    audioRef.current.addEventListener('loadedmetadata', () => {
+      changeDuration();
+    });
+    audioRef.current.addEventListener('timeupdate', () => {
+      changeCurrentTime();
+    });
+
+    // console.log(audioRef);
+  }, [showInfoAboutTrack.track_file]);
   return (
     <S.Bar>
-      <figure>
-        <figcaption>Track</figcaption>
-        <audio src={showInfoAboutTrack.track_file} controls ref={audioRef} />
-      </figure>
+        <audio
+          src={showInfoAboutTrack.track_file}
+          controls
+          ref={audioRef}
+          // style={{ visibility: 'hidden' }}
+        />
       <S.BarContent>
-        <S.BarPlayerProgress />
+        <S.BarPlayerProgress
+          type="range"
+          min={0}
+          max={duration}
+          value={currentTime}
+          step={0.01}
+          onChange={(event) => setCurrentTime(event.target.value)}
+          $color="#ff0000"
+        />
         <S.BarPlayerBlock>
           <S.BarPlayer>
             <S.PlayersControls>
