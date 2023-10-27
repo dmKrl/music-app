@@ -62,7 +62,7 @@ function MediaPlayer() {
           <S.BarPlayerBlock>
             <S.BarPlayer>
               <S.PlayersControls>
-                <S.PlayerBtnPrev>
+                <S.PlayerBtnPrev onClick={() => alert('В разработке..')}>
                   <S.PlayerBtnPrevSvg alt="prev">
                     <use xlinkHref="img/icon/sprite.svg#icon-prev" />
                   </S.PlayerBtnPrevSvg>
@@ -79,7 +79,7 @@ function MediaPlayer() {
                     )}
                   </S.PlayerBtnPlaySvg>
                 </S.PlayerBtnPlay>
-                <S.PlayerBtnNext>
+                <S.PlayerBtnNext onClick={() => alert('В разработке..')}>
                   <S.PlayerBtnNextSvg alt="next">
                     <use xlinkHref="img/icon/sprite.svg#icon-next" />
                   </S.PlayerBtnNextSvg>
