@@ -1,22 +1,23 @@
 import { useContext } from 'react';
 import * as S from '../Main/SectionMusicList.styles';
 import IsLoadingPageContext from '../../context/IsLoadingPageContext';
-import BarPlayerContext from '../../context/BarPlayerContext';
+import MediaPlayerContext from '../../context/MediaPlayerContext';
 
 function ItemPlaylist(props) {
   const { isLoading } = useContext(IsLoadingPageContext);
-  const { changeBarPlayerInfo, changeIsShowing } = useContext(BarPlayerContext);
+  const { changeMediaPlayerInfo, changeIsShowing } =
+    useContext(MediaPlayerContext);
   function changeSecondsToMinutes(seconds) {
     return (seconds / 60).toFixed(2);
   }
-  // function changeBarPlayerContext() {
+  // function changeMediaPlayerContext() {
 
   // }
   return (
     <S.PlaylistItem>
       <S.PlaylistTrack
         onClick={() => {
-          changeBarPlayerInfo({
+          changeMediaPlayerInfo({
             name: props.name,
             author: props.author,
             track_file: props.track_file,

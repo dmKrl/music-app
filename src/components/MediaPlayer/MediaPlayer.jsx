@@ -1,16 +1,16 @@
 /* eslint-disable jsx-a11y/media-has-caption */
 import { useContext, useRef, useState, useEffect } from 'react';
-import * as S from './BarPlayer.styles';
-import BarPlayerContext from '../../context/BarPlayerContext';
+import * as S from './MediaPlayer.styles.';
+import MediaPlayerContext from '../../context/MediaPlayerContext';
 
-function BarPlayer() {
-  const { showInfoAboutTrack } = useContext(BarPlayerContext);
+function MediaPlayer() {
+  const { showInfoAboutTrack } = useContext(MediaPlayerContext);
   const [isPlaying, setIsPlaying] = useState(false);
-  const [currentTime, setCurrentTime] = useState(0);
   const [isLoop, setIsLoop] = useState(false);
-  // const [volume, setVolume] = useState(null);
-  const audioRef = useRef(null);
+  const [currentTime, setCurrentTime] = useState(0);
+  const [volume, setVolume] = useState(100);
   const [duration, setDuration] = useState(2);
+  const audioRef = useRef(null);
   const handleStartTrack = () => {
     audioRef.current.play();
     setIsPlaying(true);
@@ -34,7 +34,7 @@ function BarPlayer() {
       changeCurrentTime();
     });
 
-    // console.log(audioRef);
+    console.log(audioRef);
   }, [showInfoAboutTrack.track_file]);
   return (
     <S.Bar>
@@ -43,6 +43,7 @@ function BarPlayer() {
         controls
         ref={audioRef}
         loop={isLoop}
+
         // style={{ visibility: 'hidden' }}
       />
       <S.BarContent>
@@ -53,7 +54,7 @@ function BarPlayer() {
           value={currentTime}
           step={0.01}
           onChange={(event) => setCurrentTime(event.target.value)}
-          $color="#ff0000"
+          $color="#514ED9"
         />
         <S.BarPlayerBlock>
           <S.BarPlayer>
@@ -140,7 +141,12 @@ function BarPlayer() {
                 </S.VolumeSvg>
               </S.VolumeImg>
               <S.VolumeProgress>
-                <S.VolumeProgressLine type="range" name="range" />
+                <S.VolumeProgressLine
+                  type="range"
+                  name="range"
+                  value={volume}
+                  onChange={(event) => setVolume(event.target.value)}
+                />
               </S.VolumeProgress>
             </S.VolumeContent>
           </S.BarPlayerBlock>
@@ -150,4 +156,4 @@ function BarPlayer() {
   );
 }
 
-export default BarPlayer;
+export default MediaPlayer;
