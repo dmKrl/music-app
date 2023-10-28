@@ -2,6 +2,7 @@
 import { useContext, useRef, useState, useEffect } from 'react';
 import * as S from './MediaPlayer.styles.';
 import MediaPlayerContext from '../../context/MediaPlayerContext';
+import ProgressBar from '../ProgressBar/ProgressBar';
 
 function MediaPlayer() {
   const { showInfoAboutTrack } = useContext(MediaPlayerContext);
@@ -47,17 +48,12 @@ function MediaPlayer() {
       />
       <S.Bar>
         <S.BarContent>
-          <S.BarPlayerProgress
-            type="range"
-            min={0}
-            max={duration}
-            value={currentTime}
-            step={0.01}
-            onChange={(event) => {
-              audioRef.current.currentTime = event.target.value;
-              setCurrentTime(event.target.value);
-            }}
-            $color="#514ED9"
+
+          <ProgressBar
+            currentTime={currentTime}
+            audioRef={audioRef}
+            duration={duration}
+            setCurrentTime={setCurrentTime}
           />
           <S.BarPlayerBlock>
             <S.BarPlayer>

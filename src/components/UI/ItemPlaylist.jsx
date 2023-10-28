@@ -2,14 +2,13 @@ import { useContext } from 'react';
 import * as S from '../Main/SectionMusicList.styles';
 import IsLoadingPageContext from '../../context/IsLoadingPageContext';
 import MediaPlayerContext from '../../context/MediaPlayerContext';
+import changeSecondsToMinutes from '../../app/changeSecondsToMinutes';
 
 function ItemPlaylist(props) {
   const { isLoading } = useContext(IsLoadingPageContext);
   const { changeMediaPlayerInfo, changeIsShowing } =
     useContext(MediaPlayerContext);
-  function changeSecondsToMinutes(seconds) {
-    return (seconds / 60).toFixed(2);
-  }
+
   // function changeMediaPlayerContext() {
 
   // }

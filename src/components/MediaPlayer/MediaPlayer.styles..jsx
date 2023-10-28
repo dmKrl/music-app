@@ -29,7 +29,7 @@ export const Bar = styled.div`
   left: 0;
   width: 100%;
   background: rgba(28, 28, 28);
-  box-shadow: 
+  box-shadow:;
 `;
 export const BarContent = styled.div`
   display: -webkit-box;
@@ -40,6 +40,24 @@ export const BarContent = styled.div`
   -ms-flex-direction: column;
   flex-direction: column;
 `;
+export const ProgressBarBlock = styled.div`
+  display: flex;
+  position: relative;
+  height: 10px;
+`;
+export const ProgressBarTimes = styled.div`
+  width: 100%;
+  display: flex;
+  bottom: 15px;
+  justify-content: space-between;
+  position: absolute;
+`;
+export const ProgressBarTimesItemLeft = styled.div`
+  margin-left: 20px;
+`;
+export const ProgressBarTimesItemRight = styled.div`
+  margin-right: 20px;
+`;
 export const BarPlayerProgress = styled.input`
   --progress-height: 8px;
   --progress-color: #b672ff;
@@ -49,11 +67,11 @@ export const BarPlayerProgress = styled.input`
 
   margin: 0;
   width: 100%;
-  height: var(--progress-height);
+  height: 100%;
   -webkit-appearance: none;
   cursor: pointer;
   background: transparent;
-  position: relative;
+  position: absolute;
   overflow: hidden;
 
   &::-webkit-slider-runnable-track {
