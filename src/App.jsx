@@ -5,7 +5,7 @@ import IsLoadingPageContext from './context/IsLoadingPageContext';
 import AppRoutes from './routes';
 import getTracks from './api/api';
 import TracksContext from './context/TracksContext';
-import BarPlayerContext from './context/BarPlayerContext';
+import MediaPlayerContext from './context/MediaPlayerContext';
 
 function App() {
   const [isLoadingPage, setIsLoadingPage] = useState(true);
@@ -15,7 +15,7 @@ function App() {
     name: '',
     author: '',
   });
-  const [isShowingBarPlayer, setIsShowingBarPlayer] = useState(false);
+  const [isShowingMediaPlayer, setIsShowingMediaPlayer] = useState(false);
 
   const getTracksCheckErrors = () => {
     getTracks()
@@ -41,17 +41,17 @@ function App() {
       value={{ isLoading: isLoadingPage, isLoadingError }}
     >
       <TracksContext.Provider value={{ allTracks }}>
-        <BarPlayerContext.Provider
+        <MediaPlayerContext.Provider
           value={{
             showInfoAboutTrack,
-            changeBarPlayerInfo: setShowInfoAboutTrack,
-            isShowing: isShowingBarPlayer,
-            changeIsShowing: setIsShowingBarPlayer,
+            changeMediaPlayerInfo: setShowInfoAboutTrack,
+            isShowing: isShowingMediaPlayer,
+            changeIsShowing: setIsShowingMediaPlayer,
           }}
         >
           <GlobalStyle />
           <AppRoutes />
-        </BarPlayerContext.Provider>
+        </MediaPlayerContext.Provider>
       </TracksContext.Provider>
     </IsLoadingPageContext.Provider>
   );

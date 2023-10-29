@@ -1,14 +1,14 @@
 import { createContext } from 'react';
 
-const BarPlayerContext = createContext({
+const MediaPlayerContext = createContext({
   showInfoAboutTrack: {
     name: '',
     author: '',
     track_file: '',
   },
   isShowing: false,
-  changeBarPlayerInfo: () => {},
+  changeMediaPlayerInfo: () => {},
   changeIsShowing: () => {},
 });
 
-export default BarPlayerContext;
+export default MediaPlayerContext;

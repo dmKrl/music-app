@@ -43,7 +43,6 @@ export const ContentPlaylist = styled.div`
   -ms-flex-direction: column;
   flex-direction: column;
   overflow-y: auto;
-  max-height: 700px;
   max-width: 1107px;
 `;
 export const Col01 = styled.div`
@@ -73,6 +72,14 @@ export const PlaylistItem = styled.div`
   width: 100%;
   display: block;
   margin-bottom: 12px;
+`;
+export const PlaylistItemLoaded = styled.div`
+  width: 100%;
+  display: block;
+  margin-bottom: 12px;
+  :hover {
+    border: 1px solid #696969;
+  }
 `;
 
 export const PlaylistTrack = styled.div`

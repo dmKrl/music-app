@@ -1,13 +1,13 @@
 import { useContext, useState } from 'react';
 // import { Outlet } from 'react-router-dom';
 import { Outlet } from 'react-router-dom';
-import BarPlayer from '../../components/BarPlayer/BarPlayer';
+import MediaPlayer from '../../components/MediaPlayer/MediaPlayer';
 import SearchInput from '../../components/Main/SearchInput';
 import SectionsNav from '../../components/SectionNav/SectionsNav';
 import SideBar from '../../components/SideBar/SideBar';
 import GlobalStyle from '../../GlobalStyle.styles';
 import * as S from '../../App.styles';
-import BarPlayerContext from '../../context/BarPlayerContext';
+import BarPlayerContext from '../../context/MediaPlayerContext';
 
 function MainPage() {
   const [visibleNav, setVisibleNav] = useState(true);
@@ -34,7 +34,7 @@ function MainPage() {
             </S.MainCnterBlock>
             <SideBar />
           </S.Main>
-          {isShowing ? <BarPlayer /> : ''}
+          {isShowing ? <MediaPlayer /> : ''}
           <footer />
         </S.Container>
       </S.Wrapper>
