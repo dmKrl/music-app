@@ -26,7 +26,7 @@ const BtnIconLikeDislike = css`
 export const Bar = styled.div`
   position: fixed;
   bottom: 0;
-  left: 0;
+  max-width: 1920px;
   width: 100%;
   background: rgba(28, 28, 28);
   box-shadow:;
