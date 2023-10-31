@@ -64,7 +64,7 @@ export const ModalBlock = styled.div`
 `;
 export const ModalFormLogin = styled.form`
   width: 366px;
-  height: 439px;
+  max-height: 550px;
   background-color: #ffffff;
   border-radius: 12px;
   display: -webkit-box;
@@ -93,6 +93,10 @@ export const ModalLogo = styled.div`
   }
 `;
 export const ModalLogin = styled(ModalInput)`
+  margin-bottom: 30px;
+  ${ModalInputStyles}
+`;
+export const ModalUsername = styled(ModalInput)`
   margin-bottom: 30px;
   ${ModalInputStyles}
 `;

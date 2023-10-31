@@ -1,13 +1,14 @@
 export function validationInputsRegister({
   email,
   password,
+  username,
   repeatPassword,
   isLoginMode,
   setIsValidData,
   setIsValidPasswords,
   setIsLoginMode,
 }) {
-  if (!email || !password || !repeatPassword) {
+  if (!email || !password || !repeatPassword || !username) {
     setIsValidData(true);
     setIsValidPasswords(false);
   } else if (password !== repeatPassword) {
@@ -23,11 +24,12 @@ export function validationInputsRegister({
 export function validationInputsLogin({
   email,
   password,
+  username,
   isLoginMode,
   setIsValidData,
   setIsLoginMode,
 }) {
-  if (!email || !password) {
+  if (!email || !password || !username) {
     setIsValidData(true);
   } else {
     setIsLoginMode(!isLoginMode);

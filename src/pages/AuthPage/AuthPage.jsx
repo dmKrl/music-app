@@ -8,6 +8,7 @@ import {
 function SignUp() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [username, setUsername] = useState('');
   const [repeatPassword, setRepeatPassword] = useState('');
   const [isValidData, setIsValidData] = useState(false);
   const [isValidPasswords, setIsValidPasswords] = useState(false);
@@ -35,6 +36,13 @@ function SignUp() {
                 type="text"
                 name="login"
                 placeholder="Почта"
+              />
+              <S.ModalUsername
+                value={username}
+                onChange={(event) => setUsername(event.target.value)}
+                type="text"
+                name="user"
+                placeholder="Имя пользователя"
               />
               <S.ModalPassword
                 value={password}
@@ -82,6 +90,13 @@ function SignUp() {
                 name="login"
                 placeholder="Почта"
               />
+              <S.ModalUsername
+                value={username}
+                onChange={(event) => setUsername(event.target.value)}
+                type="text"
+                name="user"
+                placeholder="Имя пользователя"
+              />
               <S.ModalPassword
                 value={password}
                 onChange={(event) => {
@@ -113,10 +128,12 @@ function SignUp() {
                   validationInputsRegister({
                     email,
                     password,
+                    username,
                     repeatPassword,
                     isLoginMode,
                     setIsValidData,
                     setIsLoginMode,
+
                     setIsValidPasswords,
                   })
                 } /* disabled={isGettingData} */

@@ -3,7 +3,7 @@ import { useEffect, useState } from 'react';
 import GlobalStyle from './GlobalStyle.styles';
 import IsLoadingPageContext from './context/IsLoadingPageContext';
 import AppRoutes from './routes';
-import getTracks from './api/api';
+import { getTracks } from './api/api';
 import TracksContext from './context/TracksContext';
 import MediaPlayerContext from './context/MediaPlayerContext';
 
