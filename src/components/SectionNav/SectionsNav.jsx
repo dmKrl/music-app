@@ -20,7 +20,7 @@ function SectionsNav({ onClick, visible, handleLogout }) {
           <S.MenuList>
             <SectionNavItem text="Главная" path="/" />
             <SectionNavItem text="Мои треки" path="/favorites" />
-            <SectionNavItem text="Выйти" onClick={handleLogout} path="/signin" />
+            <SectionNavItem text="Выйти" onClick={handleLogout} path="/auth" />
           </S.MenuList>
         </S.NavMenu>
       )}
