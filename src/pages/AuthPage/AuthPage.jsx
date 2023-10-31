@@ -1,17 +1,23 @@
 import { useState } from 'react';
 import * as S from '../../components/SignUp-In/SignComponent.styles';
+import {
+  validationInputsLogin,
+  validationInputsRegister,
+} from '../../app/validate';
 
 function SignUp() {
   const [email, setEmail] = useState('');
-  const [isLoginMode, setIsLoginMode] = useState(false);
   const [password, setPassword] = useState('');
   const [repeatPassword, setRepeatPassword] = useState('');
+  const [isValidData, setIsValidData] = useState(false);
+  const [isValidPasswords, setIsValidPasswords] = useState(false);
+  const [isLoginMode, setIsLoginMode] = useState(false);
   // const [isGettingData, setIsGettingData] = useState(false);
 
-  const handleLogin = () => {
-    localStorage.setItem('user', 'user');
-  };
-  const changeIsLoginMode = () => setIsLoginMode(!isLoginMode);
+  // const handleLogin = () => {
+  //   localStorage.setItem('user', 'user');
+  // };
+
   return (
     <S.Wrapper>
       <S.ContainerSignUp>
@@ -23,13 +29,39 @@ function SignUp() {
                   <img src="./img/logo_modal.png" alt="logo" />
                 </S.ModalLogo>
               </a>
-              <S.ModalLogin type="text" name="login" placeholder="Почта" />
+              <S.ModalLogin
+                value={email}
+                onChange={(event) => setEmail(event.target.value)}
+                type="text"
+                name="login"
+                placeholder="Почта"
+              />
               <S.ModalPassword
+                value={password}
+                onChange={(event) => setPassword(event.target.value)}
                 type="password"
                 name="password"
                 placeholder="Пароль"
               />
-              <S.ModalBtnEnter onClick={handleLogin} to="/">
+              {isValidData ? (
+                <span style={{ color: 'red' }}>Укажите почту/пароль</span>
+              ) : (
+                ''
+              )}
+              <S.ModalBtnEnter
+                onClick={() =>
+                  validationInputsLogin({
+                    email,
+                    password,
+                    repeatPassword,
+                    isLoginMode,
+                    setIsValidData,
+                    setIsLoginMode,
+                    setIsValidPasswords,
+                  })
+                }
+                to="/"
+              >
                 <span>Войти</span>
               </S.ModalBtnEnter>
               <S.ModaBtnlSignUp to="/signup">
@@ -66,8 +98,28 @@ function SignUp() {
                 name="password"
                 placeholder="Повторите пароль"
               />
+              {isValidData ? (
+                <span style={{ color: 'red' }}>Укажите почту/пароль</span>
+              ) : (
+                ''
+              )}
+              {isValidPasswords ? (
+                <span style={{ color: 'red' }}>Пароли не совпадают</span>
+              ) : (
+                ''
+              )}
               <S.ModalBtnSignUpEnt
-                onClick={changeIsLoginMode} /* disabled={isGettingData} */
+                onClick={() =>
+                  validationInputsRegister({
+                    email,
+                    password,
+                    repeatPassword,
+                    isLoginMode,
+                    setIsValidData,
+                    setIsLoginMode,
+                    setIsValidPasswords,
+                  })
+                } /* disabled={isGettingData} */
               >
                 <span>Зарегистрироваться</span>
               </S.ModalBtnSignUpEnt>
