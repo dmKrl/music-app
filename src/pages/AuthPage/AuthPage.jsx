@@ -16,7 +16,34 @@ function SignUp() {
   const [isValidPasswords, setIsValidPasswords] = useState(false);
   const [isLoginMode, setIsLoginMode] = useState(false);
   const [isGettingData, setIsGettingData] = useState(false);
+  const [formIsFilledOut, setIsFiiledOut] = useState(false);
+  const [isError, setIsError] = useState(false);
 
+  const registrationUser = (event) => {
+    event.preventDefault();
+    validationInputsRegister({
+      email,
+      password,
+      username,
+      repeatPassword,
+      setIsValidData,
+      setIsValidPasswords,
+      setIsFiiledOut,
+    });
+    if (formIsFilledOut) {
+      setIsGettingData(true);
+      postRegister({ email, password, username })
+        .then((data) => {
+          if (data.response.status === 400) {
+            setIsError(true);
+          }
+          return console.log(data);
+        })
+        .finally(() => {
+          setIsGettingData(false);
+        });
+    }
+  };
   // const handleLogin = () => {
   //   localStorage.setItem('user', 'user');
   // };
@@ -125,33 +152,13 @@ function SignUp() {
               ) : (
                 ''
               )}
+              {isError ? (
+                <MessageError>Пароли не совпадаютasdasd</MessageError>
+              ) : (
+                ''
+              )}
               <S.ModalBtnSignUpEnt
-                onClick={(event) => {
-                  event.preventDefault();
-                  setIsGettingData(true);
-
-                  validationInputsRegister({
-                    email,
-                    password,
-                    username,
-                    repeatPassword,
-                    setIsValidData,
-                    setIsValidPasswords,
-                  });
-                  postRegister({ email, password, username })
-                    .then((data) => {
-                      if (data.response.status === 400) {
-                        return console.log(data);
-                      }
-                      return console.log(data);
-                    })
-                    .catch((error) => {
-                      console.log(error);
-                    })
-                    .finally(() => {
-                      setIsGettingData(false);
-                    });
-                }}
+                onClick={registrationUser}
                 disabled={isGettingData}
               >
                 {isGettingData ? (
