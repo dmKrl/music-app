@@ -12,12 +12,23 @@ function SignUp() {
   const [password, setPassword] = useState('');
   const [username, setUsername] = useState('');
   const [repeatPassword, setRepeatPassword] = useState('');
+  const [formIsFilledOut, setIsFiledOut] = useState(false);
+  const [messageErrorAPI, setMessageErrorAPI] = useState('');
+  const [isError, setIsError] = useState(false);
   const [isValidData, setIsValidData] = useState(false);
-  const [isValidPasswords, setIsValidPasswords] = useState(false);
   const [isLoginMode, setIsLoginMode] = useState(false);
   const [isGettingData, setIsGettingData] = useState(false);
-  const [formIsFilledOut, setIsFiiledOut] = useState(false);
-  const [isError, setIsError] = useState(false);
+  const [isValidPasswords, setIsValidPasswords] = useState(false);
+
+  const returnsErrorMessageAPI = (data) => {
+    if (data.username) {
+      setMessageErrorAPI(data.username.join());
+    } else if (data.email) {
+      setMessageErrorAPI(data.email.join());
+    } else {
+      setMessageErrorAPI(data.password[0]);
+    }
+  };
 
   const registrationUser = (event) => {
     event.preventDefault();
@@ -28,13 +39,14 @@ function SignUp() {
       repeatPassword,
       setIsValidData,
       setIsValidPasswords,
-      setIsFiiledOut,
+      setIsFiledOut,
     });
     if (formIsFilledOut) {
       setIsGettingData(true);
       postRegister({ email, password, username })
         .then((data) => {
           if (data.response.status === 400) {
+            returnsErrorMessageAPI(data.responseData);
             setIsError(true);
           }
           return console.log(data);
@@ -101,7 +113,7 @@ function SignUp() {
               >
                 <span>Войти</span>
               </S.ModalBtnEnter>
-              <S.ModaBtnlSignUp to="/signup">
+              <S.ModaBtnlSignUp>
                 Зарегистрироваться
               </S.ModaBtnlSignUp>
             </S.ModalFormLogin>
@@ -152,11 +164,7 @@ function SignUp() {
               ) : (
                 ''
               )}
-              {isError ? (
-                <MessageError>Пароли не совпадаютasdasd</MessageError>
-              ) : (
-                ''
-              )}
+              {isError ? <MessageError>{messageErrorAPI}</MessageError> : ''}
               <S.ModalBtnSignUpEnt
                 onClick={registrationUser}
                 disabled={isGettingData}
@@ -167,6 +175,9 @@ function SignUp() {
                   <span>Зарегистрироваться</span>
                 )}
               </S.ModalBtnSignUpEnt>
+              <S.ModaBtnlSignUp>
+                Войти
+              </S.ModaBtnlSignUp>
             </S.ModalFormLogin>
           )}
         </S.ModalBlock>
