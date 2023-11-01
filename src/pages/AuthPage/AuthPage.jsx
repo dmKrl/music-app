@@ -113,7 +113,12 @@ function SignUp() {
               >
                 <span>Войти</span>
               </S.ModalBtnEnter>
-              <S.ModaBtnlSignUp>
+              <S.ModaBtnlSignUp
+                onClick={(event) => {
+                  event.preventDefault();
+                  setIsLoginMode(!isLoginMode);
+                }}
+              >
                 Зарегистрироваться
               </S.ModaBtnlSignUp>
             </S.ModalFormLogin>
@@ -175,7 +180,13 @@ function SignUp() {
                   <span>Зарегистрироваться</span>
                 )}
               </S.ModalBtnSignUpEnt>
-              <S.ModaBtnlSignUp>
+              <S.ModaBtnlSignUp
+                style={{ marginTop: '20px' }}
+                onClick={(event) => {
+                  event.preventDefault();
+                  setIsLoginMode(!isLoginMode);
+                }}
+              >
                 Войти
               </S.ModaBtnlSignUp>
             </S.ModalFormLogin>

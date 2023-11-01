@@ -150,7 +150,7 @@ export const ModalBtnEnter = styled(Link)`
     justify-content: center;
   }
 `;
-export const ModaBtnlSignUp = styled(Link)`
+export const ModaBtnlSignUp = styled.button`
   width: 278px;
   height: 52px;
   background-color: transparent;
