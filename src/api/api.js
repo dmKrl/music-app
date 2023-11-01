@@ -1,15 +1,15 @@
+const SignUpUrl = 'https://skypro-music-api.skyeng.tech/user/signup/';
+const getTracksUrl = 'https://skypro-music-api.skyeng.tech/catalog/track/all/';
+
 export async function getTracks() {
-  const response = await fetch(
-    'https://skypro-music-api.skyeng.tech/catalog/track/all/',
-  );
+  const response = await fetch(getTracksUrl);
   const data = await response.json();
   return data;
 }
 
 export async function postRegister({ email, password, username }) {
-  const response = await fetch(
-    'https://skypro-music-api.skyeng.tech/user/signup/',
-    {
+  try {
+    const response = await fetch(SignUpUrl, {
       method: 'POST',
       body: JSON.stringify({
         email,
@@ -19,8 +19,15 @@ export async function postRegister({ email, password, username }) {
       headers: {
         'content-type': 'application/json',
       },
-    },
-  );
-  const responseData = await response.json();
-  return responseData;
+    });
+    const responseData = await response.json();
+    if (response.status === 400) {
+      return {responseData, response};
+    }
+    return responseData;
+  } catch (error) {
+    return error;
+  } finally {
+    console.log('end');
+  }
 }

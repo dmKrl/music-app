@@ -4,6 +4,8 @@ import {
   validationInputsLogin,
   validationInputsRegister,
 } from '../../app/validate';
+import { postRegister } from '../../api/api';
+import MessageError from '../../components/UI/MessageError';
 
 function SignUp() {
   const [email, setEmail] = useState('');
@@ -13,7 +15,7 @@ function SignUp() {
   const [isValidData, setIsValidData] = useState(false);
   const [isValidPasswords, setIsValidPasswords] = useState(false);
   const [isLoginMode, setIsLoginMode] = useState(false);
-  // const [isGettingData, setIsGettingData] = useState(false);
+  const [isGettingData, setIsGettingData] = useState(false);
 
   // const handleLogin = () => {
   //   localStorage.setItem('user', 'user');
@@ -57,7 +59,7 @@ function SignUp() {
                 ''
               )}
               <S.ModalBtnEnter
-                onClick={() =>
+                onClick={() => {
                   validationInputsLogin({
                     email,
                     password,
@@ -66,8 +68,8 @@ function SignUp() {
                     setIsValidData,
                     setIsLoginMode,
                     setIsValidPasswords,
-                  })
-                }
+                  });
+                }}
                 to="/"
               >
                 <span>Войти</span>
@@ -114,31 +116,49 @@ function SignUp() {
                 placeholder="Повторите пароль"
               />
               {isValidData ? (
-                <span style={{ color: 'red' }}>Укажите почту/пароль</span>
+                <MessageError>Укажите почту/пароль</MessageError>
               ) : (
                 ''
               )}
               {isValidPasswords ? (
-                <span style={{ color: 'red' }}>Пароли не совпадают</span>
+                <MessageError>Пароли не совпадают</MessageError>
               ) : (
                 ''
               )}
               <S.ModalBtnSignUpEnt
-                onClick={() =>
+                onClick={(event) => {
+                  event.preventDefault();
+                  setIsGettingData(true);
+
                   validationInputsRegister({
                     email,
                     password,
                     username,
                     repeatPassword,
-                    isLoginMode,
                     setIsValidData,
-                    setIsLoginMode,
-
                     setIsValidPasswords,
-                  })
-                } /* disabled={isGettingData} */
+                  });
+                  postRegister({ email, password, username })
+                    .then((data) => {
+                      if (data.response.status === 400) {
+                        return console.log(data);
+                      }
+                      return console.log(data);
+                    })
+                    .catch((error) => {
+                      console.log(error);
+                    })
+                    .finally(() => {
+                      setIsGettingData(false);
+                    });
+                }}
+                disabled={isGettingData}
               >
-                <span>Зарегистрироваться</span>
+                {isGettingData ? (
+                  <span>Загрузка...</span>
+                ) : (
+                  <span>Зарегистрироваться</span>
+                )}
               </S.ModalBtnSignUpEnt>
             </S.ModalFormLogin>
           )}

@@ -204,7 +204,7 @@ export const ContainerSignUp = styled.div`
   position: relative;
   background-color: rgba(0, 0, 0, 0.85);
 `;
-export const ModalBtnSignUpEnt = styled(Link)`
+export const ModalBtnSignUpEnt = styled.button`
   width: 278px;
   height: 62px;
   background-color: #580ea2;
