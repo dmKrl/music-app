@@ -5,14 +5,16 @@ export function validationInputsRegister({
   repeatPassword,
   setIsValidData,
   setIsValidPasswords,
-  setIsFiledOut
+  setIsFiledOut,
 }) {
   if (!email || !password || !repeatPassword || !username) {
     setIsValidData(true);
     setIsValidPasswords(false);
+    setIsFiledOut(false);
   } else if (password !== repeatPassword) {
     setIsValidPasswords(true);
     setIsValidData(false);
+    setIsFiledOut(false);
   } else {
     setIsFiledOut(true);
     setIsValidPasswords(false);

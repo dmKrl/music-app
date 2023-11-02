@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useContext, useState } from 'react';
 import * as S from '../../components/SignUp-In/SignComponent.styles';
 import {
   validationInputsLogin,
@@ -6,19 +6,21 @@ import {
 } from '../../app/validate';
 import { postRegister } from '../../api/api';
 import MessageError from '../../components/UI/MessageError';
+import UserData from '../../context/UserData';
 
 function SignUp() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [username, setUsername] = useState('');
   const [repeatPassword, setRepeatPassword] = useState('');
-  const [formIsFilledOut, setIsFiledOut] = useState(false);
   const [messageErrorAPI, setMessageErrorAPI] = useState('');
+  const [isFilledOut, setIsFiledOut] = useState(false);
   const [isError, setIsError] = useState(false);
   const [isValidData, setIsValidData] = useState(false);
   const [isLoginMode, setIsLoginMode] = useState(false);
   const [isGettingData, setIsGettingData] = useState(false);
   const [isValidPasswords, setIsValidPasswords] = useState(false);
+  const { changeUserInfo } = useContext(UserData);
 
   const returnsErrorMessageAPI = (data) => {
     if (data.username) {
@@ -41,15 +43,18 @@ function SignUp() {
       setIsValidPasswords,
       setIsFiledOut,
     });
-    if (formIsFilledOut) {
+    if (isFilledOut) {
       setIsGettingData(true);
       postRegister({ email, password, username })
         .then((data) => {
-          if (data.response.status === 400) {
+          console.log(data)
+          if (data.response.status === 400 && data.response) {
             returnsErrorMessageAPI(data.responseData);
             setIsError(true);
           }
-          return console.log(data);
+          return changeUserInfo(
+            localStorage.setItem('userInfo', data.responseData)
+          );
         })
         .finally(() => {
           setIsGettingData(false);
@@ -169,7 +174,7 @@ function SignUp() {
               ) : (
                 ''
               )}
-              {isError ? <MessageError>{messageErrorAPI}</MessageError> : ''}
+              {isError && isFilledOut ? <MessageError>{messageErrorAPI}</MessageError> : ''}
               <S.ModalBtnSignUpEnt
                 onClick={registrationUser}
                 disabled={isGettingData}

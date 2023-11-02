@@ -6,6 +6,7 @@ import AppRoutes from './routes';
 import { getTracks } from './api/api';
 import TracksContext from './context/TracksContext';
 import MediaPlayerContext from './context/MediaPlayerContext';
+import UserData from './context/UserData';
 
 function App() {
   const [isLoadingPage, setIsLoadingPage] = useState(true);
@@ -15,6 +16,8 @@ function App() {
     name: '',
     author: '',
   });
+  const [userInfo, setUserInfo] = useState({});
+
   const [isShowingMediaPlayer, setIsShowingMediaPlayer] = useState(false);
 
   const getTracksCheckErrors = () => {
@@ -49,8 +52,10 @@ function App() {
             changeIsShowing: setIsShowingMediaPlayer,
           }}
         >
-          <GlobalStyle />
-          <AppRoutes />
+          <UserData.Provider value={{ userInfo, changeUserInfo: setUserInfo }}>
+            <GlobalStyle />
+            <AppRoutes />
+          </UserData.Provider>
         </MediaPlayerContext.Provider>
       </TracksContext.Provider>
     </IsLoadingPageContext.Provider>

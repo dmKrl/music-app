@@ -4,10 +4,13 @@ import * as S from './SectionMusicList.styles';
 import TracksContext from '../../context/TracksContext';
 import IsLoadingPageContext from '../../context/IsLoadingPageContext';
 import tracks from '../../data/tracks';
+import UserData from '../../context/UserData';
 
 function SectionMusicList() {
   const { isLoading, isLoadingError } = useContext(IsLoadingPageContext);
   const { allTracks } = useContext(TracksContext);
+  const { userInfo } = useContext(UserData);
+  console.log(userInfo);
   // Здесь по хорошему мы должны получать GET запрос и выводить данные, например через map
   return (
     <S.CenterBlockContent>
