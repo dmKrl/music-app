@@ -18,7 +18,7 @@ function App() {
   });
 
   const [isShowingMediaPlayer, setIsShowingMediaPlayer] = useState(false);
-  const [userData, setUserData] = useState('');
+  const [userData, setUserData] = useState(JSON.parse(localStorage.getItem('userDataInfo')));
 
   const getTracksCheckErrors = () => {
     getTracks()

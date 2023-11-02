@@ -9,7 +9,6 @@ import UserData from '../../context/UserData';
 function SideBar({ onClick }) {
   const { isLoading } = useContext(IsLoadingPageContext);
   const { userInfo } = useContext(UserData);
-  console.log(userInfo);
   const location = useLocation();
   return (
     <S.SideBarMain>
