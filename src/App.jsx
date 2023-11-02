@@ -16,7 +16,6 @@ function App() {
     name: '',
     author: '',
   });
-  const [userInfo, setUserInfo] = useState({});
 
   const [isShowingMediaPlayer, setIsShowingMediaPlayer] = useState(false);
 
@@ -52,7 +51,9 @@ function App() {
             changeIsShowing: setIsShowingMediaPlayer,
           }}
         >
-          <UserData.Provider value={{ userInfo, changeUserInfo: setUserInfo }}>
+          <UserData.Provider
+            value={{ userInfo: JSON.parse(localStorage.getItem('userData')) }}
+          >
             <GlobalStyle />
             <AppRoutes />
           </UserData.Provider>

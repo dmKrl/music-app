@@ -1,4 +1,5 @@
 import { useContext, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import * as S from '../../components/SignUp-In/SignComponent.styles';
 import {
   validationInputsLogin,
@@ -20,7 +21,8 @@ function SignUp() {
   const [isLoginMode, setIsLoginMode] = useState(false);
   const [isGettingData, setIsGettingData] = useState(false);
   const [isValidPasswords, setIsValidPasswords] = useState(false);
-  const { changeUserInfo } = useContext(UserData);
+  const { userInfo } = useContext(UserData);
+  const navigate = useNavigate();
 
   const returnsErrorMessageAPI = (data) => {
     if (data.username) {
@@ -47,16 +49,23 @@ function SignUp() {
       setIsGettingData(true);
       postRegister({ email, password, username })
         .then((data) => {
-          console.log(data)
-          if (data.response.status === 400 && data.response) {
+          console.log(data);
+          if (data.id) {
+            setIsError(false);
+            navigate('/');
+            return localStorage.setItem('userData', JSON.stringify(data));
+          }
+          if (data.response && data.response.status === 400) {
             returnsErrorMessageAPI(data.responseData);
             setIsError(true);
           }
-          return changeUserInfo(
-            localStorage.setItem('userInfo', data.responseData)
-          );
+          return data;
+        })
+        .catch((error) => {
+          console.log(error);
         })
         .finally(() => {
+          console.log(userInfo);
           setIsGettingData(false);
         });
     }
@@ -174,7 +183,11 @@ function SignUp() {
               ) : (
                 ''
               )}
-              {isError && isFilledOut ? <MessageError>{messageErrorAPI}</MessageError> : ''}
+              {isError && isFilledOut ? (
+                <MessageError>{messageErrorAPI}</MessageError>
+              ) : (
+                ''
+              )}
               <S.ModalBtnSignUpEnt
                 onClick={registrationUser}
                 disabled={isGettingData}

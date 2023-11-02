@@ -1,7 +1,7 @@
 import { createContext } from 'react';
 
 const UserData = createContext({
-  userInfo: {},
+  userInfo: '',
   changeUserInfo: () => {},
 });
 
