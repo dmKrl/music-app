@@ -25,11 +25,10 @@ export function validationInputsRegister({
 export function validationInputsLogin({
   email,
   password,
-  username,
   setIsFiledOut,
   setIsValidData,
 }) {
-  if (!email || !password || !username) {
+  if (!email || !password) {
     setIsValidData(true);
     setIsFiledOut(false);
   } else {

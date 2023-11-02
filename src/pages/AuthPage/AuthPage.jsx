@@ -29,7 +29,7 @@ function SignUp() {
     } else if (data.email) {
       setMessageErrorAPI(data.email.join());
     } else if (data.detail) {
-      setMessageErrorAPI(data.detail.join());
+      setMessageErrorAPI(data.detail);
     } else {
       setMessageErrorAPI(data.password[0]);
     }
@@ -39,7 +39,6 @@ function SignUp() {
     validationInputsLogin({
       email,
       password,
-      username,
       setIsFiledOut,
       setIsValidData,
     });
@@ -52,11 +51,8 @@ function SignUp() {
             changeUserInfo(JSON.parse(localStorage.getItem('userDataInfo')));
             return navigate('/');
           }
-          if (
-            (data.response && data.response.status === 400) ||
-            data.response.status === 401
-          ) {
-            returnsErrorMessageAPI(data.responseData);
+          if (data.detail) {
+            returnsErrorMessageAPI(data);
             setIsError(true);
           }
           return data;
@@ -121,13 +117,6 @@ function SignUp() {
                 name="login"
                 placeholder="Почта"
               />
-              <S.ModalUsername
-                value={username}
-                onChange={(event) => setUsername(event.target.value)}
-                type="text"
-                name="user"
-                placeholder="Имя пользователя"
-              />
               <S.ModalPassword
                 value={password}
                 onChange={(event) => setPassword(event.target.value)}
@@ -140,7 +129,7 @@ function SignUp() {
               ) : (
                 ''
               )}
-              {isError && isFilledOut ? (
+              {isError ? (
                 <MessageError>{messageErrorAPI}</MessageError>
               ) : (
                 ''
