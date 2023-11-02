@@ -32,7 +32,7 @@ function MainPage() {
               <SearchInput />
               <Outlet />
             </S.MainCnterBlock>
-            <SideBar />
+            <SideBar onClick={handleLogout} />
           </S.Main>
           {isShowing ? <MediaPlayer /> : ''}
           <footer />

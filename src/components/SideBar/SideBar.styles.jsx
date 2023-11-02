@@ -29,7 +29,7 @@ export const SideBarPersonalName = styled.p`
   color: #ffffff;
   margin-right: 16px;
 `;
-export const SideBarIcon = styled.div`
+export const SideBarIcon = styled(Link)`
   width: 43px;
   height: 43px;
   background-color: #313131;
