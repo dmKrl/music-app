@@ -5,7 +5,7 @@ import {
   validationInputsLogin,
   validationInputsRegister,
 } from '../../app/validate';
-import { postRegister } from '../../api/api';
+import { postRegister, postLogin } from '../../api/api';
 import MessageError from '../../components/UI/MessageError';
 import UserData from '../../context/UserData';
 
@@ -21,16 +21,52 @@ function SignUp() {
   const [isLoginMode, setIsLoginMode] = useState(false);
   const [isGettingData, setIsGettingData] = useState(false);
   const [isValidPasswords, setIsValidPasswords] = useState(false);
-  const { userInfo } = useContext(UserData);
+  const { changeUserInfo } = useContext(UserData);
   const navigate = useNavigate();
-
   const returnsErrorMessageAPI = (data) => {
     if (data.username) {
       setMessageErrorAPI(data.username.join());
     } else if (data.email) {
       setMessageErrorAPI(data.email.join());
+    } else if (data.detail) {
+      setMessageErrorAPI(data.detail.join());
     } else {
       setMessageErrorAPI(data.password[0]);
+    }
+  };
+  const loginUser = (event) => {
+    event.preventDefault();
+    validationInputsLogin({
+      email,
+      password,
+      username,
+      setIsFiledOut,
+      setIsValidData,
+    });
+    if (isFilledOut) {
+      setIsGettingData(true);
+      postLogin({ email, password })
+        .then((data) => {
+          if (data.id) {
+            localStorage.setItem('userDataInfo', JSON.stringify(data));
+            changeUserInfo(JSON.parse(localStorage.getItem('userDataInfo')));
+            return navigate('/');
+          }
+          if (
+            (data.response && data.response.status === 400) ||
+            data.response.status === 401
+          ) {
+            returnsErrorMessageAPI(data.responseData);
+            setIsError(true);
+          }
+          return data;
+        })
+        .catch((error) => {
+          console.log(error);
+        })
+        .finally(() => {
+          setIsGettingData(false);
+        });
     }
   };
 
@@ -49,11 +85,10 @@ function SignUp() {
       setIsGettingData(true);
       postRegister({ email, password, username })
         .then((data) => {
-          console.log(data);
           if (data.id) {
-            setIsError(false);
-            navigate('/');
-            return localStorage.setItem('userData', JSON.stringify(data));
+            localStorage.setItem('userDataInfo', JSON.stringify(data));
+            changeUserInfo(JSON.parse(localStorage.getItem('userDataInfo')));
+            return navigate('/');
           }
           if (data.response && data.response.status === 400) {
             returnsErrorMessageAPI(data.responseData);
@@ -61,18 +96,12 @@ function SignUp() {
           }
           return data;
         })
-        .catch((error) => {
-          console.log(error);
-        })
+        .catch((error) => console.error(error))
         .finally(() => {
-          console.log(userInfo);
           setIsGettingData(false);
         });
     }
   };
-  // const handleLogin = () => {
-  //   localStorage.setItem('user', 'user');
-  // };
 
   return (
     <S.Wrapper>
@@ -111,21 +140,13 @@ function SignUp() {
               ) : (
                 ''
               )}
-              <S.ModalBtnEnter
-                onClick={() => {
-                  validationInputsLogin({
-                    email,
-                    password,
-                    repeatPassword,
-                    isLoginMode,
-                    setIsValidData,
-                    setIsLoginMode,
-                    setIsValidPasswords,
-                  });
-                }}
-                to="/"
-              >
-                <span>Войти</span>
+              {isError && isFilledOut ? (
+                <MessageError>{messageErrorAPI}</MessageError>
+              ) : (
+                ''
+              )}
+              <S.ModalBtnEnter onClick={loginUser} disabled={isGettingData}>
+                {isGettingData ? <span>Загрузка...</span> : <span>Войти</span>}
               </S.ModalBtnEnter>
               <S.ModaBtnlSignUp
                 onClick={(event) => {

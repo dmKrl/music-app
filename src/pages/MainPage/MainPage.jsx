@@ -15,7 +15,7 @@ function MainPage() {
   const { isShowing } = useContext(BarPlayerContext);
 
   const handleLogout = () => {
-    localStorage.setItem('user', '');
+    localStorage.setItem('userDataInfo', null);
   };
   return (
     <>

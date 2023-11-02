@@ -2,7 +2,8 @@ import { Navigate, Outlet } from 'react-router-dom';
 
 function ProtectedRoute({ redirectPath = '/auth' }) {
   // console.log(isAllowed);
-  if (!localStorage.getItem('userData')) {
+  const userData = JSON.parse(localStorage.getItem('userDataInfo'));
+  if (!userData || userData === null) {
     return <Navigate to={redirectPath} replace />;
   }
   return <Outlet />;

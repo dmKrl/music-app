@@ -18,6 +18,7 @@ function App() {
   });
 
   const [isShowingMediaPlayer, setIsShowingMediaPlayer] = useState(false);
+  const [userData, setUserData] = useState('');
 
   const getTracksCheckErrors = () => {
     getTracks()
@@ -52,7 +53,10 @@ function App() {
           }}
         >
           <UserData.Provider
-            value={{ userInfo: JSON.parse(localStorage.getItem('userData')) }}
+            value={{
+              userInfo: userData,
+              changeUserInfo: setUserData,
+            }}
           >
             <GlobalStyle />
             <AppRoutes />

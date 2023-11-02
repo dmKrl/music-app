@@ -26,11 +26,14 @@ export function validationInputsLogin({
   email,
   password,
   username,
+  setIsFiledOut,
   setIsValidData,
 }) {
   if (!email || !password || !username) {
     setIsValidData(true);
+    setIsFiledOut(false);
   } else {
     setIsValidData(false);
+    setIsFiledOut(true);
   }
 }

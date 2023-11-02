@@ -1,5 +1,5 @@
 const SignUpUrl = 'https://skypro-music-api.skyeng.tech/user/signup/';
-const SignInUrl = 'https://skypro-music-api.skyeng.tech/catalog/track/all/';
+const SignInUrl = 'https://skypro-music-api.skyeng.tech/user/login/';
 const getTracksUrl = 'https://skypro-music-api.skyeng.tech/catalog/track/all/';
 
 export async function getTracks() {
@@ -23,13 +23,11 @@ export async function postRegister({ email, password, username }) {
     });
     const responseData = await response.json();
     if (response.status === 400) {
-      return {responseData, response};
+      return { responseData, response };
     }
     return responseData;
   } catch (error) {
     return error;
-  } finally {
-    console.log('end');
   }
 }
 export async function postLogin({ email, password }) {
@@ -46,12 +44,10 @@ export async function postLogin({ email, password }) {
     });
     const responseData = await response.json();
     if (response.status === 400) {
-      return {responseData, response};
+      return { responseData, response };
     }
     return responseData;
   } catch (error) {
     return error;
-  } finally {
-    console.log('end');
   }
 }
