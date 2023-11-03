@@ -15,7 +15,7 @@ function MainPage() {
   const { isShowing } = useContext(BarPlayerContext);
 
   const handleLogout = () => {
-    localStorage.setItem('user', '');
+    localStorage.setItem('userDataInfo', null);
   };
   return (
     <>
@@ -32,7 +32,7 @@ function MainPage() {
               <SearchInput />
               <Outlet />
             </S.MainCnterBlock>
-            <SideBar />
+            <SideBar onClick={handleLogout} />
           </S.Main>
           {isShowing ? <MediaPlayer /> : ''}
           <footer />

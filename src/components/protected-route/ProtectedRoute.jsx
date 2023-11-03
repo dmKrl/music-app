@@ -1,8 +1,9 @@
 import { Navigate, Outlet } from 'react-router-dom';
 
-function ProtectedRoute({ redirectPath = '/signin' }) {
+function ProtectedRoute({ redirectPath = '/auth' }) {
   // console.log(isAllowed);
-  if (!localStorage.getItem('user')) {
+  const userData = JSON.parse(localStorage.getItem('userDataInfo'));
+  if (!userData || userData === null) {
     return <Navigate to={redirectPath} replace />;
   }
   return <Outlet />;

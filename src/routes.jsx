@@ -2,8 +2,7 @@ import { Route, Routes } from 'react-router-dom';
 import AllTracks from './pages/AllTracks/AllTracks';
 import Favorites from './pages/Favorites/Favorites';
 import Category from './pages/Category/Category';
-import SignIn from './pages/Login/SignIn';
-import SignUp from './pages/Register/SignUp';
+import AuthPage from './pages/AuthPage/AuthPage';
 import MainPage from './pages/MainPage/MainPage';
 import NotFound from './pages/NotFound/NotFound';
 import ProtectedRoute from './components/protected-route/ProtectedRoute';
@@ -11,8 +10,7 @@ import ProtectedRoute from './components/protected-route/ProtectedRoute';
 function AppRoutes() {
   return (
     <Routes>
-      <Route path="/signin" element={<SignIn />} />
-      <Route path="/signup" element={<SignUp />} />
+      <Route path="/auth" element={<AuthPage />} />
       <Route element={<ProtectedRoute />}>
         <Route path="/" element={<MainPage />}>
           <Route path="/" element={<AllTracks />} />

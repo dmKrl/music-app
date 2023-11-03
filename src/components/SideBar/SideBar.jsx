@@ -4,15 +4,17 @@ import SideBarItem from '../UI/SideBarItem';
 import * as S from './SideBar.styles';
 import categories from '../../data/categories';
 import IsLoadingPageContext from '../../context/IsLoadingPageContext';
+import UserData from '../../context/UserData';
 
-function SideBar() {
+function SideBar({ onClick }) {
   const { isLoading } = useContext(IsLoadingPageContext);
+  const { userInfo } = useContext(UserData);
   const location = useLocation();
   return (
     <S.SideBarMain>
       <S.SideBarPersonal>
-        <S.SideBarPersonalName>Sergey.Ivanov</S.SideBarPersonalName>
-        <S.SideBarIcon>
+        <S.SideBarPersonalName>{userInfo.username}</S.SideBarPersonalName>
+        <S.SideBarIcon onClick={onClick} to="/auth">
           <svg alt="logout">
             <use xlinkHref="img/icon/sprite.svg#logout" />
           </svg>

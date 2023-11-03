@@ -34,7 +34,14 @@ function MediaPlayer() {
     audioRef.current.addEventListener('timeupdate', () => {
       changeCurrentTime();
     });
-
+    return () => {
+      audioRef.current.removeEventListener('loadedmetadata', () => {
+        changeDuration();
+      });
+      audioRef.current.removeEventListener('timeupdate', () => {
+        changeCurrentTime();
+      });
+    };
     // console.log(audioRef);
   }, [showInfoAboutTrack.track_file]);
   return (
@@ -48,7 +55,6 @@ function MediaPlayer() {
       />
       <S.Bar>
         <S.BarContent>
-
           <ProgressBar
             currentTime={currentTime}
             audioRef={audioRef}

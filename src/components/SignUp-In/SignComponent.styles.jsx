@@ -1,5 +1,4 @@
 import styled, { css } from 'styled-components';
-import { Link } from 'react-router-dom';
 import ModalInput from '../UI/ModalInput';
 
 const ModalInputStyles = css`
@@ -64,7 +63,7 @@ export const ModalBlock = styled.div`
 `;
 export const ModalFormLogin = styled.form`
   width: 366px;
-  height: 439px;
+  max-height: 620px;
   background-color: #ffffff;
   border-radius: 12px;
   display: -webkit-box;
@@ -96,6 +95,10 @@ export const ModalLogin = styled(ModalInput)`
   margin-bottom: 30px;
   ${ModalInputStyles}
 `;
+export const ModalUsername = styled(ModalInput)`
+  margin-bottom: 30px;
+  ${ModalInputStyles}
+`;
 export const ModalPassword = styled(ModalInput)`
   ${ModalInputStyles}
 `;
@@ -103,7 +106,7 @@ export const ModalPasswordDouble = styled(ModalInput)`
   margin-top: 30px;
   ${ModalInputStyles}
 `;
-export const ModalBtnEnter = styled(Link)`
+export const ModalBtnEnter = styled.button`
   width: 278px;
   height: 52px;
   background-color: #580ea2;
@@ -146,7 +149,7 @@ export const ModalBtnEnter = styled(Link)`
     justify-content: center;
   }
 `;
-export const ModaBtnlSignUp = styled(Link)`
+export const ModaBtnlSignUp = styled.button`
   width: 278px;
   height: 52px;
   background-color: transparent;
@@ -200,7 +203,7 @@ export const ContainerSignUp = styled.div`
   position: relative;
   background-color: rgba(0, 0, 0, 0.85);
 `;
-export const ModalBtnSignUpEnt = styled(Link)`
+export const ModalBtnSignUpEnt = styled.button`
   width: 278px;
   height: 62px;
   background-color: #580ea2;

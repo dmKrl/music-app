@@ -3,9 +3,10 @@ import { useEffect, useState } from 'react';
 import GlobalStyle from './GlobalStyle.styles';
 import IsLoadingPageContext from './context/IsLoadingPageContext';
 import AppRoutes from './routes';
-import getTracks from './api/api';
+import { getTracks } from './api/api';
 import TracksContext from './context/TracksContext';
 import MediaPlayerContext from './context/MediaPlayerContext';
+import UserData from './context/UserData';
 
 function App() {
   const [isLoadingPage, setIsLoadingPage] = useState(true);
@@ -15,7 +16,9 @@ function App() {
     name: '',
     author: '',
   });
+
   const [isShowingMediaPlayer, setIsShowingMediaPlayer] = useState(false);
+  const [userData, setUserData] = useState(JSON.parse(localStorage.getItem('userDataInfo')));
 
   const getTracksCheckErrors = () => {
     getTracks()
@@ -49,8 +52,15 @@ function App() {
             changeIsShowing: setIsShowingMediaPlayer,
           }}
         >
-          <GlobalStyle />
-          <AppRoutes />
+          <UserData.Provider
+            value={{
+              userInfo: userData,
+              changeUserInfo: setUserData,
+            }}
+          >
+            <GlobalStyle />
+            <AppRoutes />
+          </UserData.Provider>
         </MediaPlayerContext.Provider>
       </TracksContext.Provider>
     </IsLoadingPageContext.Provider>
