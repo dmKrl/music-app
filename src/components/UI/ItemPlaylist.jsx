@@ -1,26 +1,28 @@
+/* eslint-disable import/no-extraneous-dependencies */
 import { useContext } from 'react';
+import { useDispatch } from 'react-redux';
 import * as S from '../Main/SectionMusicList.styles';
 import IsLoadingPageContext from '../../context/IsLoadingPageContext';
 import MediaPlayerContext from '../../context/MediaPlayerContext';
 import changeSecondsToMinutes from '../../app/changeSecondsToMinutes';
+import { setTrack } from '../../redux/slices/tracksSlice';
 
 function ItemPlaylist(props) {
   const { isLoading } = useContext(IsLoadingPageContext);
-  const { changeMediaPlayerInfo, changeIsShowing } =
+  const { changeIsShowing } =
     useContext(MediaPlayerContext);
-
-  // function changeMediaPlayerContext() {
-
-  // }
+  const dispatch = useDispatch();
   return (
     <S.PlaylistItem>
       <S.PlaylistTrack
         onClick={() => {
-          changeMediaPlayerInfo({
-            name: props.name,
-            author: props.author,
-            track_file: props.track_file,
-          });
+          dispatch(
+            setTrack({
+              name: props.name,
+              author: props.author,
+              track_file: props.track_file,
+            }),
+          );
           changeIsShowing(true);
         }}
       >

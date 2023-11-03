@@ -1,11 +1,13 @@
+/* eslint-disable import/no-extraneous-dependencies */
 /* eslint-disable jsx-a11y/media-has-caption */
-import { useContext, useRef, useState, useEffect } from 'react';
+import { useRef, useState, useEffect } from 'react';
+import { useSelector } from 'react-redux';
 import * as S from './MediaPlayer.styles.';
-import MediaPlayerContext from '../../context/MediaPlayerContext';
 import ProgressBar from '../ProgressBar/ProgressBar';
+import { selectTracks } from '../../redux/slices/tracksSlice';
 
 function MediaPlayer() {
-  const { showInfoAboutTrack } = useContext(MediaPlayerContext);
+  const dataTrack = useSelector(selectTracks);
   const [isPlaying, setIsPlaying] = useState(false);
   const [isLoop, setIsLoop] = useState(false);
   const [currentTime, setCurrentTime] = useState(0);
@@ -42,12 +44,11 @@ function MediaPlayer() {
         changeCurrentTime();
       });
     };
-    // console.log(audioRef);
-  }, [showInfoAboutTrack.track_file]);
+  }, [dataTrack.track_file]);
   return (
     <>
       <audio
-        src={showInfoAboutTrack.track_file}
+        src={dataTrack.track_file}
         controls
         ref={audioRef}
         loop={isLoop}
@@ -114,12 +115,12 @@ function MediaPlayer() {
                   </S.TrackPlayImage>
                   <S.TrackPlayAuthor>
                     <S.TrackPlayAuthorLink href="http://">
-                      {showInfoAboutTrack.name}
+                      {dataTrack.name}
                     </S.TrackPlayAuthorLink>
                   </S.TrackPlayAuthor>
                   <S.TrackPlayAlbum>
                     <S.TrackPlayAlbumLink href="http://">
-                      {showInfoAboutTrack.author}
+                      {dataTrack.author}
                     </S.TrackPlayAlbumLink>
                   </S.TrackPlayAlbum>
                 </S.TrackPlayContain>

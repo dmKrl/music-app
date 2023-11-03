@@ -12,10 +12,6 @@ function App() {
   const [isLoadingPage, setIsLoadingPage] = useState(true);
   const [isLoadingError, setIsLoadingError] = useState('');
   const [allTracks, setAllTracks] = useState([]);
-  const [showInfoAboutTrack, setShowInfoAboutTrack] = useState({
-    name: '',
-    author: '',
-  });
 
   const [isShowingMediaPlayer, setIsShowingMediaPlayer] = useState(false);
   const [userData, setUserData] = useState(JSON.parse(localStorage.getItem('userDataInfo')));
@@ -46,8 +42,6 @@ function App() {
       <TracksContext.Provider value={{ allTracks }}>
         <MediaPlayerContext.Provider
           value={{
-            showInfoAboutTrack,
-            changeMediaPlayerInfo: setShowInfoAboutTrack,
             isShowing: isShowingMediaPlayer,
             changeIsShowing: setIsShowingMediaPlayer,
           }}
