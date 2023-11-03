@@ -129,11 +129,7 @@ function SignUp() {
               ) : (
                 ''
               )}
-              {isError ? (
-                <MessageError>{messageErrorAPI}</MessageError>
-              ) : (
-                ''
-              )}
+              {isError ? <MessageError>{messageErrorAPI}</MessageError> : ''}
               <S.ModalBtnEnter onClick={loginUser} disabled={isGettingData}>
                 {isGettingData ? <span>Загрузка...</span> : <span>Войти</span>}
               </S.ModalBtnEnter>
