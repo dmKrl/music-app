@@ -103,7 +103,7 @@ function SignUp() {
     <S.Wrapper>
       <S.ContainerSignUp>
         <S.ModalBlock>
-          {isLoginMode ? (
+          {!isLoginMode ? (
             <S.ModalFormLogin>
               <a href="../">
                 <S.ModalLogo>
