@@ -1,19 +1,42 @@
 /* eslint-disable import/no-extraneous-dependencies */
 /* eslint-disable jsx-a11y/media-has-caption */
 import { useRef, useState, useEffect } from 'react';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import * as S from './MediaPlayer.styles.';
 import ProgressBar from '../ProgressBar/ProgressBar';
-import { selectTracks } from '../../redux/slices/tracksSlice';
+import { selectTracks, setTrack } from '../../redux/slices/tracksSlice';
+import { selectAllTracks } from '../../redux/slices/switchTracksSlice';
 
 function MediaPlayer() {
   const dataTrack = useSelector(selectTracks);
+  const dispatch = useDispatch();
+  const allTracks = useSelector(selectAllTracks);
   const [isPlaying, setIsPlaying] = useState(false);
   const [isLoop, setIsLoop] = useState(false);
   const [currentTime, setCurrentTime] = useState(0);
   const [volume, setVolume] = useState(1);
   const [duration, setDuration] = useState(0);
   const audioRef = useRef(null);
+
+  const handleNextTrack = () => {
+    const nowTrack = allTracks.find(
+      (track) => track.track_file === dataTrack.track_file,
+    );
+    const indexTrackNow = allTracks.indexOf(nowTrack);
+    if (indexTrackNow < allTracks.length - 1) {
+      dispatch(setTrack(allTracks[indexTrackNow + 1]));
+    }
+  };
+  const handlePrevTrack = () => {
+    const nowTrack = allTracks.find(
+      (track) => track.track_file === dataTrack.track_file,
+    );
+    const indexTrackNow = allTracks.indexOf(nowTrack);
+    if (indexTrackNow > 0) {
+      dispatch(setTrack(allTracks[indexTrackNow - 1]));
+    }
+  };
+
   const handleStartTrack = () => {
     audioRef.current.play();
     setIsPlaying(true);
@@ -65,7 +88,7 @@ function MediaPlayer() {
           <S.BarPlayerBlock>
             <S.BarPlayer>
               <S.PlayersControls>
-                <S.PlayerBtnPrev onClick={() => alert('В разработке..')}>
+                <S.PlayerBtnPrev onClick={handlePrevTrack}>
                   <S.PlayerBtnPrevSvg alt="prev">
                     <use xlinkHref="img/icon/sprite.svg#icon-prev" />
                   </S.PlayerBtnPrevSvg>
@@ -82,7 +105,7 @@ function MediaPlayer() {
                     )}
                   </S.PlayerBtnPlaySvg>
                 </S.PlayerBtnPlay>
-                <S.PlayerBtnNext onClick={() => alert('В разработке..')}>
+                <S.PlayerBtnNext onClick={handleNextTrack}>
                   <S.PlayerBtnNextSvg alt="next">
                     <use xlinkHref="img/icon/sprite.svg#icon-next" />
                   </S.PlayerBtnNextSvg>

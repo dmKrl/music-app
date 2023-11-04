@@ -12,7 +12,7 @@ const tracksSlice = createSlice({
   initialState,
   reducers: {
     setTrack: (state, action) => {
-      state.isPlayingTrack = !state.isPlayingTrack;
+      state.isPlayingTrack = true;
       state.track = action.payload;
     },
   },
