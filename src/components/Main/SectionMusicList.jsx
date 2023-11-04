@@ -1,13 +1,15 @@
 import { useContext } from 'react';
+import { useSelector } from 'react-redux';
 import ItemPlaylist from '../UI/ItemPlaylist';
 import * as S from './SectionMusicList.styles';
-import TracksContext from '../../context/TracksContext';
 import IsLoadingPageContext from '../../context/IsLoadingPageContext';
 import tracks from '../../data/tracks';
+import { selectAllTracks } from '../../redux/slices/switchTracksSlice';
 
 function SectionMusicList() {
   const { isLoading, isLoadingError } = useContext(IsLoadingPageContext);
-  const { allTracks } = useContext(TracksContext);
+  const allTracks = useSelector(selectAllTracks);
+  console.log(allTracks);
   // Здесь по хорошему мы должны получать GET запрос и выводить данные, например через map
   return (
     <S.CenterBlockContent>

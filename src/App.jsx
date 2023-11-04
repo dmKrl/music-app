@@ -1,25 +1,29 @@
 /* eslint-disable react/jsx-no-constructed-context-values */
 import { useEffect, useState } from 'react';
+import { useDispatch } from 'react-redux';
+import AppRoutes from './routes';
 import GlobalStyle from './GlobalStyle.styles';
 import IsLoadingPageContext from './context/IsLoadingPageContext';
-import AppRoutes from './routes';
+import { addTracks } from './redux/slices/switchTracksSlice';
 import { getTracks } from './api/api';
-import TracksContext from './context/TracksContext';
 import MediaPlayerContext from './context/MediaPlayerContext';
 import UserData from './context/UserData';
 
 function App() {
   const [isLoadingPage, setIsLoadingPage] = useState(true);
   const [isLoadingError, setIsLoadingError] = useState('');
-  const [allTracks, setAllTracks] = useState([]);
+  const [isLoadingData, setIsLoadingData] = useState(false);
 
   const [isShowingMediaPlayer, setIsShowingMediaPlayer] = useState(false);
-  const [userData, setUserData] = useState(JSON.parse(localStorage.getItem('userDataInfo')));
-
+  const [userData, setUserData] = useState(
+    JSON.parse(localStorage.getItem('userDataInfo')),
+  );
+  const dispatch = useDispatch();
   const getTracksCheckErrors = () => {
     getTracks()
       .then((tracks) => {
-        setAllTracks(tracks);
+        setIsLoadingData(true);
+        dispatch(addTracks(tracks));
       })
       .catch(() => {
         setIsLoadingError(
@@ -30,33 +34,32 @@ function App() {
         setIsLoadingPage(false);
       });
   };
-
-  useEffect(() => {
-    getTracksCheckErrors();
+  useEffect(() => { 
+    if (!isLoadingData) {
+      getTracksCheckErrors();
+    }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
   return (
     <IsLoadingPageContext.Provider
       value={{ isLoading: isLoadingPage, isLoadingError }}
-    >
-      <TracksContext.Provider value={{ allTracks }}>
-        <MediaPlayerContext.Provider
+    >   
+      <MediaPlayerContext.Provider
+        value={{
+          isShowing: isShowingMediaPlayer,
+          changeIsShowing: setIsShowingMediaPlayer,
+        }}
+      >
+        <UserData.Provider
           value={{
-            isShowing: isShowingMediaPlayer,
-            changeIsShowing: setIsShowingMediaPlayer,
+            userInfo: userData,
+            changeUserInfo: setUserData,
           }}
         >
-          <UserData.Provider
-            value={{
-              userInfo: userData,
-              changeUserInfo: setUserData,
-            }}
-          >
-            <GlobalStyle />
-            <AppRoutes />
-          </UserData.Provider>
-        </MediaPlayerContext.Provider>
-      </TracksContext.Provider>
+          <GlobalStyle />
+          <AppRoutes />
+        </UserData.Provider>
+      </MediaPlayerContext.Provider>
     </IsLoadingPageContext.Provider>
   );
 }
