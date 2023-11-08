@@ -91,7 +91,15 @@ function MediaPlayer() {
           <S.BarPlayerBlock>
             <S.BarPlayer>
               <S.PlayersControls>
-                <S.PlayerBtnPrev onClick={handlePrevTrack}>
+                <S.PlayerBtnPrev
+                  onClick={() => {
+                    if (audioRef.current.currentTime > 5) {
+                      audioRef.current.currentTime = 0;
+                    } else {
+                      handlePrevTrack();
+                    }
+                  }}
+                >
                   <S.PlayerBtnPrevSvg alt="prev">
                     <use xlinkHref="img/icon/sprite.svg#icon-prev" />
                   </S.PlayerBtnPrevSvg>
