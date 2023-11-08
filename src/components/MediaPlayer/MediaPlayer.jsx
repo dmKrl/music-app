@@ -57,6 +57,9 @@ function MediaPlayer() {
       changeDuration();
     });
     audioRef.current.addEventListener('timeupdate', () => {
+      if (audioRef.current.duration === audioRef.current.currentTime) {
+        handleNextTrack();
+      }
       changeCurrentTime();
     });
     return () => {
