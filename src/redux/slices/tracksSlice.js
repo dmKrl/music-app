@@ -12,14 +12,17 @@ const tracksSlice = createSlice({
   initialState,
   reducers: {
     setTrack: (state, action) => {
-      state.isPlayingTrack = true;
       state.track = action.payload;
+    },
+    toggleIsPlaying: (state, action) => {
+      state.isPlayingTrack = action.payload;
     },
   },
 });
 
-export const { setTrack } = tracksSlice.actions;
+export const { setTrack, toggleIsPlaying } = tracksSlice.actions;
 
 export const selectTracks = (state) => state.tracks.track;
+export const selectIsPlaying = (state) => state.tracks.isPlayingTrack;
 
 export default tracksSlice.reducer;

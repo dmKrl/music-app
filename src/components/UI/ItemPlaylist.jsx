@@ -1,16 +1,21 @@
 /* eslint-disable import/no-extraneous-dependencies */
 import { useContext } from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import * as S from '../Main/SectionMusicList.styles';
 import IsLoadingPageContext from '../../context/IsLoadingPageContext';
 import MediaPlayerContext from '../../context/MediaPlayerContext';
 import changeSecondsToMinutes from '../../app/changeSecondsToMinutes';
-import { setTrack } from '../../redux/slices/tracksSlice';
+import {
+  selectIsPlaying,
+  selectTracks,
+  setTrack,
+} from '../../redux/slices/tracksSlice';
 
 function ItemPlaylist(props) {
   const { isLoading } = useContext(IsLoadingPageContext);
-  const { changeIsShowing } =
-    useContext(MediaPlayerContext);
+  const { changeIsShowing } = useContext(MediaPlayerContext);
+  const track = useSelector(selectTracks);
+  const isPlayingTrack = useSelector(selectIsPlaying);
   const dispatch = useDispatch();
   return (
     <S.PlaylistItem>
@@ -27,6 +32,11 @@ function ItemPlaylist(props) {
         }}
       >
         <S.TrackTitle>
+          {track.name === props.name && !isLoading ? (
+            <> {isPlayingTrack ? <S.PlayingDotActive /> : <S.PlayingDot />}</>
+          ) : (
+            ''
+          )}
           <S.TrackTitleImg>
             <S.TrackTitleSvg alt="music">
               <use xlinkHref="img/icon/sprite.svg#icon-note" />

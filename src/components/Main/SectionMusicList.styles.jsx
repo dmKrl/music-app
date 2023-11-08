@@ -9,6 +9,34 @@ const PlaylistTitleCol = css`
   color: #696969;
   text-transform: uppercase;
 `;
+export const PlayingDot = styled.div`
+  position: absolute;
+  width: 16px;
+  height: 16px;
+  background-color: #b672ff;
+  border-radius: 8px;
+  display: block;
+  left: 4%;
+`;
+export const PlayingDotActive = styled.div`
+  position: absolute;
+  width: 16px;
+  height: 16px;
+  background-color: #b672ff;
+  border-radius: 8px;
+  display: block;
+  animation: bubble_out 0.6s ease-in-out infinite both;
+  left: 4%;
+  @keyframes bubble_out {
+    0%,
+    to {
+      transform: scale(0.5);
+    }
+    50% {
+      transform: scale(1);
+    }
+  }
+`;
 export const CenterBlockContent = styled.div`
   display: -webkit-box;
   display: -ms-flexbox;
@@ -114,6 +142,7 @@ export const TrackTitle = styled.div`
   -ms-flex-align: center;
   align-items: center;
   width: 447px;
+  position: relative;
 `;
 
 export const TrackTitleImg = styled.div`

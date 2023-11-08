@@ -4,7 +4,12 @@ import { useRef, useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import * as S from './MediaPlayer.styles.';
 import ProgressBar from '../ProgressBar/ProgressBar';
-import { selectTracks, setTrack } from '../../redux/slices/tracksSlice';
+import {
+  selectIsPlaying,
+  selectTracks,
+  setTrack,
+  toggleIsPlaying,
+} from '../../redux/slices/tracksSlice';
 import {
   selectAllTracks,
   selectIsShuffled,
@@ -13,11 +18,11 @@ import {
 import shuffleTracks from '../../app/shuffleTracks';
 
 function MediaPlayer() {
-  const dataTrack = useSelector(selectTracks);
   const dispatch = useDispatch();
+  const dataTrack = useSelector(selectTracks);
   const allTracks = useSelector(selectAllTracks);
   const isShuffled = useSelector(selectIsShuffled);
-  const [isPlaying, setIsPlaying] = useState(false);
+  const isPlayingTrack = useSelector(selectIsPlaying);
   const [isLoop, setIsLoop] = useState(false);
   const [currentTime, setCurrentTime] = useState(0);
   const [volume, setVolume] = useState(1);
@@ -53,6 +58,7 @@ function MediaPlayer() {
       }
     }
   };
+
   const handlePrevTrack = () => {
     if (!isShuffled) {
       const nowTrack = allTracks.find(
@@ -75,11 +81,11 @@ function MediaPlayer() {
 
   const handleStartTrack = () => {
     audioRef.current.play();
-    setIsPlaying(true);
+    dispatch(toggleIsPlaying(true));
   };
   const handlePauseTrack = () => {
     audioRef.current.pause();
-    setIsPlaying(false);
+    dispatch(toggleIsPlaying(false));
   };
   const changeDuration = () => {
     setDuration(Math.floor(audioRef.current.duration));
@@ -87,6 +93,7 @@ function MediaPlayer() {
   const changeCurrentTime = () => {
     setCurrentTime(Math.floor(audioRef.current.currentTime));
   };
+
   useEffect(() => {
     handleStartTrack();
     audioRef.current.addEventListener('loadedmetadata', () => {
@@ -107,7 +114,7 @@ function MediaPlayer() {
       });
     };
   }, [dataTrack.track_file]);
-  console.log(isShuffled);
+
   return (
     <>
       <audio
@@ -144,9 +151,11 @@ function MediaPlayer() {
                 <S.PlayerBtnPlay>
                   <S.PlayerBtnPlaySvg
                     alt="play"
-                    onClick={isPlaying ? handlePauseTrack : handleStartTrack}
+                    onClick={
+                      isPlayingTrack ? handlePauseTrack : handleStartTrack
+                    }
                   >
-                    {isPlaying ? (
+                    {isPlayingTrack ? (
                       <use xlinkHref="img/icon/sprite.svg#icon-pause" />
                     ) : (
                       <use xlinkHref="img/icon/sprite.svg#icon-play" />
