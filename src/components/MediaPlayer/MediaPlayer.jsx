@@ -5,35 +5,71 @@ import { useDispatch, useSelector } from 'react-redux';
 import * as S from './MediaPlayer.styles.';
 import ProgressBar from '../ProgressBar/ProgressBar';
 import { selectTracks, setTrack } from '../../redux/slices/tracksSlice';
-import { selectAllTracks } from '../../redux/slices/switchTracksSlice';
+import {
+  selectAllTracks,
+  selectIsShuffled,
+  toggleIsShuffled,
+} from '../../redux/slices/switchTracksSlice';
+import shuffleTracks from '../../app/shuffleTracks';
 
 function MediaPlayer() {
   const dataTrack = useSelector(selectTracks);
   const dispatch = useDispatch();
   const allTracks = useSelector(selectAllTracks);
+  const isShuffled = useSelector(selectIsShuffled);
   const [isPlaying, setIsPlaying] = useState(false);
   const [isLoop, setIsLoop] = useState(false);
   const [currentTime, setCurrentTime] = useState(0);
   const [volume, setVolume] = useState(1);
   const [duration, setDuration] = useState(0);
+  const [randomAllTracks, setRandomAllTracks] = useState([]);
   const audioRef = useRef(null);
 
+  const handleToggleTrack = () => {
+    if (!isShuffled) {
+      setRandomAllTracks(shuffleTracks({ allTracks }));
+    } else {
+      setRandomAllTracks([]);
+    }
+    dispatch(toggleIsShuffled());
+  };
+
   const handleNextTrack = () => {
-    const nowTrack = allTracks.find(
-      (track) => track.track_file === dataTrack.track_file,
-    );
-    const indexTrackNow = allTracks.indexOf(nowTrack);
-    if (indexTrackNow < allTracks.length - 1) {
-      dispatch(setTrack(allTracks[indexTrackNow + 1]));
+    if (!isShuffled) {
+      const nowTrack = allTracks.find(
+        (track) => track.track_file === dataTrack.track_file,
+      );
+      const indexTrackNow = allTracks.indexOf(nowTrack);
+      if (indexTrackNow < allTracks.length - 1) {
+        dispatch(setTrack(allTracks[indexTrackNow + 1]));
+      }
+    } else {
+      const nowTrack = randomAllTracks.find(
+        (track) => track.track_file === dataTrack.track_file,
+      );
+      const indexTrackNow = randomAllTracks.indexOf(nowTrack);
+      if (indexTrackNow < randomAllTracks.length - 1) {
+        dispatch(setTrack(randomAllTracks[indexTrackNow + 1]));
+      }
     }
   };
   const handlePrevTrack = () => {
-    const nowTrack = allTracks.find(
-      (track) => track.track_file === dataTrack.track_file,
-    );
-    const indexTrackNow = allTracks.indexOf(nowTrack);
-    if (indexTrackNow > 0) {
-      dispatch(setTrack(allTracks[indexTrackNow - 1]));
+    if (!isShuffled) {
+      const nowTrack = allTracks.find(
+        (track) => track.track_file === dataTrack.track_file,
+      );
+      const indexTrackNow = allTracks.indexOf(nowTrack);
+      if (indexTrackNow > 0) {
+        dispatch(setTrack(allTracks[indexTrackNow - 1]));
+      }
+    } else {
+      const nowTrack = randomAllTracks.find(
+        (track) => track.track_file === dataTrack.track_file,
+      );
+      const indexTrackNow = randomAllTracks.indexOf(nowTrack);
+      if (indexTrackNow > 0) {
+        dispatch(setTrack(randomAllTracks[indexTrackNow - 1]));
+      }
     }
   };
 
@@ -71,6 +107,7 @@ function MediaPlayer() {
       });
     };
   }, [dataTrack.track_file]);
+  console.log(isShuffled);
   return (
     <>
       <audio
@@ -134,8 +171,15 @@ function MediaPlayer() {
                   </S.PlayerBtnRepeatSvg>
                 </S.PlayerBtnRepeat>
                 <S.PlayerBtnShuffle>
-                  <S.PlayerBtnShuffleSvg alt="shuffle">
-                    <use xlinkHref="img/icon/sprite.svg#icon-shuffle" />
+                  <S.PlayerBtnShuffleSvg
+                    alt="shuffle"
+                    onClick={() => handleToggleTrack()}
+                  >
+                    {isShuffled ? (
+                      <use xlinkHref="img/icon/sprite.svg#icon-shuffle-active" />
+                    ) : (
+                      <use xlinkHref="img/icon/sprite.svg#icon-shuffle" />
+                    )}
                   </S.PlayerBtnShuffleSvg>
                 </S.PlayerBtnShuffle>
               </S.PlayersControls>
