@@ -1,30 +1,42 @@
+/* eslint-disable import/no-extraneous-dependencies */
 import { useContext } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import * as S from '../Main/SectionMusicList.styles';
 import IsLoadingPageContext from '../../context/IsLoadingPageContext';
 import MediaPlayerContext from '../../context/MediaPlayerContext';
 import changeSecondsToMinutes from '../../app/changeSecondsToMinutes';
+import {
+  selectIsPlaying,
+  selectTracks,
+  setTrack,
+} from '../../redux/slices/tracksSlice';
 
 function ItemPlaylist(props) {
   const { isLoading } = useContext(IsLoadingPageContext);
-  const { changeMediaPlayerInfo, changeIsShowing } =
-    useContext(MediaPlayerContext);
-
-  // function changeMediaPlayerContext() {
-
-  // }
+  const { changeIsShowing } = useContext(MediaPlayerContext);
+  const track = useSelector(selectTracks);
+  const isPlayingTrack = useSelector(selectIsPlaying);
+  const dispatch = useDispatch();
   return (
     <S.PlaylistItem>
       <S.PlaylistTrack
         onClick={() => {
-          changeMediaPlayerInfo({
-            name: props.name,
-            author: props.author,
-            track_file: props.track_file,
-          });
+          dispatch(
+            setTrack({
+              name: props.name,
+              author: props.author,
+              track_file: props.track_file,
+            }),
+          );
           changeIsShowing(true);
         }}
       >
         <S.TrackTitle>
+          {track.name === props.name && !isLoading ? (
+            <> {isPlayingTrack ? <S.PlayingDotActive /> : <S.PlayingDot />}</>
+          ) : (
+            ''
+          )}
           <S.TrackTitleImg>
             <S.TrackTitleSvg alt="music">
               <use xlinkHref="img/icon/sprite.svg#icon-note" />

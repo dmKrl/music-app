@@ -153,6 +153,7 @@ export const PlayersControls = styled.div`
 `;
 export const PlayerBtnPrev = styled.div`
   margin-right: 23px;
+  cursor: pointer;
   padding: 5px;
   display: -webkit-box;
   display: -ms-flexbox;
@@ -188,6 +189,7 @@ export const PlayerBtnPlaySvg = styled.svg`
 `;
 export const PlayerBtnNext = styled.div`
   padding: 5px;
+  cursor: pointer;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;

@@ -87,6 +87,7 @@ function SignUp() {
             return navigate('/');
           }
           if (data.response && data.response.status === 400) {
+            console.log(data)
             returnsErrorMessageAPI(data.responseData);
             setIsError(true);
           }

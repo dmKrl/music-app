@@ -1,10 +1,10 @@
-import { useContext } from 'react';
+import { useSelector } from 'react-redux';
 import FilterItem from '../UI/FilterItem';
 import * as S from './CenterBlockFilter.styles';
-import TracksContext from '../../context/TracksContext';
+import { selectAllTracks } from '../../redux/slices/switchTracksSlice';
 
 function CenterBlockFilter({ onClick, activeFilter }) {
-  const { allTracks } = useContext(TracksContext);
+  const allTracks = useSelector(selectAllTracks);
   return (
     <>
       <S.CenterBlockHeading>Треки</S.CenterBlockHeading>
