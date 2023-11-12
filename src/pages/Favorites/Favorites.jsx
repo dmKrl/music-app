@@ -1,6 +1,7 @@
 import { useContext } from 'react';
 import { useSelector } from 'react-redux';
 import * as S from '../../components/Main/SectionMusicList.styles';
+import { CenterBlockHeading } from '../../components/Main/CenterBlockFilter.styles';
 import ItemPlaylist from '../../components/UI/ItemPlaylist';
 import IsLoadingPageContext from '../../context/IsLoadingPageContext';
 import tracks from '../../data/tracks';
@@ -11,6 +12,7 @@ function Favorites() {
   const allTracks = useSelector(selectAllTracks);
   return (
     <S.CenterBlockContent>
+      <CenterBlockHeading>Мои треки</CenterBlockHeading>
       <S.ContentTitle>
         <S.Col01>Трек</S.Col01>
         <S.Col02>ИСПОЛНИТЕЛЬ</S.Col02>
