@@ -8,6 +8,7 @@ import {
 import { postRegister, postLogin } from '../../api/api';
 import MessageError from '../../components/UI/MessageError';
 import UserData from '../../context/UserData';
+import getToken from '../../app/getToken';
 
 function SignUp() {
   const [email, setEmail] = useState('');
@@ -44,6 +45,7 @@ function SignUp() {
     });
     if (isFilledOut) {
       setIsGettingData(true);
+      getToken({ email, password });
       postLogin({ email, password })
         .then((data) => {
           if (data.id) {
@@ -87,7 +89,7 @@ function SignUp() {
             return navigate('/');
           }
           if (data.response && data.response.status === 400) {
-            console.log(data)
+            console.log(data);
             returnsErrorMessageAPI(data.responseData);
             setIsError(true);
           }

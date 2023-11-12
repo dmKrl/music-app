@@ -71,7 +71,6 @@ export const ContentPlaylist = styled.div`
   -ms-flex-direction: column;
   flex-direction: column;
   overflow-y: auto;
-  max-width: 1107px;
 `;
 export const Col01 = styled.div`
   width: 447px;

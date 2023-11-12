@@ -17,6 +17,8 @@ function MainPage() {
   const handleLogout = () => {
     localStorage.setItem('userDataInfo', null);
   };
+  console.log(localStorage.getItem('accessRefreshToken'));
+
   return (
     <>
       <GlobalStyle />
