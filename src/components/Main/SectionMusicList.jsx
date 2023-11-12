@@ -9,7 +9,6 @@ import { selectAllTracks } from '../../redux/slices/switchTracksSlice';
 function SectionMusicList() {
   const { isLoading, isLoadingError } = useContext(IsLoadingPageContext);
   const allTracks = useSelector(selectAllTracks);
-  // Здесь по хорошему мы должны получать GET запрос и выводить данные, например через map
   return (
     <S.CenterBlockContent>
       <S.ContentTitle>
