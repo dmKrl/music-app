@@ -23,7 +23,7 @@ export async function getAccessToken({ email, password }) {
     },
   });
   const token = await response.json();
-  return token.refresh;
+  return token;
 }
 
 export async function getRefreshAccessToken(token) {
@@ -38,6 +38,17 @@ export async function getRefreshAccessToken(token) {
   });
   const responseToken = await response.json();
   return responseToken.access;
+}
+
+export async function getFavoritesTracks(token, url) {
+  const response = await fetch(url, {
+    method: 'GET',
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  });
+  const responseData = await response.json();
+  return responseData;
 }
 
 export async function postRegister({ email, password, username }) {

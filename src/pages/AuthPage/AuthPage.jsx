@@ -59,9 +59,7 @@ function SignUp() {
           }
           return data;
         })
-        .catch((error) => {
-          console.log(error);
-        })
+        .catch((error) => error)
         .finally(() => {
           setIsGettingData(false);
         });
@@ -81,6 +79,7 @@ function SignUp() {
     });
     if (isFilledOut) {
       setIsGettingData(true);
+      getToken({ email, password });
       postRegister({ email, password, username })
         .then((data) => {
           if (data.id) {
@@ -89,13 +88,12 @@ function SignUp() {
             return navigate('/');
           }
           if (data.response && data.response.status === 400) {
-            console.log(data);
             returnsErrorMessageAPI(data.responseData);
             setIsError(true);
           }
           return data;
         })
-        .catch((error) => console.error(error))
+        .catch((error) => error)
         .finally(() => {
           setIsGettingData(false);
         });
