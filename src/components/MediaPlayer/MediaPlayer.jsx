@@ -1,3 +1,4 @@
+/* eslint-disable no-dupe-else-if */
 /* eslint-disable import/no-extraneous-dependencies */
 /* eslint-disable jsx-a11y/media-has-caption */
 import { useRef, useState, useEffect } from 'react';
@@ -16,6 +17,7 @@ import {
   toggleIsShuffled,
 } from '../../redux/slices/switchTracksSlice';
 import shuffleTracks from '../../app/shuffleTracks';
+import { selectFavoritesTracks } from '../../redux/slices/favoritesTracksSlice';
 
 function MediaPlayer() {
   const dispatch = useDispatch();
@@ -23,6 +25,7 @@ function MediaPlayer() {
   const allTracks = useSelector(selectAllTracks);
   const isShuffled = useSelector(selectIsShuffled);
   const isPlayingTrack = useSelector(selectIsPlaying);
+  const favoritesTracks = useSelector(selectFavoritesTracks);
   const [isLoop, setIsLoop] = useState(false);
   const [currentTime, setCurrentTime] = useState(0);
   const [volume, setVolume] = useState(1);
@@ -31,51 +34,53 @@ function MediaPlayer() {
   const audioRef = useRef(null);
 
   const handleToggleTrack = () => {
-    if (!isShuffled) {
-      setRandomAllTracks(shuffleTracks({ allTracks }));
+    console.log(dataTrack.isFavorite);
+    if (dataTrack.isFavorite) {
+      setRandomAllTracks(shuffleTracks(favoritesTracks));
+    } else if (!isShuffled) {
+      setRandomAllTracks(shuffleTracks(allTracks));
     } else {
       setRandomAllTracks([]);
     }
     dispatch(toggleIsShuffled());
   };
 
+  function nextTracks(arrayTracks) {
+    const nowTrack = arrayTracks.find(
+      (track) => track.track_file === dataTrack.track_file,
+    );
+    const indexTrackNow = arrayTracks.indexOf(nowTrack);
+    if (indexTrackNow < arrayTracks.length - 1) {
+      dispatch(setTrack(arrayTracks[indexTrackNow + 1]));
+    }
+  }
+  function prevTracks(arrayTracks) {
+    const nowTrack = arrayTracks.find(
+      (track) => track.track_file === dataTrack.track_file,
+    );
+    const indexTrackNow = arrayTracks.indexOf(nowTrack);
+    if (indexTrackNow > 0) {
+      dispatch(setTrack(arrayTracks[indexTrackNow - 1]));
+    }
+  }
+
   const handleNextTrack = () => {
-    if (!isShuffled) {
-      const nowTrack = allTracks.find(
-        (track) => track.track_file === dataTrack.track_file,
-      );
-      const indexTrackNow = allTracks.indexOf(nowTrack);
-      if (indexTrackNow < allTracks.length - 1) {
-        dispatch(setTrack(allTracks[indexTrackNow + 1]));
-      }
+    if (dataTrack.isFavorite && !isShuffled) {
+      nextTracks(favoritesTracks);
+    } else if (!isShuffled) {
+      nextTracks(allTracks);
     } else {
-      const nowTrack = randomAllTracks.find(
-        (track) => track.track_file === dataTrack.track_file,
-      );
-      const indexTrackNow = randomAllTracks.indexOf(nowTrack);
-      if (indexTrackNow < randomAllTracks.length - 1) {
-        dispatch(setTrack(randomAllTracks[indexTrackNow + 1]));
-      }
+      nextTracks(randomAllTracks);
     }
   };
 
   const handlePrevTrack = () => {
-    if (!isShuffled) {
-      const nowTrack = allTracks.find(
-        (track) => track.track_file === dataTrack.track_file,
-      );
-      const indexTrackNow = allTracks.indexOf(nowTrack);
-      if (indexTrackNow > 0) {
-        dispatch(setTrack(allTracks[indexTrackNow - 1]));
-      }
+    if (dataTrack.isFavorite && !isShuffled) {
+      prevTracks(favoritesTracks);
+    } else if (!isShuffled) {
+      prevTracks(allTracks);
     } else {
-      const nowTrack = randomAllTracks.find(
-        (track) => track.track_file === dataTrack.track_file,
-      );
-      const indexTrackNow = randomAllTracks.indexOf(nowTrack);
-      if (indexTrackNow > 0) {
-        dispatch(setTrack(randomAllTracks[indexTrackNow - 1]));
-      }
+      prevTracks(randomAllTracks);
     }
   };
 

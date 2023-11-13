@@ -13,13 +13,10 @@ const initialState = {
 export const fetchFavoritesTracks = createAsyncThunk(
   'favorites/fetchFavoritesTracks',
   async (url, thunkAPI) => {
-    console.log('Its work');
     try {
       const res = await getFavoritesTracks(accessToken, url);
-      console.log(res);
       return res;
     } catch (error) {
-      console.log(error);
       return thunkAPI.rejectWithValue(error);
     }
   },
@@ -34,7 +31,9 @@ export const favoritesTracksSlice = createSlice({
       console.log(action.payload);
     });
     builder.addCase(fetchFavoritesTracks.fulfilled, (state, action) => {
-      action.payload.map((track) => state.favoritesTracks.push(track));
+      action.payload.map((track) =>
+        state.favoritesTracks.push({ ...track, isFavorite: true }),
+      );
     });
     builder.addCase(fetchFavoritesTracks.rejected, (action) => {
       console.log(action.payload);

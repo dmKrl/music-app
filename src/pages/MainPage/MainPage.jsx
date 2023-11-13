@@ -8,7 +8,6 @@ import SideBar from '../../components/SideBar/SideBar';
 import GlobalStyle from '../../GlobalStyle.styles';
 import * as S from '../../App.styles';
 import BarPlayerContext from '../../context/MediaPlayerContext';
-import { refreshAccessToken } from '../../app/getToken';
 
 function MainPage() {
   const [visibleNav, setVisibleNav] = useState(true);
@@ -18,10 +17,6 @@ function MainPage() {
   const handleLogout = () => {
     localStorage.setItem('userDataInfo', null);
   };
-  const accessToken = localStorage.getItem('accessToken');
-  const accessRefreshToken = localStorage.getItem('accessRefreshToken');
-  console.log(accessToken, accessRefreshToken);
-  refreshAccessToken();
   return (
     <>
       <GlobalStyle />

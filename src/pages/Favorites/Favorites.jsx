@@ -10,7 +10,6 @@ import { selectFavoritesTracks } from '../../redux/slices/favoritesTracksSlice';
 function Favorites() {
   const { isLoading, isLoadingError } = useContext(IsLoadingPageContext);
   const favoritesTracks = useSelector(selectFavoritesTracks);
-
   return (
     <S.CenterBlockContent>
       <CenterBlockHeading>Мои треки</CenterBlockHeading>

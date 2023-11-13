@@ -1,6 +1,7 @@
 /* eslint-disable import/no-extraneous-dependencies */
 import { useContext } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { useLocation } from 'react-router-dom';
 import * as S from '../Main/SectionMusicList.styles';
 import IsLoadingPageContext from '../../context/IsLoadingPageContext';
 import MediaPlayerContext from '../../context/MediaPlayerContext';
@@ -16,22 +17,30 @@ function ItemPlaylist(props) {
   const { changeIsShowing } = useContext(MediaPlayerContext);
   const track = useSelector(selectTracks);
   const isPlayingTrack = useSelector(selectIsPlaying);
+  const location = useLocation();
   const dispatch = useDispatch();
   return (
     <S.PlaylistItem>
-      <S.PlaylistTrack
-        onClick={() => {
-          dispatch(
-            setTrack({
-              name: props.name,
-              author: props.author,
-              track_file: props.track_file,
-            }),
-          );
-          changeIsShowing(true);
-        }}
-      >
-        <S.TrackTitle>
+      <S.PlaylistTrack>
+        <S.TrackTitle
+          onClick={() => {
+            dispatch(
+              location.pathname === '/favorites'
+                ? setTrack({
+                    name: props.name,
+                    author: props.author,
+                    track_file: props.track_file,
+                    isFavorite: true,
+                  })
+                : setTrack({
+                    name: props.name,
+                    author: props.author,
+                    track_file: props.track_file,
+                  }),
+            );
+            changeIsShowing(true);
+          }}
+        >
           {track.name === props.name && !isLoading ? (
             <> {isPlayingTrack ? <S.PlayingDotActive /> : <S.PlayingDot />}</>
           ) : (
