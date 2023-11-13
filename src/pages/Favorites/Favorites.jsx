@@ -1,27 +1,16 @@
-import { useContext, useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { useContext } from 'react';
+import { useSelector } from 'react-redux';
 import * as S from '../../components/Main/SectionMusicList.styles';
 import { CenterBlockHeading } from '../../components/Main/CenterBlockFilter.styles';
 import ItemPlaylist from '../../components/UI/ItemPlaylist';
 import IsLoadingPageContext from '../../context/IsLoadingPageContext';
 import tracks from '../../data/tracks';
-import {
-  fetchFavoritesTracks,
-  selectFavoritesTracks,
-} from '../../redux/slices/favoritesTracksSlice';
+import { selectFavoritesTracks } from '../../redux/slices/favoritesTracksSlice';
 
 function Favorites() {
   const { isLoading, isLoadingError } = useContext(IsLoadingPageContext);
   const favoritesTracks = useSelector(selectFavoritesTracks);
-  const dispatch = useDispatch();
 
-  useEffect(() => {
-    dispatch(
-      fetchFavoritesTracks(
-        'https://skypro-music-api.skyeng.tech/catalog/track/favorite/all/',
-      ),
-    );
-  }, []);
   return (
     <S.CenterBlockContent>
       <CenterBlockHeading>Мои треки</CenterBlockHeading>

@@ -1,7 +1,6 @@
 /* eslint-disable import/no-extraneous-dependencies */
 /* eslint-disable no-param-reassign */
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
-// import axios from 'axios';
 import { getFavoritesTracks } from '../../api/api';
 
 const accessToken = localStorage.getItem('newRefreshToken');
@@ -35,7 +34,7 @@ export const favoritesTracksSlice = createSlice({
       console.log(action.payload);
     });
     builder.addCase(fetchFavoritesTracks.fulfilled, (state, action) => {
-      console.log(action.payload);
+      action.payload.map((track) => state.favoritesTracks.push(track));
     });
     builder.addCase(fetchFavoritesTracks.rejected, (action) => {
       console.log(action.payload);

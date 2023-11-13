@@ -8,6 +8,7 @@ import { addTracks } from './redux/slices/switchTracksSlice';
 import { getTracks } from './api/api';
 import MediaPlayerContext from './context/MediaPlayerContext';
 import UserData from './context/UserData';
+import { fetchFavoritesTracks } from './redux/slices/favoritesTracksSlice';
 
 function App() {
   const [isLoadingPage, setIsLoadingPage] = useState(true);
@@ -34,8 +35,13 @@ function App() {
         setIsLoadingPage(false);
       });
   };
-  useEffect(() => { 
+  useEffect(() => {
     if (!isLoadingData) {
+      dispatch(
+        fetchFavoritesTracks(
+          'https://skypro-music-api.skyeng.tech/catalog/track/favorite/all/',
+        ),
+      );
       getTracksCheckErrors();
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -43,7 +49,7 @@ function App() {
   return (
     <IsLoadingPageContext.Provider
       value={{ isLoading: isLoadingPage, isLoadingError }}
-    >   
+    >
       <MediaPlayerContext.Provider
         value={{
           isShowing: isShowingMediaPlayer,
