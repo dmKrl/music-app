@@ -11,10 +11,12 @@ import {
   selectTracks,
   setTrack,
 } from '../../redux/slices/tracksSlice';
+import UserData from '../../context/UserData';
 
 function ItemPlaylist(props) {
   const { isLoading } = useContext(IsLoadingPageContext);
   const { changeIsShowing } = useContext(MediaPlayerContext);
+  const { userInfo } = useContext(UserData);
   const track = useSelector(selectTracks);
   const isPlayingTrack = useSelector(selectIsPlaying);
   const location = useLocation();
@@ -76,8 +78,13 @@ function ItemPlaylist(props) {
           )}
         </S.TrackAlbum>
         <>
-          <S.TrackTimeSvg alt="time">
-            <use xlinkHref="img/icon/sprite.svg#icon-like" />
+          <S.TrackTimeSvg alt="time" >
+            {location.pathname === '/favorites' ||
+            props?.stared_user?.find((user) => user.id === userInfo.id) ? (
+              <use xlinkHref="img/icon/sprite.svg#icon-disLike" />
+            ) : (
+              <use xlinkHref="img/icon/sprite.svg#icon-like" />
+            )}
           </S.TrackTimeSvg>
           {isLoading ? (
             <S.TrackTimeText>00:00</S.TrackTimeText>

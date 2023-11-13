@@ -34,7 +34,6 @@ function MediaPlayer() {
   const audioRef = useRef(null);
 
   const handleToggleTrack = () => {
-    console.log(dataTrack.isFavorite);
     if (dataTrack.isFavorite) {
       setRandomAllTracks(shuffleTracks(favoritesTracks));
     } else if (!isShuffled) {
