@@ -65,7 +65,6 @@ function MediaPlayer() {
   }
 
   const handleNextTrack = () => {
-    console.log(isShuffled);
     if (dataTrack.isFavorite && !isShuffled) {
       nextTracks(favoritesTracks);
     } else if (!isShuffled) {

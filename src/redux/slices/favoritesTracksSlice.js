@@ -63,9 +63,6 @@ export const favoritesTracksSlice = createSlice({
   initialState,
   reducers: {},
   extraReducers: (builder) => {
-    builder.addCase(fetchFavoritesTracks.pending, (action) => {
-      console.log(action.payload);
-    });
     builder.addCase(fetchFavoritesTracks.fulfilled, (state, action) => {
       state.favoritesTracks = action.payload;
     });

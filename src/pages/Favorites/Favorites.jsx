@@ -15,7 +15,6 @@ function Favorites() {
   const favoritesTracks = useSelector(selectFavoritesTracks);
   const [error, setError] = useState('У вас нет избранных треков');
   const dispatch = useDispatch();
-  console.log(favoritesTracks);
 
   useEffect(() => {
     if (typeof favoritesTracks === 'string') {

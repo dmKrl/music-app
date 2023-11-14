@@ -48,7 +48,6 @@ function ItemPlaylist(props) {
       <S.PlaylistTrack>
         <S.TrackTitle
           onClick={() => {
-            console.log(props.id);
             dispatch(
               location.pathname === '/favorites'
                 ? setTrack({
