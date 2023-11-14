@@ -60,9 +60,7 @@ export const favoritesTracksSlice = createSlice({
       console.log(action.payload);
     });
     builder.addCase(fetchFavoritesTracks.fulfilled, (state, action) => {
-      action.payload.map((track) =>
-        state.favoritesTracks.push({ ...track, isFavorite: true }),
-      );
+      state.favoritesTracks = action.payload;
     });
     builder.addCase(fetchFavoritesTracks.rejected, (action) => {
       console.log(action.payload);

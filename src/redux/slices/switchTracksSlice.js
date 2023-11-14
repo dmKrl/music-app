@@ -11,7 +11,7 @@ export const switchTracksSlice = createSlice({
   initialState,
   reducers: {
     addTracks: (state, action) => {
-      action.payload.map((track) => state.allTracks.push(track));
+      state.allTracks = action.payload;
     },
     toggleIsShuffled: (state) => {
       state.isShuffled = !state.isShuffled;

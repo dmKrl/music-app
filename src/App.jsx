@@ -7,7 +7,6 @@ import IsLoadingPageContext from './context/IsLoadingPageContext';
 import UserData from './context/UserData';
 import MediaPlayerContext from './context/MediaPlayerContext';
 import { addTracks } from './redux/slices/switchTracksSlice';
-import { fetchFavoritesTracks } from './redux/slices/favoritesTracksSlice';
 import { getTracks } from './api/api';
 import { refreshAccessToken } from './app/getToken';
 
@@ -38,11 +37,7 @@ function App() {
   };
   useEffect(() => {
     if (!isLoadingData) {
-      dispatch(
-        fetchFavoritesTracks(
-          'https://skypro-music-api.skyeng.tech/catalog/track/favorite/all/',
-        ),
-      );
+
       getTracksCheckErrors();
       refreshAccessToken();
       setInterval(() => {
@@ -65,6 +60,7 @@ function App() {
           value={{
             userInfo: userData,
             changeUserInfo: setUserData,
+            getTracks: getTracksCheckErrors,
           }}
         >
           <GlobalStyle />

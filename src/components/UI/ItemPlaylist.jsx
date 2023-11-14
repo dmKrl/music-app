@@ -15,13 +15,12 @@ import UserData from '../../context/UserData';
 import {
   fetchAddLikeFavoriteTrack,
   fetchDeleteLikeTrack,
-  fetchFavoritesTracks,
 } from '../../redux/slices/favoritesTracksSlice';
 
 function ItemPlaylist(props) {
   const { isLoading } = useContext(IsLoadingPageContext);
   const { changeIsShowing } = useContext(MediaPlayerContext);
-  const { userInfo } = useContext(UserData);
+  const { userInfo, getTracks } = useContext(UserData);
   const track = useSelector(selectTracks);
   const isPlayingTrack = useSelector(selectIsPlaying);
   const location = useLocation();
@@ -33,11 +32,7 @@ function ItemPlaylist(props) {
         `https://skypro-music-api.skyeng.tech/catalog/track/${props.id}/favorite/`,
       ),
     );
-    dispatch(
-      fetchFavoritesTracks(
-        'https://skypro-music-api.skyeng.tech/catalog/track/favorite/all/',
-      ),
-    );
+    getTracks();
   }
   function toggleDisLikedTrack() {
     dispatch(
@@ -45,11 +40,7 @@ function ItemPlaylist(props) {
         `https://skypro-music-api.skyeng.tech/catalog/track/${props.id}/favorite/`,
       ),
     );
-    dispatch(
-      fetchFavoritesTracks(
-        'https://skypro-music-api.skyeng.tech/catalog/track/favorite/all/',
-      ),
-    );
+    getTracks();
   }
 
   return (
