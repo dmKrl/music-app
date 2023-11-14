@@ -6,6 +6,7 @@ import {
   deleteTrackAtFavorite,
   getFavoritesTracks,
 } from '../../api/api';
+import { refreshAccessToken } from '../../app/getToken';
 
 const accessToken = localStorage.getItem('newRefreshToken');
 
@@ -19,7 +20,9 @@ export const fetchFavoritesTracks = createAsyncThunk(
   async (url, thunkAPI) => {
     try {
       const res = await getFavoritesTracks(accessToken, url);
-      console.log(res);
+      if (res.code === 'token_not_valid') {
+        throw new Error('Error');
+      }
       return res;
     } catch (error) {
       return thunkAPI.rejectWithValue(error);
@@ -31,7 +34,9 @@ export const fetchAddLikeFavoriteTrack = createAsyncThunk(
   async (url, thunkAPI) => {
     try {
       const res = await addTrackInFavorite(accessToken, url);
-      console.log(res);
+      if (res.code === 'token_not_valid') {
+        throw new Error('Error');
+      }
       return res;
     } catch (error) {
       return thunkAPI.rejectWithValue(error);
@@ -43,7 +48,9 @@ export const fetchDeleteLikeTrack = createAsyncThunk(
   async (url, thunkAPI) => {
     try {
       const res = await deleteTrackAtFavorite(accessToken, url);
-      console.log(res);
+      if (res.code === 'token_not_valid') {
+        throw new Error('Error');
+      }
       return res;
     } catch (error) {
       return thunkAPI.rejectWithValue(error);
@@ -62,30 +69,19 @@ export const favoritesTracksSlice = createSlice({
     builder.addCase(fetchFavoritesTracks.fulfilled, (state, action) => {
       state.favoritesTracks = action.payload;
     });
-    builder.addCase(fetchFavoritesTracks.rejected, (action) => {
-      console.log(action.payload);
+    builder.addCase(fetchFavoritesTracks.rejected, (state) => {
+      state.favoritesTracks =
+        'Произошла ошибка запроса, обновите страницу или перезайдите в приложение';
     });
 
     // Добавление лайка
-    builder.addCase(fetchAddLikeFavoriteTrack.pending, (action) => {
-      console.log(action.payload);
-    });
-    builder.addCase(fetchAddLikeFavoriteTrack.fulfilled, (action) => {
-      console.log(action.payload);
-    });
-    builder.addCase(fetchAddLikeFavoriteTrack.rejected, (action) => {
-      console.log(action.payload);
+    builder.addCase(fetchAddLikeFavoriteTrack.rejected, () => {
+      refreshAccessToken();
     });
 
     // Удаление лайка
-    builder.addCase(fetchDeleteLikeTrack.pending, (action) => {
-      console.log(action.payload);
-    });
-    builder.addCase(fetchDeleteLikeTrack.fulfilled, (action) => {
-      console.log(action.payload);
-    });
-    builder.addCase(fetchDeleteLikeTrack.rejected, (action) => {
-      console.log(action.payload);
+    builder.addCase(fetchDeleteLikeTrack.rejected, () => {
+      refreshAccessToken();
     });
   },
 });

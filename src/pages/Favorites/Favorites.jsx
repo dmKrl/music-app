@@ -1,4 +1,4 @@
-import { useContext, useEffect } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import * as S from '../../components/Main/SectionMusicList.styles';
 import { CenterBlockHeading } from '../../components/Main/CenterBlockFilter.styles';
@@ -13,9 +13,16 @@ import {
 function Favorites() {
   const { isLoading, isLoadingError } = useContext(IsLoadingPageContext);
   const favoritesTracks = useSelector(selectFavoritesTracks);
+  const [error, setError] = useState('У вас нет избранных треков');
   const dispatch = useDispatch();
+  console.log(favoritesTracks);
 
   useEffect(() => {
+    if (typeof favoritesTracks === 'string') {
+      setError(
+        'Произошла ошибка запроса, обновите страницу или перезайдите в приложение',
+      );
+    }
     dispatch(
       fetchFavoritesTracks(
         'https://skypro-music-api.skyeng.tech/catalog/track/favorite/all/',
@@ -35,9 +42,10 @@ function Favorites() {
           </S.PlaylistTitleSvg>
         </S.Col04>
       </S.ContentTitle>
-      {favoritesTracks.length === 0 && !isLoading ? (
+      {(favoritesTracks.length === 0 && !isLoading) ||
+      typeof favoritesTracks === 'string' ? (
         <CenterBlockHeading style={{ fontSize: '32px' }}>
-          У вас нет избранных треков
+          {error}
         </CenterBlockHeading>
       ) : (
         <S.ContentPlaylist>

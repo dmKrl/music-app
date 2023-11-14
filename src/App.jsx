@@ -40,9 +40,6 @@ function App() {
 
       getTracksCheckErrors();
       refreshAccessToken();
-      setInterval(() => {
-        refreshAccessToken();
-      }, 200000);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
