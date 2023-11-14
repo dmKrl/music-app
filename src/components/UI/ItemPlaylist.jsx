@@ -12,6 +12,11 @@ import {
   setTrack,
 } from '../../redux/slices/tracksSlice';
 import UserData from '../../context/UserData';
+import {
+  fetchAddLikeFavoriteTrack,
+  fetchDeleteLikeTrack,
+  fetchFavoritesTracks,
+} from '../../redux/slices/favoritesTracksSlice';
 
 function ItemPlaylist(props) {
   const { isLoading } = useContext(IsLoadingPageContext);
@@ -21,11 +26,38 @@ function ItemPlaylist(props) {
   const isPlayingTrack = useSelector(selectIsPlaying);
   const location = useLocation();
   const dispatch = useDispatch();
+
+  function toggleLikedTrack() {
+    dispatch(
+      fetchAddLikeFavoriteTrack(
+        `https://skypro-music-api.skyeng.tech/catalog/track/${props.id}/favorite/`,
+      ),
+    );
+    dispatch(
+      fetchFavoritesTracks(
+        'https://skypro-music-api.skyeng.tech/catalog/track/favorite/all/',
+      ),
+    );
+  }
+  function toggleDisLikedTrack() {
+    dispatch(
+      fetchDeleteLikeTrack(
+        `https://skypro-music-api.skyeng.tech/catalog/track/${props.id}/favorite/`,
+      ),
+    );
+    dispatch(
+      fetchFavoritesTracks(
+        'https://skypro-music-api.skyeng.tech/catalog/track/favorite/all/',
+      ),
+    );
+  }
+
   return (
     <S.PlaylistItem>
       <S.PlaylistTrack>
         <S.TrackTitle
           onClick={() => {
+            console.log(props.id);
             dispatch(
               location.pathname === '/favorites'
                 ? setTrack({
@@ -78,12 +110,18 @@ function ItemPlaylist(props) {
           )}
         </S.TrackAlbum>
         <>
-          <S.TrackTimeSvg alt="time" >
+          <S.TrackTimeSvg alt="time">
             {location.pathname === '/favorites' ||
             props?.stared_user?.find((user) => user.id === userInfo.id) ? (
-              <use xlinkHref="img/icon/sprite.svg#icon-disLike" />
+              <use
+                xlinkHref="img/icon/sprite.svg#icon-like-active"
+                onClick={toggleDisLikedTrack}
+              />
             ) : (
-              <use xlinkHref="img/icon/sprite.svg#icon-like" />
+              <use
+                xlinkHref="img/icon/sprite.svg#icon-like-no-active"
+                onClick={toggleLikedTrack}
+              />
             )}
           </S.TrackTimeSvg>
           {isLoading ? (

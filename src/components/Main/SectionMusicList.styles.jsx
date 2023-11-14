@@ -124,7 +124,6 @@ export const PlaylistTrack = styled.div`
   -ms-flex-align: center;
   align-items: center;
   :hover {
-    cursor: pointer;
     background-color:;
   }
 `;
@@ -142,6 +141,9 @@ export const TrackTitle = styled.div`
   align-items: center;
   width: 447px;
   position: relative;
+  :hover {
+    cursor: pointer;
+  }
 `;
 
 export const TrackTitleImg = styled.div`
@@ -220,6 +222,9 @@ export const TrackTimeSvg = styled.svg`
   margin-right: 17px;
   fill: transparent;
   stroke: #696969;
+  :hover {
+    cursor: pointer;
+  }
 `;
 export const TrackTimeText = styled.span`
   font-style: normal;

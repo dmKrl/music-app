@@ -33,6 +33,7 @@ function MediaPlayer() {
   const [randomAllTracks, setRandomAllTracks] = useState([]);
   const audioRef = useRef(null);
 
+  // Доработать перемешивание треков
   const handleToggleTrack = () => {
     if (dataTrack.isFavorite) {
       setRandomAllTracks(shuffleTracks(favoritesTracks));
@@ -41,7 +42,7 @@ function MediaPlayer() {
     } else {
       setRandomAllTracks([]);
     }
-    dispatch(toggleIsShuffled());
+    return dispatch(toggleIsShuffled());
   };
 
   function nextTracks(arrayTracks) {
@@ -64,6 +65,7 @@ function MediaPlayer() {
   }
 
   const handleNextTrack = () => {
+    console.log(isShuffled);
     if (dataTrack.isFavorite && !isShuffled) {
       nextTracks(favoritesTracks);
     } else if (!isShuffled) {

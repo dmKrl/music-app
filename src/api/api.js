@@ -5,12 +5,14 @@ const getAccessTokenUrl = 'https://skypro-music-api.skyeng.tech/user/token/';
 const getRefreshAccessTokenUrl =
   'https://skypro-music-api.skyeng.tech/user/token/refresh/';
 
+// Получение всех треков
 export async function getTracks() {
   const response = await fetch(getTracksUrl);
   const data = await response.json();
   return data;
 }
 
+// Получение токена
 export async function getAccessToken({ email, password }) {
   const response = await fetch(getAccessTokenUrl, {
     method: 'POST',
@@ -26,6 +28,7 @@ export async function getAccessToken({ email, password }) {
   return token;
 }
 
+// Получение рефреш-токена
 export async function getRefreshAccessToken(token) {
   const response = await fetch(getRefreshAccessTokenUrl, {
     method: 'POST',
@@ -39,10 +42,21 @@ export async function getRefreshAccessToken(token) {
   const responseToken = await response.json();
   return responseToken.access;
 }
-
-export async function getFavoritesTracks(token, url) {
+// Запрос на добавление трека в избранные
+export async function addTrackInFavorite(token, url) {
   const response = await fetch(url, {
-    method: 'GET',
+    method: 'POST',
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  });
+  const responseData = await response.json();
+  return responseData;
+}
+// Запрос на удаление трека из избранных
+export async function deleteTrackAtFavorite(token, url) {
+  const response = await fetch(url, {
+    method: 'DELETE',
     headers: {
       Authorization: `Bearer ${token}`,
     },
@@ -51,6 +65,20 @@ export async function getFavoritesTracks(token, url) {
   return responseData;
 }
 
+// Получение избранных треков
+export async function getFavoritesTracks(token, url) {
+  const response = await fetch(url, {
+    method: 'GET',
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  });
+  const responseData = await response.json();
+  console.log(responseData);
+  return responseData;
+}
+
+// Регистрация пользователя
 export async function postRegister({ email, password, username }) {
   try {
     const response = await fetch(SignUpUrl, {
@@ -73,6 +101,8 @@ export async function postRegister({ email, password, username }) {
     return error;
   }
 }
+
+// Логин в приложение
 export async function postLogin({ email, password }) {
   try {
     const response = await fetch(SignInUrl, {
