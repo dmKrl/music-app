@@ -46,6 +46,9 @@ function SignUp() {
     if (isFilledOut) {
       setIsGettingData(true);
       getToken({ email, password });
+      setInterval(() => {
+        getToken({ email, password });
+      }, 190000);
       postLogin({ email, password })
         .then((data) => {
           if (data.id) {

@@ -15,6 +15,7 @@ import UserData from '../../context/UserData';
 import {
   fetchAddLikeFavoriteTrack,
   fetchDeleteLikeTrack,
+  fetchFavoritesTracks,
 } from '../../redux/slices/favoritesTracksSlice';
 
 function ItemPlaylist(props) {
@@ -26,6 +27,8 @@ function ItemPlaylist(props) {
   const location = useLocation();
   const dispatch = useDispatch();
 
+  console.log(localStorage.getItem('newRefreshToken'));
+
   function toggleLikedTrack() {
     dispatch(
       fetchAddLikeFavoriteTrack(
@@ -33,6 +36,11 @@ function ItemPlaylist(props) {
       ),
     );
     getTracks();
+    dispatch(
+      fetchFavoritesTracks(
+        'https://skypro-music-api.skyeng.tech/catalog/track/favorite/all/',
+      ),
+    );
   }
   function toggleDisLikedTrack() {
     dispatch(
@@ -41,6 +49,11 @@ function ItemPlaylist(props) {
       ),
     );
     getTracks();
+    dispatch(
+      fetchFavoritesTracks(
+        'https://skypro-music-api.skyeng.tech/catalog/track/favorite/all/',
+      ),
+    );
   }
 
   return (

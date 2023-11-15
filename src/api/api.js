@@ -14,6 +14,7 @@ export async function getTracks() {
 
 // Получение токена
 export async function getAccessToken({ email, password }) {
+  console.log('access token')
   const response = await fetch(getAccessTokenUrl, {
     method: 'POST',
     body: JSON.stringify({
