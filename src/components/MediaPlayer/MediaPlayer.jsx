@@ -32,7 +32,6 @@ function MediaPlayer() {
   const [duration, setDuration] = useState(0);
   const [randomAllTracks, setRandomAllTracks] = useState([]);
   const audioRef = useRef(null);
-
   // Доработать перемешивание треков
   const handleToggleTrack = () => {
     if (dataTrack.isFavorite) {
@@ -44,26 +43,20 @@ function MediaPlayer() {
     }
     return dispatch(toggleIsShuffled());
   };
-
+  // console.log(dataTrack);
   function nextTracks(arrayTracks) {
+    // console.log(arrayTracks);
+    // console.log(dataTrack);
     const nowTrack = arrayTracks.find(
       (track) => track.track_file === dataTrack.track_file,
     );
+    // console.log(nowTrack);
     const indexTrackNow = arrayTracks.indexOf(nowTrack);
+    // console.log(indexTrackNow);
     if (indexTrackNow < arrayTracks.length - 1) {
       dispatch(setTrack(arrayTracks[indexTrackNow + 1]));
     }
   }
-  function prevTracks(arrayTracks) {
-    const nowTrack = arrayTracks.find(
-      (track) => track.track_file === dataTrack.track_file,
-    );
-    const indexTrackNow = arrayTracks.indexOf(nowTrack);
-    if (indexTrackNow > 0) {
-      dispatch(setTrack(arrayTracks[indexTrackNow - 1]));
-    }
-  }
-
   const handleNextTrack = () => {
     if (dataTrack.isFavorite && !isShuffled) {
       nextTracks(favoritesTracks);
@@ -73,6 +66,16 @@ function MediaPlayer() {
       nextTracks(randomAllTracks);
     }
   };
+
+  function prevTracks(arrayTracks) {
+    const nowTrack = arrayTracks.find(
+      (track) => track.track_file === dataTrack.track_file,
+    );
+    const indexTrackNow = arrayTracks.indexOf(nowTrack);
+    if (indexTrackNow > 0) {
+      dispatch(setTrack(arrayTracks[indexTrackNow - 1]));
+    }
+  }
 
   const handlePrevTrack = () => {
     if (dataTrack.isFavorite && !isShuffled) {
@@ -105,9 +108,6 @@ function MediaPlayer() {
       changeDuration();
     });
     audioRef.current.addEventListener('timeupdate', () => {
-      if (audioRef.current.duration === audioRef.current.currentTime) {
-        handleNextTrack();
-      }
       changeCurrentTime();
     });
     return () => {
@@ -124,6 +124,7 @@ function MediaPlayer() {
     <>
       <audio
         src={dataTrack.track_file}
+        onEnded={handleNextTrack}
         controls
         ref={audioRef}
         loop={isLoop}

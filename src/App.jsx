@@ -37,7 +37,6 @@ function App() {
   };
   useEffect(() => {
     if (!isLoadingData) {
-
       getTracksCheckErrors();
       refreshAccessToken();
     }
