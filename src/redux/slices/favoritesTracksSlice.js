@@ -6,9 +6,13 @@ import {
   deleteTrackAtFavorite,
   getFavoritesTracks,
 } from '../../api/api';
-import { refreshAccessToken } from '../../app/getToken';
 
 const accessToken = localStorage.getItem('newRefreshToken');
+
+const reloadPage = () => {
+  console.log('relog')
+  window.location.reload();
+};
 
 const initialState = {
   favoritesTracks: [],
@@ -73,12 +77,12 @@ export const favoritesTracksSlice = createSlice({
 
     // Добавление лайка
     builder.addCase(fetchAddLikeFavoriteTrack.rejected, () => {
-      refreshAccessToken();
+      reloadPage();
     });
 
     // Удаление лайка
     builder.addCase(fetchDeleteLikeTrack.rejected, () => {
-      refreshAccessToken();
+      reloadPage();
     });
   },
 });
