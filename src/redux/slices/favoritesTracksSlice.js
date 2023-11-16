@@ -10,7 +10,7 @@ import {
 const accessToken = localStorage.getItem('newRefreshToken');
 
 const reloadPage = () => {
-  console.log('relog')
+  console.log('relog');
   window.location.reload();
 };
 
@@ -70,9 +70,8 @@ export const favoritesTracksSlice = createSlice({
     builder.addCase(fetchFavoritesTracks.fulfilled, (state, action) => {
       state.favoritesTracks = action.payload;
     });
-    builder.addCase(fetchFavoritesTracks.rejected, (state) => {
-      state.favoritesTracks =
-        'Произошла ошибка запроса, обновите страницу или перезайдите в приложение';
+    builder.addCase(fetchFavoritesTracks.rejected, () => {
+      reloadPage();
     });
 
     // Добавление лайка
