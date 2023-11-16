@@ -27,32 +27,32 @@ function ItemPlaylist(props) {
   const location = useLocation();
   const dispatch = useDispatch();
 
-  function toggleLikedTrack() {
+  async function toggleLikedTrack() {
     console.log(props);
+    if (
+      props?.stared_user?.find((user) => user.id === userInfo.id) ||
+      location.pathname === '/favorites'
+    ) {
+      dispatch(
+        fetchDeleteLikeTrack(
+          `https://skypro-music-api.skyeng.tech/catalog/track/${props.id}/favorite/`,
+        ),
+      );
+    } else {
+      dispatch(
+        fetchAddLikeFavoriteTrack(
+          `https://skypro-music-api.skyeng.tech/catalog/track/${props.id}/favorite/`,
+        ),
+      );
+    }
     setTimeout(() => {
-      if (
-        props?.stared_user?.find((user) => user.id === userInfo.id) ||
-        location.pathname === '/favorites'
-      ) {
-        dispatch(
-          fetchDeleteLikeTrack(
-            `https://skypro-music-api.skyeng.tech/catalog/track/${props.id}/favorite/`,
-          ),
-        );
-      } else {
-        dispatch(
-          fetchAddLikeFavoriteTrack(
-            `https://skypro-music-api.skyeng.tech/catalog/track/${props.id}/favorite/`,
-          ),
-        );
-      }
       getTracks();
       dispatch(
         fetchFavoritesTracks(
           'https://skypro-music-api.skyeng.tech/catalog/track/favorite/all/',
         ),
       );
-    }, 2000);
+    }, 500);
   }
 
   function changeTrackInPlayer() {
