@@ -28,8 +28,12 @@ function ItemPlaylist(props) {
   const dispatch = useDispatch();
 
   function toggleLikedTrack() {
+    console.log(props);
     setTimeout(() => {
-      if (props?.stared_user?.find((user) => user.id === userInfo.id)) {
+      if (
+        props?.stared_user?.find((user) => user.id === userInfo.id) ||
+        location.pathname === '/favorites'
+      ) {
         dispatch(
           fetchDeleteLikeTrack(
             `https://skypro-music-api.skyeng.tech/catalog/track/${props.id}/favorite/`,
@@ -48,7 +52,7 @@ function ItemPlaylist(props) {
           'https://skypro-music-api.skyeng.tech/catalog/track/favorite/all/',
         ),
       );
-    }, 1000);
+    }, 2000);
   }
 
   function changeTrackInPlayer() {
