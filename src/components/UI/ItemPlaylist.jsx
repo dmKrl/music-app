@@ -27,33 +27,48 @@ function ItemPlaylist(props) {
   const location = useLocation();
   const dispatch = useDispatch();
 
-  console.log(localStorage.getItem('newRefreshToken'));
-
   function toggleLikedTrack() {
-    dispatch(
-      fetchAddLikeFavoriteTrack(
-        `https://skypro-music-api.skyeng.tech/catalog/track/${props.id}/favorite/`,
-      ),
-    );
-    getTracks();
-    dispatch(
-      fetchFavoritesTracks(
-        'https://skypro-music-api.skyeng.tech/catalog/track/favorite/all/',
-      ),
-    );
+    setTimeout(() => {
+      if (props?.stared_user?.find((user) => user.id === userInfo.id)) {
+        dispatch(
+          fetchDeleteLikeTrack(
+            `https://skypro-music-api.skyeng.tech/catalog/track/${props.id}/favorite/`,
+          ),
+        );
+      } else {
+        dispatch(
+          fetchAddLikeFavoriteTrack(
+            `https://skypro-music-api.skyeng.tech/catalog/track/${props.id}/favorite/`,
+          ),
+        );
+      }
+      getTracks();
+      dispatch(
+        fetchFavoritesTracks(
+          'https://skypro-music-api.skyeng.tech/catalog/track/favorite/all/',
+        ),
+      );
+    }, 1000);
   }
-  function toggleDisLikedTrack() {
-    dispatch(
-      fetchDeleteLikeTrack(
-        `https://skypro-music-api.skyeng.tech/catalog/track/${props.id}/favorite/`,
-      ),
-    );
-    getTracks();
-    dispatch(
-      fetchFavoritesTracks(
-        'https://skypro-music-api.skyeng.tech/catalog/track/favorite/all/',
-      ),
-    );
+
+  function changeTrackInPlayer() {
+    if (location.pathname === '/favorites') {
+      return {
+        name: props.name,
+        author: props.author,
+        track_file: props.track_file,
+        arrayStaredUser: props.stared_user,
+        id: props.id,
+        isFavorite: true,
+      };
+    }
+    return {
+      name: props.name,
+      author: props.author,
+      track_file: props.track_file,
+      arrayStaredUser: props.stared_user,
+      id: props.id,
+    };
   }
 
   return (
@@ -61,20 +76,7 @@ function ItemPlaylist(props) {
       <S.PlaylistTrack>
         <S.TrackTitle
           onClick={() => {
-            dispatch(
-              location.pathname === '/favorites'
-                ? setTrack({
-                    name: props.name,
-                    author: props.author,
-                    track_file: props.track_file,
-                    isFavorite: true,
-                  })
-                : setTrack({
-                    name: props.name,
-                    author: props.author,
-                    track_file: props.track_file,
-                  }),
-            );
+            dispatch(setTrack(changeTrackInPlayer()));
             changeIsShowing(true);
           }}
         >
@@ -118,7 +120,7 @@ function ItemPlaylist(props) {
             props?.stared_user?.find((user) => user.id === userInfo.id) ? (
               <use
                 xlinkHref="img/icon/sprite.svg#icon-like-active"
-                onClick={toggleDisLikedTrack}
+                onClick={toggleLikedTrack}
               />
             ) : (
               <use

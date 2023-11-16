@@ -26,6 +26,7 @@ function MediaPlayer() {
   const isShuffled = useSelector(selectIsShuffled);
   const isPlayingTrack = useSelector(selectIsPlaying);
   const favoritesTracks = useSelector(selectFavoritesTracks);
+  const [isLiked, setIsLiked] = useState(false);
   const [isLoop, setIsLoop] = useState(false);
   const [currentTime, setCurrentTime] = useState(0);
   const [volume, setVolume] = useState(1);
@@ -43,16 +44,13 @@ function MediaPlayer() {
     }
     return dispatch(toggleIsShuffled());
   };
-  // console.log(dataTrack);
+
+  console.log(dataTrack);
   function nextTracks(arrayTracks) {
-    // console.log(arrayTracks);
-    // console.log(dataTrack);
     const nowTrack = arrayTracks.find(
       (track) => track.track_file === dataTrack.track_file,
     );
-    // console.log(nowTrack);
     const indexTrackNow = arrayTracks.indexOf(nowTrack);
-    // console.log(indexTrackNow);
     if (indexTrackNow < arrayTracks.length - 1) {
       dispatch(setTrack(arrayTracks[indexTrackNow + 1]));
     }
@@ -220,8 +218,15 @@ function MediaPlayer() {
 
                 <S.TrackPlayLikeDis>
                   <S.TrackPlayLike>
-                    <S.TrackPlaySvg alt="like">
-                      <use xlinkHref="img/icon/sprite.svg#icon-like" />
+                    <S.TrackPlaySvg
+                      alt="like"
+                      onClick={() => setIsLiked(!isLiked)}
+                    >
+                      {!isLiked ? (
+                        <use xlinkHref="img/icon/sprite.svg#icon-like-no-active" />
+                      ) : (
+                        <use xlinkHref="img/icon/sprite.svg#icon-like-active" />
+                      )}
                     </S.TrackPlaySvg>
                   </S.TrackPlayLike>
                   <S.TrackPlayDislike>

@@ -1,4 +1,4 @@
-import { useContext, useEffect, useState } from 'react';
+import { useContext, useState } from 'react';
 // import { Outlet } from 'react-router-dom';
 import { Outlet } from 'react-router-dom';
 import MediaPlayer from '../../components/MediaPlayer/MediaPlayer';
@@ -8,7 +8,7 @@ import SideBar from '../../components/SideBar/SideBar';
 import GlobalStyle from '../../GlobalStyle.styles';
 import * as S from '../../App.styles';
 import BarPlayerContext from '../../context/MediaPlayerContext';
-import { refreshAccessToken } from '../../app/getToken';
+// import { refreshAccessToken } from '../../app/getToken';
 
 function MainPage() {
   const [visibleNav, setVisibleNav] = useState(true);
@@ -19,11 +19,11 @@ function MainPage() {
     localStorage.setItem('userDataInfo', null);
   };
 
-  useEffect(() => {
-    setInterval(() => {
-      refreshAccessToken();
-    }, 80000);
-  }, []);
+  // useEffect(() => {
+  //   setInterval(() => {
+  //     refreshAccessToken();
+  //   }, 80000);
+  // }, []);
   return (
     <>
       <GlobalStyle />

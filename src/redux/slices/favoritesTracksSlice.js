@@ -6,13 +6,14 @@ import {
   deleteTrackAtFavorite,
   getFavoritesTracks,
 } from '../../api/api';
+import { refreshAccessToken } from '../../app/getToken';
 
-const accessToken = localStorage.getItem('newRefreshToken');
+// const reloadPage = () => {
+//   console.log('relog');
+//   window.location.reload();
+// };
 
-const reloadPage = () => {
-  console.log('relog');
-  window.location.reload();
-};
+console.log(localStorage.getItem('newRefreshToken'));
 
 const initialState = {
   favoritesTracks: [],
@@ -23,7 +24,10 @@ export const fetchFavoritesTracks = createAsyncThunk(
   'favorites/fetchFavoritesTracks',
   async (url, thunkAPI) => {
     try {
-      const res = await getFavoritesTracks(accessToken, url);
+      const res = await getFavoritesTracks(
+        localStorage.getItem('newRefreshToken'),
+        url,
+      );
       if (res.code === 'token_not_valid') {
         throw new Error('Error');
       }
@@ -37,7 +41,10 @@ export const fetchAddLikeFavoriteTrack = createAsyncThunk(
   'favorites/fetchAddLikeFavoriteTrack',
   async (url, thunkAPI) => {
     try {
-      const res = await addTrackInFavorite(accessToken, url);
+      const res = await addTrackInFavorite(
+        localStorage.getItem('newRefreshToken'),
+        url,
+      );
       if (res.code === 'token_not_valid') {
         throw new Error('Error');
       }
@@ -51,7 +58,10 @@ export const fetchDeleteLikeTrack = createAsyncThunk(
   'favorites/fetchDeleteFavoriteTrack',
   async (url, thunkAPI) => {
     try {
-      const res = await deleteTrackAtFavorite(accessToken, url);
+      const res = await deleteTrackAtFavorite(
+        localStorage.getItem('newRefreshToken'),
+        url,
+      );
       if (res.code === 'token_not_valid') {
         throw new Error('Error');
       }
@@ -71,17 +81,17 @@ export const favoritesTracksSlice = createSlice({
       state.favoritesTracks = action.payload;
     });
     builder.addCase(fetchFavoritesTracks.rejected, () => {
-      reloadPage();
+      refreshAccessToken();
     });
 
     // Добавление лайка
     builder.addCase(fetchAddLikeFavoriteTrack.rejected, () => {
-      reloadPage();
+      refreshAccessToken();
     });
 
     // Удаление лайка
     builder.addCase(fetchDeleteLikeTrack.rejected, () => {
-      reloadPage();
+      refreshAccessToken();
     });
   },
 });
