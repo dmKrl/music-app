@@ -1,4 +1,4 @@
-export default function shuffleTracks({ allTracks }) {
+export default function shuffleTracks(allTracks) {
   const randomAllTracks = Array.from(allTracks);
   let currentIndex = randomAllTracks.length;
   let temporaryValue;

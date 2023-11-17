@@ -4,10 +4,10 @@ import { useDispatch } from 'react-redux';
 import AppRoutes from './routes';
 import GlobalStyle from './GlobalStyle.styles';
 import IsLoadingPageContext from './context/IsLoadingPageContext';
+import UserData from './context/UserData';
+import MediaPlayerContext from './context/MediaPlayerContext';
 import { addTracks } from './redux/slices/switchTracksSlice';
 import { getTracks } from './api/api';
-import MediaPlayerContext from './context/MediaPlayerContext';
-import UserData from './context/UserData';
 
 function App() {
   const [isLoadingPage, setIsLoadingPage] = useState(true);
@@ -34,7 +34,7 @@ function App() {
         setIsLoadingPage(false);
       });
   };
-  useEffect(() => { 
+  useEffect(() => {
     if (!isLoadingData) {
       getTracksCheckErrors();
     }
@@ -43,7 +43,7 @@ function App() {
   return (
     <IsLoadingPageContext.Provider
       value={{ isLoading: isLoadingPage, isLoadingError }}
-    >   
+    >
       <MediaPlayerContext.Provider
         value={{
           isShowing: isShowingMediaPlayer,
@@ -54,6 +54,7 @@ function App() {
           value={{
             userInfo: userData,
             changeUserInfo: setUserData,
+            getTracks: getTracksCheckErrors,
           }}
         >
           <GlobalStyle />

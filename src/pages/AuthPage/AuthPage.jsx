@@ -8,6 +8,7 @@ import {
 import { postRegister, postLogin } from '../../api/api';
 import MessageError from '../../components/UI/MessageError';
 import UserData from '../../context/UserData';
+import getToken from '../../app/getToken';
 
 function SignUp() {
   const [email, setEmail] = useState('');
@@ -44,6 +45,10 @@ function SignUp() {
     });
     if (isFilledOut) {
       setIsGettingData(true);
+      getToken({ email, password });
+      setInterval(() => {
+        getToken({ email, password });
+      }, 190000);
       postLogin({ email, password })
         .then((data) => {
           if (data.id) {
@@ -57,9 +62,7 @@ function SignUp() {
           }
           return data;
         })
-        .catch((error) => {
-          console.log(error);
-        })
+        .catch((error) => error)
         .finally(() => {
           setIsGettingData(false);
         });
@@ -79,6 +82,7 @@ function SignUp() {
     });
     if (isFilledOut) {
       setIsGettingData(true);
+      getToken({ email, password });
       postRegister({ email, password, username })
         .then((data) => {
           if (data.id) {
@@ -87,13 +91,12 @@ function SignUp() {
             return navigate('/');
           }
           if (data.response && data.response.status === 400) {
-            console.log(data)
             returnsErrorMessageAPI(data.responseData);
             setIsError(true);
           }
           return data;
         })
-        .catch((error) => console.error(error))
+        .catch((error) => error)
         .finally(() => {
           setIsGettingData(false);
         });
