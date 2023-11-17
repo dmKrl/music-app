@@ -26,7 +26,7 @@ export const fetchFavoritesTracks = createAsyncThunk(
       }
       return res;
     } catch (error) {
-      return thunkAPI.rejectWithValue(error);
+      return thunkAPI.rejectWithValue(error.message);
     }
   },
 );
@@ -43,7 +43,7 @@ export const fetchAddLikeFavoriteTrack = createAsyncThunk(
       }
       return res;
     } catch (error) {
-      return thunkAPI.rejectWithValue(error);
+      return thunkAPI.rejectWithValue(error.message);
     }
   },
 );
@@ -60,7 +60,7 @@ export const fetchDeleteLikeTrack = createAsyncThunk(
       }
       return res;
     } catch (error) {
-      return thunkAPI.rejectWithValue(error);
+      return thunkAPI.rejectWithValue(error.message);
     }
   },
 );

@@ -28,7 +28,6 @@ function ItemPlaylist(props) {
   const dispatch = useDispatch();
 
   async function toggleLikedTrack() {
-
     if (
       props?.stared_user?.find((user) => user.id === userInfo.id) ||
       location.pathname === '/favorites'
@@ -119,18 +118,12 @@ function ItemPlaylist(props) {
           )}
         </S.TrackAlbum>
         <>
-          <S.TrackTimeSvg alt="time">
+          <S.TrackTimeSvg alt="time" onClick={() => toggleLikedTrack()}>
             {location.pathname === '/favorites' ||
             props?.stared_user?.find((user) => user.id === userInfo.id) ? (
-              <use
-                xlinkHref="img/icon/sprite.svg#icon-like-active"
-                onClick={toggleLikedTrack}
-              />
+              <use xlinkHref="img/icon/sprite.svg#icon-like-active" />
             ) : (
-              <use
-                xlinkHref="img/icon/sprite.svg#icon-like-no-active"
-                onClick={toggleLikedTrack}
-              />
+              <use xlinkHref="img/icon/sprite.svg#icon-like-no-active" />
             )}
           </S.TrackTimeSvg>
           {isLoading ? (
