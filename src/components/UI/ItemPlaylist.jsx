@@ -28,7 +28,7 @@ function ItemPlaylist(props) {
   const dispatch = useDispatch();
 
   async function toggleLikedTrack() {
-    console.log(props);
+
     if (
       props?.stared_user?.find((user) => user.id === userInfo.id) ||
       location.pathname === '/favorites'

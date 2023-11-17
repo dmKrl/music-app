@@ -8,13 +8,6 @@ import {
 } from '../../api/api';
 import { refreshAccessToken } from '../../app/getToken';
 
-// const reloadPage = () => {
-//   console.log('relog');
-//   window.location.reload();
-// };
-
-console.log(localStorage.getItem('newRefreshToken'));
-
 const initialState = {
   favoritesTracks: [],
   isToggleFavorites: false,

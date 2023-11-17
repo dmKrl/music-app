@@ -9,7 +9,7 @@ import { selectAllTracks } from '../../redux/slices/switchTracksSlice';
 function SectionMusicList() {
   const { isLoading, isLoadingError } = useContext(IsLoadingPageContext);
   const allTracks = useSelector(selectAllTracks);
-  console.log(allTracks);
+
   return (
     <S.CenterBlockContent>
       <S.ContentTitle>
