@@ -216,15 +216,18 @@ export const TrackAlbumLinkBones = styled.div`
   height: 19px;
   background: #313131;
 `;
+export const TrackBlockTimeSvg = styled.div`
+  padding: 5px;
+  :hover {
+    cursor: pointer;
+  }
+`;
 export const TrackTimeSvg = styled.svg`
   width: 14px;
   height: 12px;
   margin-right: 17px;
   fill: transparent;
   stroke: #696969;
-  :hover {
-    cursor: pointer;
-  }
 `;
 export const TrackTimeText = styled.span`
   font-style: normal;

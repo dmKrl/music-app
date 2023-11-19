@@ -2,7 +2,7 @@
 /* eslint-disable no-dupe-else-if */
 /* eslint-disable import/no-extraneous-dependencies */
 /* eslint-disable jsx-a11y/media-has-caption */
-import { useRef, useState, useEffect } from 'react';
+import { useRef, useState, useEffect, useContext } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import * as S from './MediaPlayer.styles.';
 import ProgressBar from '../ProgressBar/ProgressBar';
@@ -19,6 +19,7 @@ import {
 } from '../../redux/slices/switchTracksSlice';
 import shuffleTracks from '../../app/shuffleTracks';
 import { selectFavoritesTracks } from '../../redux/slices/favoritesTracksSlice';
+import UserData from '../../context/UserData';
 
 function MediaPlayer() {
   const dispatch = useDispatch();
@@ -32,10 +33,12 @@ function MediaPlayer() {
   const [currentTime, setCurrentTime] = useState(0);
   const [volume, setVolume] = useState(1);
   const [duration, setDuration] = useState(0);
+  const { userInfo } = useContext(UserData);
   const [randomAllTracks, setRandomAllTracks] = useState([]);
   const audioRef = useRef(null);
 
-  
+  console.log(dataTrack.isFavorite);
+
   const handleToggleTrack = () => {
     if (dataTrack.isFavorite) {
       setRandomAllTracks(shuffleTracks(favoritesTracks));
@@ -223,10 +226,12 @@ function MediaPlayer() {
                       alt="like"
                       onClick={() => setIsLiked(!isLiked)}
                     >
-                      {!isLiked ? (
-                        <use xlinkHref="img/icon/sprite.svg#icon-like-no-active" />
-                      ) : (
+                      {dataTrack?.arrayStaredUser?.find(
+                        (user) => user.id === userInfo.id,
+                      ) || dataTrack.isFavorite ? (
                         <use xlinkHref="img/icon/sprite.svg#icon-like-active" />
+                      ) : (
+                        <use xlinkHref="img/icon/sprite.svg#icon-like-no-active" />
                       )}
                     </S.TrackPlaySvg>
                   </S.TrackPlayLike>

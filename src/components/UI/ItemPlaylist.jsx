@@ -60,7 +60,6 @@ function ItemPlaylist(props) {
         name: props.name,
         author: props.author,
         track_file: props.track_file,
-        arrayStaredUser: props.stared_user,
         id: props.id,
         isFavorite: true,
       };
@@ -118,14 +117,16 @@ function ItemPlaylist(props) {
           )}
         </S.TrackAlbum>
         <>
-          <S.TrackTimeSvg alt="time" onClick={() => toggleLikedTrack()}>
-            {location.pathname === '/favorites' ||
-            props?.stared_user?.find((user) => user.id === userInfo.id) ? (
-              <use xlinkHref="img/icon/sprite.svg#icon-like-active" />
-            ) : (
-              <use xlinkHref="img/icon/sprite.svg#icon-like-no-active" />
-            )}
-          </S.TrackTimeSvg>
+          <S.TrackBlockTimeSvg onClick={() => toggleLikedTrack()}>
+            <S.TrackTimeSvg alt="time">
+              {location.pathname === '/favorites' ||
+              props?.stared_user?.find((user) => user.id === userInfo.id) ? (
+                <use xlinkHref="img/icon/sprite.svg#icon-like-active" />
+              ) : (
+                <use xlinkHref="img/icon/sprite.svg#icon-like-no-active" />
+              )}
+            </S.TrackTimeSvg>
+          </S.TrackBlockTimeSvg>
           {isLoading ? (
             <S.TrackTimeText>00:00</S.TrackTimeText>
           ) : (
