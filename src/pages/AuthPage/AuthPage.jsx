@@ -8,7 +8,7 @@ import {
 import { postRegister, postLogin } from '../../api/api';
 import MessageError from '../../components/UI/MessageError';
 import UserData from '../../context/UserData';
-import getToken from '../../app/getToken';
+import { getAccessTokenAPI } from '../../services/GetAccessTokenService';
 
 function SignUp() {
   const [email, setEmail] = useState('');
@@ -24,6 +24,8 @@ function SignUp() {
   const [isValidPasswords, setIsValidPasswords] = useState(false);
   const { changeUserInfo } = useContext(UserData);
   const navigate = useNavigate();
+  const [postAccessToken] = getAccessTokenAPI.usePostAccessTokenMutation();
+
   const returnsErrorMessageAPI = (data) => {
     if (data.username) {
       setMessageErrorAPI(data.username.join());
@@ -45,10 +47,9 @@ function SignUp() {
     });
     if (isFilledOut) {
       setIsGettingData(true);
-      getToken({ email, password });
-      setInterval(() => {
-        getToken({ email, password });
-      }, 190000);
+      postAccessToken({ email, password }).then((response) =>
+        localStorage.setItem('accessRefreshToken', response.data.refresh),
+      );
       postLogin({ email, password })
         .then((data) => {
           if (data.id) {
@@ -82,7 +83,7 @@ function SignUp() {
     });
     if (isFilledOut) {
       setIsGettingData(true);
-      getToken({ email, password });
+      postAccessToken({ email, password });
       postRegister({ email, password, username })
         .then((data) => {
           if (data.id) {
