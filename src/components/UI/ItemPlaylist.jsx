@@ -26,7 +26,7 @@ function ItemPlaylist(props) {
   const isPlayingTrack = useSelector(selectIsPlaying);
   const location = useLocation();
   const dispatch = useDispatch();
-
+  
   async function toggleLikedTrack() {
     if (
       props?.stared_user?.find((user) => user.id === userInfo.id) ||
@@ -121,9 +121,9 @@ function ItemPlaylist(props) {
             <S.TrackTimeSvg alt="time">
               {location.pathname === '/favorites' ||
               props?.stared_user?.find((user) => user.id === userInfo.id) ? (
-                <use xlinkHref="img/icon/sprite.svg#icon-like-active" />
+                <use xlinkHref="/img/icon/sprite.svg#icon-like-active" />
               ) : (
-                <use xlinkHref="img/icon/sprite.svg#icon-like-no-active" />
+                <use xlinkHref="/img/icon/sprite.svg#icon-like-no-active" />
               )}
             </S.TrackTimeSvg>
           </S.TrackBlockTimeSvg>

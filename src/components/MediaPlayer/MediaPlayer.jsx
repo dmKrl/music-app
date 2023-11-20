@@ -22,22 +22,20 @@ import { selectFavoritesTracks } from '../../redux/slices/favoritesTracksSlice';
 import UserData from '../../context/UserData';
 
 function MediaPlayer() {
-  const dispatch = useDispatch();
+  const [volume, setVolume] = useState(1);
+  const [duration, setDuration] = useState(0);
+  const [isLoop, setIsLoop] = useState(false);
+  const [isLiked, setIsLiked] = useState(false);
+  const [currentTime, setCurrentTime] = useState(0);
+  const [randomAllTracks, setRandomAllTracks] = useState([]);
   const dataTrack = useSelector(selectTracks);
   const allTracks = useSelector(selectAllTracks);
   const isShuffled = useSelector(selectIsShuffled);
   const isPlayingTrack = useSelector(selectIsPlaying);
   const favoritesTracks = useSelector(selectFavoritesTracks);
-  const [isLiked, setIsLiked] = useState(false);
-  const [isLoop, setIsLoop] = useState(false);
-  const [currentTime, setCurrentTime] = useState(0);
-  const [volume, setVolume] = useState(1);
-  const [duration, setDuration] = useState(0);
   const { userInfo } = useContext(UserData);
-  const [randomAllTracks, setRandomAllTracks] = useState([]);
+  const dispatch = useDispatch();
   const audioRef = useRef(null);
-
-  console.log(dataTrack.isFavorite);
 
   const handleToggleTrack = () => {
     if (dataTrack.isFavorite) {
@@ -153,7 +151,7 @@ function MediaPlayer() {
                   }}
                 >
                   <S.PlayerBtnPrevSvg alt="prev">
-                    <use xlinkHref="img/icon/sprite.svg#icon-prev" />
+                    <use xlinkHref="/img/icon/sprite.svg#icon-prev" />
                   </S.PlayerBtnPrevSvg>
                 </S.PlayerBtnPrev>
                 <S.PlayerBtnPlay>
@@ -164,15 +162,15 @@ function MediaPlayer() {
                     }
                   >
                     {isPlayingTrack ? (
-                      <use xlinkHref="img/icon/sprite.svg#icon-pause" />
+                      <use xlinkHref="/img/icon/sprite.svg#icon-pause" />
                     ) : (
-                      <use xlinkHref="img/icon/sprite.svg#icon-play" />
+                      <use xlinkHref="/img/icon/sprite.svg#icon-play" />
                     )}
                   </S.PlayerBtnPlaySvg>
                 </S.PlayerBtnPlay>
                 <S.PlayerBtnNext onClick={handleNextTrack}>
                   <S.PlayerBtnNextSvg alt="next">
-                    <use xlinkHref="img/icon/sprite.svg#icon-next" />
+                    <use xlinkHref="/img/icon/sprite.svg#icon-next" />
                   </S.PlayerBtnNextSvg>
                 </S.PlayerBtnNext>
                 <S.PlayerBtnRepeat>
@@ -181,9 +179,9 @@ function MediaPlayer() {
                     onClick={() => setIsLoop(!isLoop)}
                   >
                     {isLoop ? (
-                      <use xlinkHref="img/icon/sprite.svg#icon-repeatA" />
+                      <use xlinkHref="/img/icon/sprite.svg#icon-repeatA" />
                     ) : (
-                      <use xlinkHref="img/icon/sprite.svg#icon-repeat" />
+                      <use xlinkHref="/img/icon/sprite.svg#icon-repeat" />
                     )}
                   </S.PlayerBtnRepeatSvg>
                 </S.PlayerBtnRepeat>
@@ -193,9 +191,9 @@ function MediaPlayer() {
                     onClick={() => handleToggleTrack()}
                   >
                     {isShuffled ? (
-                      <use xlinkHref="img/icon/sprite.svg#icon-shuffle-active" />
+                      <use xlinkHref="/img/icon/sprite.svg#icon-shuffle-active" />
                     ) : (
-                      <use xlinkHref="img/icon/sprite.svg#icon-shuffle" />
+                      <use xlinkHref="/img/icon/sprite.svg#icon-shuffle" />
                     )}
                   </S.PlayerBtnShuffleSvg>
                 </S.PlayerBtnShuffle>
@@ -205,7 +203,7 @@ function MediaPlayer() {
                 <S.TrackPlayContain>
                   <S.TrackPlayImage>
                     <S.TrackPlaySvg alt="music">
-                      <use xlinkHref="img/icon/sprite.svg#icon-note" />
+                      <use xlinkHref="/img/icon/sprite.svg#icon-note" />
                     </S.TrackPlaySvg>
                   </S.TrackPlayImage>
                   <S.TrackPlayAuthor>
@@ -229,15 +227,15 @@ function MediaPlayer() {
                       {dataTrack?.arrayStaredUser?.find(
                         (user) => user.id === userInfo.id,
                       ) || dataTrack.isFavorite ? (
-                        <use xlinkHref="img/icon/sprite.svg#icon-like-active" />
+                        <use xlinkHref="/img/icon/sprite.svg#icon-like-active" />
                       ) : (
-                        <use xlinkHref="img/icon/sprite.svg#icon-like-no-active" />
+                        <use xlinkHref="/img/icon/sprite.svg#icon-like-no-active" />
                       )}
                     </S.TrackPlaySvg>
                   </S.TrackPlayLike>
                   <S.TrackPlayDislike>
                     <S.TrackPlayDislikeSvg alt="dislike">
-                      <use xlinkHref="img/icon/sprite.svg#icon-dislike" />
+                      <use xlinkHref="/img/icon/sprite.svg#icon-dislike" />
                     </S.TrackPlayDislikeSvg>
                   </S.TrackPlayDislike>
                 </S.TrackPlayLikeDis>
@@ -247,7 +245,7 @@ function MediaPlayer() {
               <S.VolumeContent>
                 <S.VolumeImg>
                   <S.VolumeSvg alt="volume">
-                    <use xlinkHref="img/icon/sprite.svg#icon-volume" />
+                    <use xlinkHref="/img/icon/sprite.svg#icon-volume" />
                   </S.VolumeSvg>
                 </S.VolumeImg>
                 <S.VolumeProgress>

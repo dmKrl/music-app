@@ -11,9 +11,9 @@ import {
 } from '../../redux/slices/favoritesTracksSlice';
 
 function Favorites() {
-  const { isLoading, isLoadingError } = useContext(IsLoadingPageContext);
   const favoritesTracks = useSelector(selectFavoritesTracks);
   const [error, setError] = useState('У вас нет избранных треков');
+  const { isLoading, isLoadingError } = useContext(IsLoadingPageContext);
   const dispatch = useDispatch();
 
   useEffect(() => {

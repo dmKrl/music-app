@@ -42,7 +42,11 @@ function App() {
   }, []);
   return (
     <IsLoadingPageContext.Provider
-      value={{ isLoading: isLoadingPage, isLoadingError }}
+      value={{
+        isLoading: isLoadingPage,
+        isLoadingError,
+        changeIsLoading: setIsLoadingData,
+      }}
     >
       <MediaPlayerContext.Provider
         value={{

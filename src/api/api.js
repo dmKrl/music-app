@@ -4,6 +4,7 @@ const getTracksUrl = 'https://skypro-music-api.skyeng.tech/catalog/track/all/';
 const getAccessTokenUrl = 'https://skypro-music-api.skyeng.tech/user/token/';
 const getRefreshAccessTokenUrl =
   'https://skypro-music-api.skyeng.tech/user/token/refresh/';
+const collectionTracks = `https://skypro-music-api.skyeng.tech/catalog/selection`;
 
 // Получение всех треков
 export async function getTracks() {
@@ -12,9 +13,16 @@ export async function getTracks() {
   return data;
 }
 
+// Получение подборок треков
+export async function getCollectionOfTracks(id) {
+  const response = await fetch(`${collectionTracks}/${id}`);
+  const data = await response.json();
+  return data;
+}
+
 // Получение токена
 export async function getAccessToken({ email, password }) {
-  console.log('access token')
+  console.log('access token');
   const response = await fetch(getAccessTokenUrl, {
     method: 'POST',
     body: JSON.stringify({
