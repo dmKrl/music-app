@@ -3,8 +3,9 @@ import { useSelector } from 'react-redux';
 import ItemPlaylist from '../UI/ItemPlaylist';
 import * as S from './SectionMusicList.styles';
 import IsLoadingPageContext from '../../context/IsLoadingPageContext';
-import tracks from '../../data/tracks';
+import bonesTracks from '../../data/tracks';
 import { selectAllTracks } from '../../redux/slices/switchTracksSlice';
+// import { tracksAPI } from '../../services/FavoritesTracksService';
 
 function SectionMusicList() {
   const { isLoading, isLoadingError } = useContext(IsLoadingPageContext);
@@ -25,7 +26,7 @@ function SectionMusicList() {
       <S.ContentPlaylist>
         {isLoadingError}
         {isLoading
-          ? tracks.map((track) => (
+          ? bonesTracks.map((track) => (
               // eslint-disable-next-line react/jsx-props-no-spreading
               <ItemPlaylist {...track} key={track.id} />
             ))

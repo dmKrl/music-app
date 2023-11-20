@@ -1,4 +1,4 @@
-const tracks = [
+const bonesTracks = [
   {
     trackName: 'Guilt',
     musician: 'Nero',
@@ -81,4 +81,4 @@ const tracks = [
     genre: 'Dubstep',
   },
 ];
-export default tracks;
+export default bonesTracks;

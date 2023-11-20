@@ -4,6 +4,7 @@ import tracksReducer from './slices/tracksSlice';
 import switchTracksReducer from './slices/switchTracksSlice';
 import favoritesTracksReducer from './slices/favoritesTracksSlice';
 import { getAccessTokenAPI } from '../services/GetAccessTokenService';
+import { tracksAPI } from '../services/FavoritesTracksService';
 
 const store = configureStore({
   reducer: {
@@ -11,9 +12,13 @@ const store = configureStore({
     switchTrack: switchTracksReducer,
     favorites: favoritesTracksReducer,
     [getAccessTokenAPI.reducerPath]: getAccessTokenAPI.reducer,
+    [tracksAPI.reducerPath]: tracksAPI.reducer,
   },
   middleware: (getDefaultMiddleware) =>
-    getDefaultMiddleware().concat(getAccessTokenAPI.middleware),
+    getDefaultMiddleware().concat(
+      getAccessTokenAPI.middleware,
+      tracksAPI.middleware,
+    ),
 });
 
 export default store;

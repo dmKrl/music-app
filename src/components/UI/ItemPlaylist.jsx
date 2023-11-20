@@ -12,11 +12,7 @@ import {
   setTrack,
 } from '../../redux/slices/tracksSlice';
 import UserData from '../../context/UserData';
-import {
-  fetchAddLikeFavoriteTrack,
-  fetchDeleteLikeTrack,
-  fetchFavoritesTracks,
-} from '../../redux/slices/favoritesTracksSlice';
+import { tracksAPI } from '../../services/FavoritesTracksService';
 
 function ItemPlaylist(props) {
   const { isLoading } = useContext(IsLoadingPageContext);
@@ -24,33 +20,22 @@ function ItemPlaylist(props) {
   const { userInfo, getTracks } = useContext(UserData);
   const track = useSelector(selectTracks);
   const isPlayingTrack = useSelector(selectIsPlaying);
+  const [addLikeTrack] = tracksAPI.useAddLikeTrackMutation();
+  const [deleteLikeTrack] = tracksAPI.useDeleteLikeTrackMutation();
   const location = useLocation();
   const dispatch = useDispatch();
-  
-  async function toggleLikedTrack() {
+
+  function toggleLikedTrack() {
     if (
       props?.stared_user?.find((user) => user.id === userInfo.id) ||
       location.pathname === '/favorites'
     ) {
-      dispatch(
-        fetchDeleteLikeTrack(
-          `https://skypro-music-api.skyeng.tech/catalog/track/${props.id}/favorite/`,
-        ),
-      );
+      deleteLikeTrack(props.id);
     } else {
-      dispatch(
-        fetchAddLikeFavoriteTrack(
-          `https://skypro-music-api.skyeng.tech/catalog/track/${props.id}/favorite/`,
-        ),
-      );
+      addLikeTrack(props.id);
     }
     setTimeout(() => {
       getTracks();
-      dispatch(
-        fetchFavoritesTracks(
-          'https://skypro-music-api.skyeng.tech/catalog/track/favorite/all/',
-        ),
-      );
     }, 500);
   }
 

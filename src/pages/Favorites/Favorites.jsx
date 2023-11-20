@@ -1,32 +1,17 @@
-import { useContext, useEffect, useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { useContext, useEffect } from 'react';
 import * as S from '../../components/Main/SectionMusicList.styles';
 import { CenterBlockHeading } from '../../components/Main/CenterBlockFilter.styles';
 import ItemPlaylist from '../../components/UI/ItemPlaylist';
 import IsLoadingPageContext from '../../context/IsLoadingPageContext';
-import tracks from '../../data/tracks';
-import {
-  fetchFavoritesTracks,
-  selectFavoritesTracks,
-} from '../../redux/slices/favoritesTracksSlice';
+import bonesTracks from '../../data/tracks';
+import { tracksAPI } from '../../services/FavoritesTracksService';
 
 function Favorites() {
-  const favoritesTracks = useSelector(selectFavoritesTracks);
-  const [error, setError] = useState('У вас нет избранных треков');
   const { isLoading, isLoadingError } = useContext(IsLoadingPageContext);
-  const dispatch = useDispatch();
+  const { data: tracks } = tracksAPI.useFetchAllFavoritesTrackQuery();
 
   useEffect(() => {
-    if (typeof favoritesTracks === 'string') {
-      setError(
-        'Произошла ошибка запроса, обновите страницу или перезайдите в приложение',
-      );
-    }
-    dispatch(
-      fetchFavoritesTracks(
-        'https://skypro-music-api.skyeng.tech/catalog/track/favorite/all/',
-      ),
-    );
+
   }, []);
   return (
     <S.CenterBlockContent>
@@ -41,20 +26,20 @@ function Favorites() {
           </S.PlaylistTitleSvg>
         </S.Col04>
       </S.ContentTitle>
-      {(favoritesTracks.length === 0 && !isLoading) ||
-      typeof favoritesTracks === 'string' ? (
+      {(bonesTracks.length === 0 && !isLoading) ||
+      typeof bonesTracks === 'string' ? (
         <CenterBlockHeading style={{ fontSize: '32px' }}>
-          {error}
+          Ошибка
         </CenterBlockHeading>
       ) : (
         <S.ContentPlaylist>
           {isLoadingError}
           {isLoading
-            ? tracks.map((track) => (
+            ? bonesTracks.map((track) => (
                 // eslint-disable-next-line react/jsx-props-no-spreading
                 <ItemPlaylist {...track} key={track.id} />
               ))
-            : favoritesTracks.map((track) => (
+            : tracks.map((track) => (
                 // eslint-disable-next-line react/jsx-props-no-spreading
                 <ItemPlaylist {...track} key={track.id} />
               ))}
