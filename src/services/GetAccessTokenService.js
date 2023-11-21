@@ -4,12 +4,13 @@ import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 export const getAccessTokenAPI = createApi({
   reducerPath: 'getAccessTokenAPI',
   baseQuery: fetchBaseQuery({
-    baseUrl: 'https://skypro-music-api.skyeng.tech/user/token/',
+    baseUrl: 'https://skypro-music-api.skyeng.tech',
   }),
   endpoints: (build) => ({
     postAccessToken: build.mutation({
       query: ({ email, password }) => ({
         method: 'POST',
+        url: '/user/token/',
         body: JSON.stringify({
           email,
           password,
@@ -20,11 +21,11 @@ export const getAccessTokenAPI = createApi({
       }),
     }),
     postRefreshAccessToken: build.mutation({
-      query: ({ token }) => ({
-        url: '/refresh',
+      query: () => ({
+        url: '/user/token/refresh/',
         method: 'POST',
         body: JSON.stringify({
-          refresh: token,
+          refresh: localStorage.getItem('accessRefreshToken'),
         }),
         headers: {
           'content-type': 'application/json',

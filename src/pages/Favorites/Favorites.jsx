@@ -4,15 +4,13 @@ import { CenterBlockHeading } from '../../components/Main/CenterBlockFilter.styl
 import ItemPlaylist from '../../components/UI/ItemPlaylist';
 import IsLoadingPageContext from '../../context/IsLoadingPageContext';
 import bonesTracks from '../../data/tracks';
-import { tracksAPI } from '../../services/FavoritesTracksService';
+import { tracksAPI } from '../../services/tracksService';
 
 function Favorites() {
   const { isLoading, isLoadingError } = useContext(IsLoadingPageContext);
   const { data: tracks } = tracksAPI.useFetchAllFavoritesTrackQuery();
 
-  useEffect(() => {
-
-  }, []);
+  useEffect(() => {}, []);
   return (
     <S.CenterBlockContent>
       <CenterBlockHeading>Мои треки</CenterBlockHeading>

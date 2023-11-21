@@ -1,5 +1,5 @@
 /* eslint-disable import/no-extraneous-dependencies */
-import { useContext } from 'react';
+import { useContext, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useLocation } from 'react-router-dom';
 import * as S from '../Main/SectionMusicList.styles';
@@ -12,7 +12,7 @@ import {
   setTrack,
 } from '../../redux/slices/tracksSlice';
 import UserData from '../../context/UserData';
-import { tracksAPI } from '../../services/FavoritesTracksService';
+import { tracksAPI } from '../../services/tracksService';
 import { getAccessTokenAPI } from '../../services/GetAccessTokenService';
 
 function ItemPlaylist(props) {
@@ -29,29 +29,21 @@ function ItemPlaylist(props) {
     getAccessTokenAPI.usePostRefreshAccessTokenMutation();
   const location = useLocation();
   const dispatch = useDispatch();
-  console.log(addLikeError, deleteLikeError);
 
-  function showingErrors() {
+  useEffect(() => {
+    postRefreshAccessToken().then().catch()
+    console.log(addLikeError, deleteLikeError);
     console.log(localStorage.getItem('accessRefreshToken'));
-    if (addLikeError || deleteLikeError) {
-      postRefreshAccessToken(localStorage.getItem('accessRefreshToken')).then(
-        (response) => {
-          console.log(response);
-          localStorage.setItem('accessToken', response);
-        },
-      );
-    }
-  }
+  }, [postRefreshAccessToken]);
+
   function toggleLikedTrack() {
     console.log(localStorage.getItem('accessToken'));
     if (
       props?.stared_user?.find((user) => user.id === userInfo.id) ||
       location.pathname === '/favorites'
     ) {
-      showingErrors();
       deleteLikeTrack(props.id);
     } else {
-      showingErrors();
       addLikeTrack(props.id);
     }
     setTimeout(() => {

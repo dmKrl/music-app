@@ -4,7 +4,7 @@ import tracksReducer from './slices/tracksSlice';
 import switchTracksReducer from './slices/switchTracksSlice';
 import favoritesTracksReducer from './slices/favoritesTracksSlice';
 import { getAccessTokenAPI } from '../services/GetAccessTokenService';
-import { tracksAPI } from '../services/FavoritesTracksService';
+import { tracksAPI } from '../services/tracksService';
 
 const store = configureStore({
   reducer: {

@@ -49,7 +49,7 @@ function SignUp() {
       setIsGettingData(true);
       postAccessToken({ email, password }).then((response) => {
         localStorage.setItem('accessToken', response.data.access);
-        localStorage.setItem('accessRefreshToken', response.data.access);
+        localStorage.setItem('accessRefreshToken', response.data.refresh);
       });
       postLogin({ email, password })
         .then((data) => {
