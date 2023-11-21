@@ -47,9 +47,10 @@ function SignUp() {
     });
     if (isFilledOut) {
       setIsGettingData(true);
-      postAccessToken({ email, password }).then((response) =>
-        localStorage.setItem('accessRefreshToken', response.data.refresh),
-      );
+      postAccessToken({ email, password }).then((response) => {
+        localStorage.setItem('accessToken', response.data.access);
+        localStorage.setItem('accessRefreshToken', response.data.access);
+      });
       postLogin({ email, password })
         .then((data) => {
           if (data.id) {

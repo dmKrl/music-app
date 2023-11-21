@@ -12,7 +12,7 @@ export const tracksAPI = createApi({
       query: () => ({
         url: '/favorite/all/',
         headers: {
-          Authorization: `Bearer ${localStorage.getItem('newRefreshToken')}`,
+          Authorization: `Bearer ${localStorage.getItem('accessToken')}`,
         },
       }),
     }),
@@ -26,7 +26,7 @@ export const tracksAPI = createApi({
         method: 'POST',
         url: `/${id}/favorite/`,
         headers: {
-          Authorization: `Bearer ${localStorage.getItem('newRefreshToken')}`,
+          Authorization: `Bearer ${localStorage.getItem('accessToken')}`,
         },
       }),
     }),
@@ -35,7 +35,7 @@ export const tracksAPI = createApi({
         method: 'DELETE',
         url: `/${id}/favorite/`,
         headers: {
-          Authorization: `Bearer ${localStorage.getItem('newRefreshToken')}`,
+          Authorization: `Bearer ${localStorage.getItem('accessToken')}`,
         },
       }),
     }),
