@@ -1,43 +1,48 @@
+/* eslint-disable no-unused-vars */
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 
 // eslint-disable-next-line import/prefer-default-export
 export const tracksAPI = createApi({
   reducerPath: 'favoritesAPI',
   baseQuery: fetchBaseQuery({
-    baseUrl: 'https://skypro-music-api.skyeng.tech/catalog/track',
+    baseUrl: 'https://skypro-music-api.skyeng.tech/catalog',
   }),
   tagTypes: ['Track'],
   endpoints: (build) => ({
     fetchAllFavoritesTrack: build.query({
       query: () => ({
-        url: '/favorite/all/',
+        url: '/track/favorite/all/',
         headers: {
           Authorization: `Bearer ${localStorage.getItem('accessToken')}`,
         },
       }),
+      providesTags: (result) => ['Track'],
     }),
-    fetchAllTrack: build.query({
-      query: () => ({
-        url: '/all/',
+    fetchAllCollectionTracks: build.query({
+      query: (id) => ({
+        url: `/selection/${id}`,
       }),
+      providesTags: (result) => ['Track'],
     }),
     addLikeTrack: build.mutation({
       query: (id) => ({
         method: 'POST',
-        url: `/${id}/favorite/`,
+        url: `/track/${id}/favorite/`,
         headers: {
           Authorization: `Bearer ${localStorage.getItem('accessToken')}`,
         },
       }),
+      invalidatesTags: ['Track'],
     }),
     deleteLikeTrack: build.mutation({
       query: (id) => ({
         method: 'DELETE',
-        url: `/${id}/favorite/`,
+        url: `/track/${id}/favorite/`,
         headers: {
           Authorization: `Bearer ${localStorage.getItem('accessToken')}`,
         },
       }),
+      invalidatesTags: ['Track'],
     }),
   }),
 });

@@ -3,18 +3,10 @@ const SignInUrl = 'https://skypro-music-api.skyeng.tech/user/login/';
 const getTracksUrl = 'https://skypro-music-api.skyeng.tech/catalog/track/all/';
 const getRefreshAccessTokenUrl =
   'https://skypro-music-api.skyeng.tech/user/token/refresh/';
-const collectionTracks = `https://skypro-music-api.skyeng.tech/catalog/selection`;
 
 // Получение всех треков
 export async function getTracks() {
   const response = await fetch(getTracksUrl);
-  const data = await response.json();
-  return data;
-}
-
-// Получение подборок треков
-export async function getCollectionOfTracks(id) {
-  const response = await fetch(`${collectionTracks}/${id}`);
   const data = await response.json();
   return data;
 }
