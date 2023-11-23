@@ -5,12 +5,23 @@ import ItemPlaylist from '../../components/UI/ItemPlaylist';
 import IsLoadingPageContext from '../../context/IsLoadingPageContext';
 import bonesTracks from '../../data/tracks';
 import { tracksAPI } from '../../services/tracksService';
+import { getAccessTokenAPI } from '../../services/GetAccessTokenService';
 
 function Favorites() {
   const { isLoading, isLoadingError } = useContext(IsLoadingPageContext);
-  const { data: tracks } = tracksAPI.useFetchAllFavoritesTrackQuery();
+  const { data: tracks, error } = tracksAPI.useFetchAllFavoritesTrackQuery();
+  const [postRefreshAccessToken] =
+    getAccessTokenAPI.usePostRefreshAccessTokenMutation();
 
-  useEffect(() => {}, []);
+  useEffect(() => {
+    if (error) {
+      postRefreshAccessToken(localStorage.getItem('accessRefreshToken')).then(
+        (response) => {
+          localStorage.setItem('accessToken', response.data.access);
+        },
+      );
+    }
+  }, []);
   return (
     <S.CenterBlockContent>
       <CenterBlockHeading>Мои треки</CenterBlockHeading>
@@ -32,7 +43,7 @@ function Favorites() {
       ) : (
         <S.ContentPlaylist>
           {isLoadingError}
-          {isLoading
+          {isLoading && tracks === undefined
             ? bonesTracks.map((track) => (
                 // eslint-disable-next-line react/jsx-props-no-spreading
                 <ItemPlaylist {...track} key={track.id} />

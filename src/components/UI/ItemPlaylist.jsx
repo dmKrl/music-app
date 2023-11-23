@@ -1,5 +1,5 @@
 /* eslint-disable import/no-extraneous-dependencies */
-import { useContext, useEffect } from 'react';
+import { useContext } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useLocation } from 'react-router-dom';
 import * as S from '../Main/SectionMusicList.styles';
@@ -30,20 +30,25 @@ function ItemPlaylist(props) {
   const location = useLocation();
   const dispatch = useDispatch();
 
-  useEffect(() => {
-    postRefreshAccessToken().then().catch()
-    console.log(addLikeError, deleteLikeError);
-    console.log(localStorage.getItem('accessRefreshToken'));
-  }, [postRefreshAccessToken]);
+  const refreshToken = () => {
+    if (addLikeError || deleteLikeError) {
+      postRefreshAccessToken(localStorage.getItem('accessRefreshToken')).then(
+        (response) => {
+          localStorage.setItem('accessToken', response.data.access);
+        },
+      );
+    }
+  };
 
   function toggleLikedTrack() {
-    console.log(localStorage.getItem('accessToken'));
     if (
       props?.stared_user?.find((user) => user.id === userInfo.id) ||
       location.pathname === '/favorites'
     ) {
+      refreshToken();
       deleteLikeTrack(props.id);
     } else {
+      refreshToken();
       addLikeTrack(props.id);
     }
     setTimeout(() => {

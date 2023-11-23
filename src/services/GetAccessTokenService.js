@@ -21,11 +21,11 @@ export const getAccessTokenAPI = createApi({
       }),
     }),
     postRefreshAccessToken: build.mutation({
-      query: () => ({
+      query: (token) => ({
         url: '/user/token/refresh/',
         method: 'POST',
         body: JSON.stringify({
-          refresh: localStorage.getItem('accessRefreshToken'),
+          refresh: token,
         }),
         headers: {
           'content-type': 'application/json',

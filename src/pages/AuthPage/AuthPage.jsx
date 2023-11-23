@@ -48,6 +48,7 @@ function SignUp() {
     if (isFilledOut) {
       setIsGettingData(true);
       postAccessToken({ email, password }).then((response) => {
+        console.log(response)
         localStorage.setItem('accessToken', response.data.access);
         localStorage.setItem('accessRefreshToken', response.data.refresh);
       });
