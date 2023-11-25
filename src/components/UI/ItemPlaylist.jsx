@@ -10,6 +10,7 @@ import {
   selectIsPlaying,
   selectTracks,
   setTrack,
+  setArrayTracks,
 } from '../../redux/slices/tracksSlice';
 import UserData from '../../context/UserData';
 import { tracksAPI } from '../../services/tracksService';
@@ -21,6 +22,11 @@ function ItemPlaylist(props) {
   const { userInfo, getTracks } = useContext(UserData);
   const track = useSelector(selectTracks);
   const isPlayingTrack = useSelector(selectIsPlaying);
+  const { data: allTracks } = tracksAPI.useFetchAllTracksQuery();
+  const { data: favoritesTracks } = tracksAPI.useFetchAllFavoritesTrackQuery();
+  const { data: categoryTracks } = tracksAPI.useFetchAllCollectionTracksQuery(
+    props.categoryId,
+  );
   const [addLikeTrack, { error: addLikeError }] =
     tracksAPI.useAddLikeTrackMutation();
   const [deleteLikeTrack, { error: deleteLikeError }] =
@@ -75,15 +81,28 @@ function ItemPlaylist(props) {
     };
   }
 
+  function changeStateTrackSlice() {
+    dispatch(setTrack(changeTrackInPlayer()));
+    changeIsShowing(true);
+    if (location.pathname === '/') {
+      dispatch(setArrayTracks(allTracks));
+    }
+    if (location.pathname === '/favorites') {
+      dispatch(setArrayTracks(favoritesTracks));
+    }
+    if (
+      location.pathname === '/category/1' ||
+      location.pathname === '/category/2' ||
+      location.pathname === '/category/3'
+    ) {
+      dispatch(setArrayTracks(categoryTracks.items));
+    }
+  }
+
   return (
     <S.PlaylistItem>
       <S.PlaylistTrack>
-        <S.TrackTitle
-          onClick={() => {
-            dispatch(setTrack(changeTrackInPlayer()));
-            changeIsShowing(true);
-          }}
-        >
+        <S.TrackTitle onClick={() => changeStateTrackSlice()}>
           {track.name === props.name && !isLoading ? (
             <> {isPlayingTrack ? <S.PlayingDotActive /> : <S.PlayingDot />}</>
           ) : (

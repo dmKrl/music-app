@@ -41,7 +41,7 @@ function Category() {
             ))
           : collectionTracks?.items.map((track) => (
               // eslint-disable-next-line react/jsx-props-no-spreading
-              <ItemPlaylist {...track} key={track.id} />
+              <ItemPlaylist categoryId={category.id} {...track} key={track.id} />
             ))}
       </S.ContentPlaylist>
     </S.CenterBlockContent>

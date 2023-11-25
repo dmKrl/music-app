@@ -1,15 +1,13 @@
 import { useContext } from 'react';
-import { useSelector } from 'react-redux';
 import ItemPlaylist from '../UI/ItemPlaylist';
 import * as S from './SectionMusicList.styles';
 import IsLoadingPageContext from '../../context/IsLoadingPageContext';
 import bonesTracks from '../../data/tracks';
-import { selectAllTracks } from '../../redux/slices/switchTracksSlice';
-// import { tracksAPI } from '../../services/FavoritesTracksService';
+import { tracksAPI } from '../../services/tracksService';
 
 function SectionMusicList() {
-  const { isLoading, isLoadingError } = useContext(IsLoadingPageContext);
-  const allTracks = useSelector(selectAllTracks);
+  const { isLoadingError } = useContext(IsLoadingPageContext);
+  const {data: allTracks, isLoading} = tracksAPI.useFetchAllTracksQuery();
 
   return (
     <S.CenterBlockContent>
@@ -30,7 +28,7 @@ function SectionMusicList() {
               // eslint-disable-next-line react/jsx-props-no-spreading
               <ItemPlaylist {...track} key={track.id} />
             ))
-          : allTracks.map((track) => (
+          : allTracks?.map((track) => (
               // eslint-disable-next-line react/jsx-props-no-spreading
               <ItemPlaylist {...track} key={track.id} />
             ))}

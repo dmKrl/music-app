@@ -7,18 +7,17 @@ import { useDispatch, useSelector } from 'react-redux';
 import * as S from './MediaPlayer.styles.';
 import ProgressBar from '../ProgressBar/ProgressBar';
 import {
+  selectArrayTracks,
   selectIsPlaying,
   selectTracks,
   setTrack,
   toggleIsPlaying,
 } from '../../redux/slices/tracksSlice';
 import {
-  selectAllTracks,
   selectIsShuffled,
   toggleIsShuffled,
 } from '../../redux/slices/switchTracksSlice';
 import shuffleTracks from '../../app/shuffleTracks';
-import { selectFavoritesTracks } from '../../redux/slices/favoritesTracksSlice';
 import UserData from '../../context/UserData';
 
 function MediaPlayer() {
@@ -29,19 +28,16 @@ function MediaPlayer() {
   const [currentTime, setCurrentTime] = useState(0);
   const [randomAllTracks, setRandomAllTracks] = useState([]);
   const dataTrack = useSelector(selectTracks);
-  const allTracks = useSelector(selectAllTracks);
   const isShuffled = useSelector(selectIsShuffled);
   const isPlayingTrack = useSelector(selectIsPlaying);
-  const favoritesTracks = useSelector(selectFavoritesTracks);
+  const definiteArrayTracks = useSelector(selectArrayTracks);
   const { userInfo } = useContext(UserData);
   const dispatch = useDispatch();
   const audioRef = useRef(null);
 
   const handleToggleTrack = () => {
-    if (dataTrack.isFavorite) {
-      setRandomAllTracks(shuffleTracks(favoritesTracks));
-    } else if (!isShuffled) {
-      setRandomAllTracks(shuffleTracks(allTracks));
+    if (!isShuffled) {
+      setRandomAllTracks(shuffleTracks(definiteArrayTracks));
     } else {
       setRandomAllTracks([]);
     }
@@ -58,10 +54,8 @@ function MediaPlayer() {
     }
   }
   const handleNextTrack = () => {
-    if (dataTrack.isFavorite && !isShuffled) {
-      nextTracks(favoritesTracks);
-    } else if (!isShuffled) {
-      nextTracks(allTracks);
+    if (!isShuffled) {
+      nextTracks(definiteArrayTracks);
     } else {
       nextTracks(randomAllTracks);
     }
@@ -78,10 +72,8 @@ function MediaPlayer() {
   }
 
   const handlePrevTrack = () => {
-    if (dataTrack.isFavorite && !isShuffled) {
-      prevTracks(favoritesTracks);
-    } else if (!isShuffled) {
-      prevTracks(allTracks);
+    if (!isShuffled) {
+      prevTracks(definiteArrayTracks);
     } else {
       prevTracks(randomAllTracks);
     }

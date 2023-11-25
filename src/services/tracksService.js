@@ -24,6 +24,12 @@ export const tracksAPI = createApi({
       }),
       providesTags: (result) => ['Track'],
     }),
+    fetchAllTracks: build.query({
+      query: () => ({
+        url: `/track/all/`,
+      }),
+      providesTags: (result) => ['Track'],
+    }),
     addLikeTrack: build.mutation({
       query: (id) => ({
         method: 'POST',
