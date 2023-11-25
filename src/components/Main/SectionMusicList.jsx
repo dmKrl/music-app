@@ -9,7 +9,7 @@ function SectionMusicList() {
     isLoading,
     error,
   } = tracksAPI.useFetchAllTracksQuery();
-
+  console.log(allTracks);
   return (
     <S.CenterBlockContent>
       <S.ContentTitle>

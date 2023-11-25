@@ -1,10 +1,10 @@
-import { useSelector } from 'react-redux';
+import { tracksAPI } from '../../services/tracksService';
 import FilterItem from '../UI/FilterItem';
 import * as S from './CenterBlockFilter.styles';
-import { selectAllTracks } from '../../redux/slices/switchTracksSlice';
 
 function CenterBlockFilter({ onClick, activeFilter }) {
-  const allTracks = useSelector(selectAllTracks);
+  const { data: allTracks } = tracksAPI.useLazyFetchAllTracksQuery();
+  console.log(allTracks);
   return (
     <>
       <S.CenterBlockHeading>Треки</S.CenterBlockHeading>
@@ -14,7 +14,7 @@ function CenterBlockFilter({ onClick, activeFilter }) {
           onClick={() => onClick('musician')}
           isOpen={activeFilter === 'musician'}
           id="1"
-          tracks={allTracks.map((track) => (
+          tracks={allTracks?.map((track) => (
             <S.PopupTextInfo key={track.id} className="popup-text-info">
               {track.author}
             </S.PopupTextInfo>
@@ -23,28 +23,29 @@ function CenterBlockFilter({ onClick, activeFilter }) {
           Исполнителю
         </FilterItem>
         <FilterItem
-          onClick={() => onClick('year')}
-          isOpen={activeFilter === 'year'}
-          id="2"
-          tracks={allTracks.map((track) => (
-            <S.PopupTextInfo key={track.id} className="popup-text-info">
-              {track.release_date}
-            </S.PopupTextInfo>
-          ))}
-        >
-          Году выпуска
-        </FilterItem>
-        <FilterItem
           onClick={() => onClick('genre')}
           isOpen={activeFilter === 'genre'}
           id="3"
-          tracks={allTracks.map((track) => (
+          tracks={allTracks?.map((track) => (
             <S.PopupTextInfo key={track.id} className="popup-text-info">
               {track.genre}
             </S.PopupTextInfo>
           ))}
         >
           Жанру
+        </FilterItem>
+        <FilterItem
+          style={{ position: 'absolute', right: 0 }}
+          onClick={() => onClick('year')}
+          isOpen={activeFilter === 'year'}
+          id="2"
+          tracks={allTracks?.map((track) => (
+            <S.PopupTextInfo key={track.id} className="popup-text-info">
+              {track.release_date}
+            </S.PopupTextInfo>
+          ))}
+        >
+          Году выпуска
         </FilterItem>
       </S.CenterBlockFilter>
     </>

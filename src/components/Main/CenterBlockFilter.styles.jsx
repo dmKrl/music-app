@@ -11,7 +11,7 @@ export const CenterBlockHeading = styled.h2`
 export const CenterBlockFilter = styled.div`
   display: -webkit-box;
   display: -ms-flexbox;
-  display: flex;
+  display: flexbox;
   gap: 10px;
   -webkit-box-orient: horizontal;
   -webkit-box-direction: normal;
