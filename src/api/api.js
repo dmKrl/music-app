@@ -1,15 +1,9 @@
 const SignUpUrl = 'https://skypro-music-api.skyeng.tech/user/signup/';
 const SignInUrl = 'https://skypro-music-api.skyeng.tech/user/login/';
-const getTracksUrl = 'https://skypro-music-api.skyeng.tech/catalog/track/all/';
 const getRefreshAccessTokenUrl =
   'https://skypro-music-api.skyeng.tech/user/token/refresh/';
 
-// Получение всех треков
-export async function getTracks() {
-  const response = await fetch(getTracksUrl);
-  const data = await response.json();
-  return data;
-}
+
 
 // Получение рефреш-токена
 export async function getRefreshAccessToken(token) {
@@ -47,20 +41,6 @@ export async function deleteTrackAtFavorite(token, url) {
   const responseData = await response.json();
   return responseData;
 }
-
-// Получение избранных треков
-export async function getFavoritesTracks(token, url) {
-  const response = await fetch(url, {
-    method: 'GET',
-    headers: {
-      Authorization: `Bearer ${token}`,
-    },
-  });
-  const responseData = await response.json();
-  console.log(responseData);
-  return responseData;
-}
-
 // Регистрация пользователя
 export async function postRegister({ email, password, username }) {
   try {

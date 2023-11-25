@@ -1,11 +1,9 @@
+import { tracksAPI } from '../../services/tracksService';
 import * as S from '../SideBar/SideBar.styles';
-// import categories from '../../data/categories';
 
 function SideBarItem(props) {
-  const { image, loadingPage, to } = props;
-
-  // const navigate = useNavigate();
-  // const category = categories.find((category) => categories.id === params.);
+  const { image, to } = props;
+  const { isLoading: loadingPage } = tracksAPI.useFetchAllTracksQuery();
   return (
     <S.StylesSideBarItem>
       {loadingPage ? (

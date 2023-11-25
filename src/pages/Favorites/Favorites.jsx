@@ -50,7 +50,7 @@ function Favorites() {
                 // eslint-disable-next-line react/jsx-props-no-spreading
                 <ItemPlaylist {...track} key={track.id} />
               ))
-            : tracks?.map((track) => (
+            : tracks.map((track) => (
                 // eslint-disable-next-line react/jsx-props-no-spreading
                 <ItemPlaylist {...track} key={track.id} />
               ))}

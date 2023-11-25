@@ -3,7 +3,6 @@ import { useContext } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useLocation } from 'react-router-dom';
 import * as S from '../Main/SectionMusicList.styles';
-import IsLoadingPageContext from '../../context/IsLoadingPageContext';
 import MediaPlayerContext from '../../context/MediaPlayerContext';
 import changeSecondsToMinutes from '../../app/changeSecondsToMinutes';
 import {
@@ -17,16 +16,15 @@ import { tracksAPI } from '../../services/tracksService';
 import { getAccessTokenAPI } from '../../services/GetAccessTokenService';
 
 function ItemPlaylist(props) {
-  const { isLoading } = useContext(IsLoadingPageContext);
   const { changeIsShowing } = useContext(MediaPlayerContext);
-  const { userInfo, getTracks } = useContext(UserData);
+  const { userInfo } = useContext(UserData);
   const track = useSelector(selectTracks);
   const isPlayingTrack = useSelector(selectIsPlaying);
-  const { data: allTracks } = tracksAPI.useFetchAllTracksQuery();
-  const { data: favoritesTracks } = tracksAPI.useFetchAllFavoritesTrackQuery();
-  const { data: categoryTracks } = tracksAPI.useFetchAllCollectionTracksQuery(
-    props.categoryId,
-  );
+  const { data: allTracks, isLoading } = tracksAPI.useFetchAllTracksQuery();
+  const { data: favoritesTracks, isLoading: loadingFavorites } =
+    tracksAPI.useFetchAllFavoritesTrackQuery();
+  const { data: categoryTracks, isLoading: loadingCollection } =
+    tracksAPI.useFetchAllCollectionTracksQuery(props.categoryId);
   const [addLikeTrack, { error: addLikeError }] =
     tracksAPI.useAddLikeTrackMutation();
   const [deleteLikeTrack, { error: deleteLikeError }] =
@@ -57,9 +55,6 @@ function ItemPlaylist(props) {
       refreshToken();
       addLikeTrack(props.id);
     }
-    setTimeout(() => {
-      getTracks();
-    }, 500);
   }
 
   function changeTrackInPlayer() {
@@ -103,7 +98,9 @@ function ItemPlaylist(props) {
     <S.PlaylistItem>
       <S.PlaylistTrack>
         <S.TrackTitle onClick={() => changeStateTrackSlice()}>
-          {track.name === props.name && !isLoading ? (
+          {(track.name === props.name && !isLoading) ||
+          loadingFavorites ||
+          loadingCollection ? (
             <> {isPlayingTrack ? <S.PlayingDotActive /> : <S.PlayingDot />}</>
           ) : (
             ''
@@ -114,7 +111,7 @@ function ItemPlaylist(props) {
             </S.TrackTitleSvg>
           </S.TrackTitleImg>
           <div>
-            {isLoading ? (
+            {isLoading || loadingFavorites || loadingCollection ? (
               <S.TrackAlbumLinkBones />
             ) : (
               <S.TrackTitleLink>
@@ -124,14 +121,14 @@ function ItemPlaylist(props) {
           </div>
         </S.TrackTitle>
         <S.TrackAuthor>
-          {isLoading ? (
+          {isLoading || loadingFavorites || loadingCollection ? (
             <S.TrackAlbumLinkBones />
           ) : (
             <S.TrackAuthorLink>{props.author}</S.TrackAuthorLink>
           )}
         </S.TrackAuthor>
         <S.TrackAlbum>
-          {isLoading ? (
+          {isLoading || loadingFavorites || loadingCollection ? (
             <S.TrackAlbumLinkBones />
           ) : (
             <S.TrackAlbumLink>{props.album}</S.TrackAlbumLink>
@@ -148,7 +145,7 @@ function ItemPlaylist(props) {
               )}
             </S.TrackTimeSvg>
           </S.TrackBlockTimeSvg>
-          {isLoading ? (
+          {isLoading || loadingFavorites || loadingCollection ? (
             <S.TrackTimeText>00:00</S.TrackTimeText>
           ) : (
             <S.TrackTimeText>

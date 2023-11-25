@@ -1,13 +1,14 @@
-import { useContext } from 'react';
 import ItemPlaylist from '../UI/ItemPlaylist';
 import * as S from './SectionMusicList.styles';
-import IsLoadingPageContext from '../../context/IsLoadingPageContext';
 import bonesTracks from '../../data/tracks';
 import { tracksAPI } from '../../services/tracksService';
 
 function SectionMusicList() {
-  const { isLoadingError } = useContext(IsLoadingPageContext);
-  const {data: allTracks, isLoading} = tracksAPI.useFetchAllTracksQuery();
+  const {
+    data: allTracks,
+    isLoading,
+    error,
+  } = tracksAPI.useFetchAllTracksQuery();
 
   return (
     <S.CenterBlockContent>
@@ -22,7 +23,7 @@ function SectionMusicList() {
         </S.Col04>
       </S.ContentTitle>
       <S.ContentPlaylist>
-        {isLoadingError}
+        {error}
         {isLoading
           ? bonesTracks.map((track) => (
               // eslint-disable-next-line react/jsx-props-no-spreading

@@ -1,21 +1,18 @@
+/* eslint-disable react/jsx-props-no-spreading */
 import { useParams } from 'react-router-dom';
-import { useContext } from 'react';
 import * as S from '../../components/Main/SectionMusicList.styles';
 import { CenterBlockHeading } from '../../components/Main/CenterBlockFilter.styles';
 import ItemPlaylist from '../../components/UI/ItemPlaylist';
 import categories from '../../data/categories';
 import NotFound from '../NotFound/NotFound';
-import IsLoadingPageContext from '../../context/IsLoadingPageContext';
 import tracks from '../../data/tracks';
 import { tracksAPI } from '../../services/tracksService';
 
 function Category() {
   const params = useParams();
   const category = categories.find((cat) => cat.id === params.id);
-  const { isLoadingError } = useContext(IsLoadingPageContext);
-  const { data: collectionTracks } = tracksAPI.useFetchAllCollectionTracksQuery(
-    category.id,
-  );
+  const { data: collectionTracks, error } =
+    tracksAPI.useFetchAllCollectionTracksQuery(category.id);
   if (!category || Number(params.id) > 3) {
     return <NotFound />;
   }
@@ -33,7 +30,7 @@ function Category() {
         </S.Col04>
       </S.ContentTitle>
       <S.ContentPlaylist>
-        {isLoadingError}
+        {error}
         {!collectionTracks
           ? tracks.map((track) => (
               // eslint-disable-next-line react/jsx-props-no-spreading
@@ -41,7 +38,11 @@ function Category() {
             ))
           : collectionTracks?.items.map((track) => (
               // eslint-disable-next-line react/jsx-props-no-spreading
-              <ItemPlaylist categoryId={category.id} {...track} key={track.id} />
+              <ItemPlaylist
+                categoryId={category.id}
+                {...track}
+                key={track.id}
+              />
             ))}
       </S.ContentPlaylist>
     </S.CenterBlockContent>

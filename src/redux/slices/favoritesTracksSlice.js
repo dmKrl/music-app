@@ -4,7 +4,6 @@ import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import {
   addTrackInFavorite,
   deleteTrackAtFavorite,
-  getFavoritesTracks,
 } from '../../api/api';
 import { refreshAccessToken } from '../../app/getToken';
 
@@ -13,23 +12,6 @@ const initialState = {
   isToggleFavorites: false,
 };
 
-export const fetchFavoritesTracks = createAsyncThunk(
-  'favorites/fetchFavoritesTracks',
-  async (url, thunkAPI) => {
-    try {
-      const res = await getFavoritesTracks(
-        localStorage.getItem('newRefreshToken'),
-        url,
-      );
-      if (res.code === 'token_not_valid') {
-        throw new Error('Error');
-      }
-      return res;
-    } catch (error) {
-      return thunkAPI.rejectWithValue(error.message);
-    }
-  },
-);
 export const fetchAddLikeFavoriteTrack = createAsyncThunk(
   'favorites/fetchAddLikeFavoriteTrack',
   async (url, thunkAPI) => {
@@ -70,12 +52,6 @@ export const favoritesTracksSlice = createSlice({
   initialState,
   reducers: {},
   extraReducers: (builder) => {
-    builder.addCase(fetchFavoritesTracks.fulfilled, (state, action) => {
-      state.favoritesTracks = action.payload;
-    });
-    builder.addCase(fetchFavoritesTracks.rejected, () => {
-      refreshAccessToken();
-    });
 
     // Добавление лайка
     builder.addCase(fetchAddLikeFavoriteTrack.rejected, () => {
