@@ -1,7 +1,10 @@
+/* eslint-disable react/jsx-props-no-spreading */
+import { useSelector } from 'react-redux';
 import ItemPlaylist from '../UI/ItemPlaylist';
 import * as S from './SectionMusicList.styles';
 import bonesTracks from '../../data/tracks';
 import { tracksAPI } from '../../services/tracksService';
+import { selectNameTrackFilter } from '../../redux/slices/filterSlice';
 
 function SectionMusicList() {
   const {
@@ -9,7 +12,15 @@ function SectionMusicList() {
     isLoading,
     error,
   } = tracksAPI.useFetchAllTracksQuery();
-  console.log(allTracks);
+  const nameTrackFilter = useSelector(selectNameTrackFilter);
+
+  const filteredTracks = allTracks?.filter((track) => {
+    const matchesNameTrack = track.name
+      .toLowerCase()
+      .includes(nameTrackFilter.toLowerCase());
+    return matchesNameTrack;
+  });
+
   return (
     <S.CenterBlockContent>
       <S.ContentTitle>
@@ -26,11 +37,13 @@ function SectionMusicList() {
         {error}
         {isLoading
           ? bonesTracks.map((track) => (
-              // eslint-disable-next-line react/jsx-props-no-spreading
-              <ItemPlaylist {...track} key={track.id} />
+              <ItemPlaylist
+                nameTrackFilter={nameTrackFilter}
+                {...track}
+                key={track.id}
+              />
             ))
-          : allTracks?.map((track) => (
-              // eslint-disable-next-line react/jsx-props-no-spreading
+          : filteredTracks?.map((track) => (
               <ItemPlaylist {...track} key={track.id} />
             ))}
       </S.ContentPlaylist>

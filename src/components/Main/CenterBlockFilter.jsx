@@ -4,7 +4,6 @@ import * as S from './CenterBlockFilter.styles';
 
 function CenterBlockFilter({ onClick, activeFilter }) {
   const { data: allTracks } = tracksAPI.useLazyFetchAllTracksQuery();
-  console.log(allTracks);
   return (
     <>
       <S.CenterBlockHeading>Треки</S.CenterBlockHeading>

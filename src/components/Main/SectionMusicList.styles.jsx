@@ -37,6 +37,10 @@ export const PlayingDotActive = styled.div`
     }
   }
 `;
+export const HighLight = styled.span`
+  background-color: rgb(150, 64, 200);
+`;
+
 export const CenterBlockContent = styled.div`
   display: -webkit-box;
   display: -ms-flexbox;

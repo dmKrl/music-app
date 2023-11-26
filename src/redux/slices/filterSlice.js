@@ -2,28 +2,27 @@
 import { createSlice } from '@reduxjs/toolkit';
 
 const initialState = {
-  name: '',
-  author: '',
+  nameTrack: '',
+  authorTrack: '',
 };
 
 const filterSlice = createSlice({
   name: 'filter',
   initialState,
   reducers: {
-    setNameFilter: (state, action) => {
-      state.name = action.payload;
+    setNameTrackFilter: (state, action) => {
+      state.nameTrack = action.payload;
     },
-    setAuthorFilter: (state, action) => {
-      state.name = action.payload;
+    setAuthorTrackFilter: (state, action) => {
+      state.authorTrack = action.payload;
     },
-    resetFilters: () => initialState,
   },
 });
 
-export const { setNameFilter, setAuthorFilter, resetFilters } =
+export const { setNameTrackFilter, setAuthorTrackFilter } =
   filterSlice.actions;
 
-export const selectNameFilter = (state) => state.filter.name;
-export const selectAuthorFilter = (state) => state.filter.author;
+export const selectNameTrackFilter = (state) => state.filter.nameTrack;
+export const selectAuthorTrackFilter = (state) => state.filter.authorTrack;
 
 export default filterSlice.reducer;

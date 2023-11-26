@@ -1,5 +1,6 @@
 /* eslint-disable react/jsx-props-no-spreading */
 import { useParams } from 'react-router-dom';
+import { useSelector } from 'react-redux';
 import * as S from '../../components/Main/SectionMusicList.styles';
 import { CenterBlockHeading } from '../../components/Main/CenterBlockFilter.styles';
 import ItemPlaylist from '../../components/UI/ItemPlaylist';
@@ -7,12 +8,23 @@ import categories from '../../data/categories';
 import NotFound from '../NotFound/NotFound';
 import tracks from '../../data/tracks';
 import { tracksAPI } from '../../services/tracksService';
+import { selectNameTrackFilter } from '../../redux/slices/filterSlice';
 
 function Category() {
   const params = useParams();
   const category = categories.find((cat) => cat.id === params.id);
   const { data: collectionTracks, error } =
     tracksAPI.useFetchAllCollectionTracksQuery(category.id);
+  const nameTrackFilter = useSelector(selectNameTrackFilter);
+
+  const filteredTracks = collectionTracks?.items?.filter((track) => {
+    const matchesNameTrack = track.name
+      .toLowerCase()
+      .includes(nameTrackFilter.toLowerCase());
+    return matchesNameTrack;
+  });
+  
+
   if (!category || Number(params.id) > 3) {
     return <NotFound />;
   }
@@ -36,7 +48,7 @@ function Category() {
               // eslint-disable-next-line react/jsx-props-no-spreading
               <ItemPlaylist {...track} key={track.id} />
             ))
-          : collectionTracks?.items.map((track) => (
+          : filteredTracks?.map((track) => (
               // eslint-disable-next-line react/jsx-props-no-spreading
               <ItemPlaylist
                 categoryId={category.id}

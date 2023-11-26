@@ -1,10 +1,12 @@
 import { useEffect } from 'react';
+import { useSelector } from 'react-redux';
 import * as S from '../../components/Main/SectionMusicList.styles';
 import { CenterBlockHeading } from '../../components/Main/CenterBlockFilter.styles';
 import ItemPlaylist from '../../components/UI/ItemPlaylist';
 import bonesTracks from '../../data/tracks';
 import { tracksAPI } from '../../services/tracksService';
 import { getAccessTokenAPI } from '../../services/GetAccessTokenService';
+import { selectNameTrackFilter } from '../../redux/slices/filterSlice';
 
 function Favorites() {
   const {
@@ -14,6 +16,15 @@ function Favorites() {
   } = tracksAPI.useFetchAllFavoritesTrackQuery();
   const [postRefreshAccessToken] =
     getAccessTokenAPI.usePostRefreshAccessTokenMutation();
+
+  const nameTrackFilter = useSelector(selectNameTrackFilter);
+
+  const filteredTracks = tracks?.filter((track) => {
+    const matchesNameTrack = track.name
+      .toLowerCase()
+      .includes(nameTrackFilter.toLowerCase());
+    return matchesNameTrack;
+  });
 
   useEffect(() => {
     if (error) {
@@ -50,7 +61,7 @@ function Favorites() {
                 // eslint-disable-next-line react/jsx-props-no-spreading
                 <ItemPlaylist {...track} key={track.id} />
               ))
-            : tracks.map((track) => (
+            : filteredTracks.map((track) => (
                 // eslint-disable-next-line react/jsx-props-no-spreading
                 <ItemPlaylist {...track} key={track.id} />
               ))}
