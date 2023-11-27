@@ -16,7 +16,7 @@ export const PlayingDot = styled.div`
   background-color: #b672ff;
   border-radius: 8px;
   display: block;
-  left: 4%;
+  left: 36%;
 `;
 export const PlayingDotActive = styled.div`
   position: absolute;
@@ -26,7 +26,7 @@ export const PlayingDotActive = styled.div`
   border-radius: 8px;
   display: block;
   animation: bubble_out 0.6s ease-in-out infinite both;
-  left: 4%;
+  left: 36%;
   @keyframes bubble_out {
     0%,
     to {
@@ -144,7 +144,6 @@ export const TrackTitle = styled.div`
   -ms-flex-align: center;
   align-items: center;
   width: 447px;
-  position: relative;
   :hover {
     cursor: pointer;
   }
@@ -165,6 +164,7 @@ export const TrackTitleImg = styled.div`
   -ms-flex-pack: center;
   justify-content: center;
   margin-right: 17px;
+  position: relative;
 `;
 
 export const TrackTitleSvg = styled.svg`

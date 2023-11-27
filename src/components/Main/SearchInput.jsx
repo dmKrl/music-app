@@ -2,7 +2,6 @@ import { useDispatch, useSelector } from 'react-redux';
 import * as S from './SearchInput.styles';
 import {
   selectNameTrackFilter,
-  setAuthorTrackFilter,
   setNameTrackFilter,
 } from '../../redux/slices/filterSlice';
 
@@ -12,7 +11,6 @@ function SearchInput() {
 
   const handleNameAndAuthorTrackChange = (e) => {
     dispatch(setNameTrackFilter(e.target.value));
-    dispatch(setAuthorTrackFilter(e.target.value));
   };
 
   return (

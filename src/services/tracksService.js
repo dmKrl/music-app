@@ -3,7 +3,7 @@ import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 
 // eslint-disable-next-line import/prefer-default-export
 export const tracksAPI = createApi({
-  reducerPath: 'favoritesAPI',
+  reducerPath: 'tracksAPI',
   baseQuery: fetchBaseQuery({
     baseUrl: 'https://skypro-music-api.skyeng.tech/catalog',
   }),

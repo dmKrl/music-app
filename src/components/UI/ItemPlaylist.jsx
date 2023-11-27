@@ -98,16 +98,16 @@ function ItemPlaylist(props) {
     <S.PlaylistItem>
       <S.PlaylistTrack>
         <S.TrackTitle onClick={() => changeStateTrackSlice()}>
-          {(track.name === props.name && !isLoading) ||
-          loadingFavorites ||
-          loadingCollection ? (
-            <> {isPlayingTrack ? <S.PlayingDotActive /> : <S.PlayingDot />}</>
-          ) : (
-            ''
-          )}
           <S.TrackTitleImg>
+            {(track.name === props.name && !isLoading) ||
+            loadingFavorites ||
+            loadingCollection ? (
+              <> {isPlayingTrack ? <S.PlayingDotActive /> : <S.PlayingDot />}</>
+            ) : (
+              ''
+            )}
             <S.TrackTitleSvg alt="music">
-              <use xlinkHref="img/icon/sprite.svg#icon-note" />
+              <use xlinkHref="/img/icon/sprite.svg#icon-note" />
             </S.TrackTitleSvg>
           </S.TrackTitleImg>
           <div>

@@ -93,6 +93,7 @@ export const PopupText = styled.div`
   cursor: pointer;
 `;
 export const PopupTextInfo = styled.p`
+  margin-top: 28px;
   :hover {
     color: #b672ff;
     text-decoration-line: underline;
