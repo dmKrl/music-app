@@ -3,7 +3,7 @@ import { useSelector } from 'react-redux';
 import ItemPlaylist from '../UI/ItemPlaylist';
 import * as S from './SectionMusicList.styles';
 import bonesTracks from '../../data/tracks';
-import { tracksAPI } from '../../services/tracksService';
+import { tracksAPI } from '../../services/GetAccessTokenService';
 import { selectNameTrackFilter } from '../../redux/slices/filterSlice';
 
 function SectionMusicList() {

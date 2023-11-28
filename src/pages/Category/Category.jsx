@@ -7,7 +7,7 @@ import ItemPlaylist from '../../components/UI/ItemPlaylist';
 import categories from '../../data/categories';
 import NotFound from '../NotFound/NotFound';
 import tracks from '../../data/tracks';
-import { tracksAPI } from '../../services/tracksService';
+import { tracksAPI } from '../../services/GetAccessTokenService';
 import { selectNameTrackFilter } from '../../redux/slices/filterSlice';
 
 function Category() {
@@ -23,7 +23,6 @@ function Category() {
       .includes(nameTrackFilter.toLowerCase());
     return matchesNameTrack;
   });
-  
 
   if (!category || Number(params.id) > 3) {
     return <NotFound />;

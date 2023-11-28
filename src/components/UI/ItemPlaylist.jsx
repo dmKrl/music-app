@@ -12,8 +12,7 @@ import {
   setArrayTracks,
 } from '../../redux/slices/tracksSlice';
 import UserData from '../../context/UserData';
-import { tracksAPI } from '../../services/tracksService';
-import { fetchAuthorization } from '../../services/GetAccessTokenService';
+import { tracksAPI } from '../../services/GetAccessTokenService';
 
 function ItemPlaylist(props) {
   const { changeIsShowing } = useContext(MediaPlayerContext);
@@ -22,11 +21,11 @@ function ItemPlaylist(props) {
   const isPlayingTrack = useSelector(selectIsPlaying);
   const { data: allTracks, isLoading } = tracksAPI.useFetchAllTracksQuery();
   const { data: favoritesTracks, isLoading: loadingFavorites } =
-    fetchAuthorization.useFetchAllFavoritesTrackQuery();
+    tracksAPI.useFetchAllFavoritesTrackQuery();
   const { data: categoryTracks, isLoading: loadingCollection } =
     tracksAPI.useFetchAllCollectionTracksQuery(props.categoryId);
-  const [addLikeTrack] = fetchAuthorization.useAddLikeTrackMutation();
-  const [deleteLikeTrack] = fetchAuthorization.useDeleteLikeTrackMutation();
+  const [addLikeTrack] = tracksAPI.useAddLikeTrackMutation();
+  const [deleteLikeTrack] = tracksAPI.useDeleteLikeTrackMutation();
   const location = useLocation();
   const dispatch = useDispatch();
 

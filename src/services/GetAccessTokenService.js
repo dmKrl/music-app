@@ -99,14 +99,26 @@ export const getAccessTokenAPI = createApi({
   }),
 });
 
-export const fetchAuthorization = createApi({
-  reducerPath: 'fetchAuthorization',
+export const tracksAPI = createApi({
+  reducerPath: 'tracksAPI',
   baseQuery: baseQueryWithReauth,
   tagTypes: ['Track'],
   endpoints: (build) => ({
     fetchAllFavoritesTrack: build.query({
       query: () => ({
         url: 'catalog/track/favorite/all/',
+      }),
+      providesTags: (result) => ['Track'],
+    }),
+    fetchAllCollectionTracks: build.query({
+      query: (id) => ({
+        url: `catalog/selection/${id}`,
+      }),
+      providesTags: (result) => ['Track'],
+    }),
+    fetchAllTracks: build.query({
+      query: () => ({
+        url: `catalog/track/all/`,
       }),
       providesTags: (result) => ['Track'],
     }),

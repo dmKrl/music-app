@@ -3,7 +3,7 @@ import * as S from '../../components/Main/SectionMusicList.styles';
 import { CenterBlockHeading } from '../../components/Main/CenterBlockFilter.styles';
 import ItemPlaylist from '../../components/UI/ItemPlaylist';
 import bonesTracks from '../../data/tracks';
-import { fetchAuthorization } from '../../services/GetAccessTokenService';
+import { tracksAPI } from '../../services/GetAccessTokenService';
 import { selectNameTrackFilter } from '../../redux/slices/filterSlice';
 
 function Favorites() {
@@ -11,7 +11,7 @@ function Favorites() {
     data: tracks,
     error,
     isLoading,
-  } = fetchAuthorization.useFetchAllFavoritesTrackQuery();
+  } = tracksAPI.useFetchAllFavoritesTrackQuery();
 
   const nameTrackFilter = useSelector(selectNameTrackFilter);
 
