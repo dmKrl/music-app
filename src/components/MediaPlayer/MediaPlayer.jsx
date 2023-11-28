@@ -19,12 +19,12 @@ import {
 } from '../../redux/slices/switchTracksSlice';
 import shuffleTracks from '../../app/shuffleTracks';
 import UserData from '../../context/UserData';
+import { tracksAPI } from '../../services/GetAccessTokenService';
 
 function MediaPlayer() {
   const [volume, setVolume] = useState(1);
   const [duration, setDuration] = useState(0);
   const [isLoop, setIsLoop] = useState(false);
-  const [isLiked, setIsLiked] = useState(false);
   const [currentTime, setCurrentTime] = useState(0);
   const [randomAllTracks, setRandomAllTracks] = useState([]);
   const dataTrack = useSelector(selectTracks);
@@ -32,8 +32,11 @@ function MediaPlayer() {
   const isPlayingTrack = useSelector(selectIsPlaying);
   const definiteArrayTracks = useSelector(selectArrayTracks);
   const { userInfo } = useContext(UserData);
+  const [addLikeTrack] = tracksAPI.useAddLikeTrackMutation();
+  const [deleteLikeTrack] = tracksAPI.useDeleteLikeTrackMutation();
   const dispatch = useDispatch();
   const audioRef = useRef(null);
+  console.log(dataTrack);
 
   const handleToggleTrack = () => {
     if (!isShuffled) {
@@ -214,11 +217,15 @@ function MediaPlayer() {
                   <S.TrackPlayLike>
                     <S.TrackPlaySvg
                       alt="like"
-                      onClick={() => setIsLiked(!isLiked)}
+                      onClick={() => addLikeTrack(dataTrack.id)}
                     >
                       {dataTrack?.arrayStaredUser?.find(
                         (user) => user.id === userInfo.id,
-                      ) || dataTrack.isFavorite ? (
+                      ) ||
+                      dataTrack.isFavorite ||
+                      dataTrack?.stared_user?.find(
+                        (user) => user.id === userInfo.id,
+                      ) ? (
                         <use xlinkHref="/img/icon/sprite.svg#icon-like-active" />
                       ) : (
                         <use xlinkHref="/img/icon/sprite.svg#icon-like-no-active" />
@@ -226,7 +233,10 @@ function MediaPlayer() {
                     </S.TrackPlaySvg>
                   </S.TrackPlayLike>
                   <S.TrackPlayDislike>
-                    <S.TrackPlayDislikeSvg alt="dislike">
+                    <S.TrackPlayDislikeSvg
+                      alt="dislike"
+                      onClick={() => deleteLikeTrack(dataTrack.id)}
+                    >
                       <use xlinkHref="/img/icon/sprite.svg#icon-dislike" />
                     </S.TrackPlayDislikeSvg>
                   </S.TrackPlayDislike>

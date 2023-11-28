@@ -1,4 +1,4 @@
-import { tracksAPI } from '../../services/tracksService';
+import { tracksAPI } from '../../services/GetAccessTokenService';
 import * as S from '../SideBar/SideBar.styles';
 
 function SideBarItem(props) {
