@@ -19,11 +19,6 @@ function ItemPlaylist(props) {
   const { userInfo } = useContext(UserData);
   const track = useSelector(selectTracks);
   const isPlayingTrack = useSelector(selectIsPlaying);
-  const { data: allTracks, isLoading } = tracksAPI.useFetchAllTracksQuery();
-  const { data: favoritesTracks, isLoading: loadingFavorites } =
-    tracksAPI.useFetchAllFavoritesTrackQuery();
-  const { data: categoryTracks, isLoading: loadingCollection } =
-    tracksAPI.useFetchAllCollectionTracksQuery(props.categoryId);
   const [addLikeTrack] = tracksAPI.useAddLikeTrackMutation();
   const [deleteLikeTrack] = tracksAPI.useDeleteLikeTrackMutation();
   const location = useLocation();
@@ -63,17 +58,17 @@ function ItemPlaylist(props) {
     dispatch(setTrack(changeTrackInPlayer()));
     changeIsShowing(true);
     if (location.pathname === '/') {
-      dispatch(setArrayTracks(allTracks));
+      dispatch(setArrayTracks(props.allTracks));
     }
     if (location.pathname === '/favorites') {
-      dispatch(setArrayTracks(favoritesTracks));
+      dispatch(setArrayTracks(props.favoritesTracks));
     }
     if (
       location.pathname === '/category/1' ||
       location.pathname === '/category/2' ||
       location.pathname === '/category/3'
     ) {
-      dispatch(setArrayTracks(categoryTracks.items));
+      dispatch(setArrayTracks(props.collectionTracks));
     }
   }
 
@@ -82,9 +77,9 @@ function ItemPlaylist(props) {
       <S.PlaylistTrack>
         <S.TrackTitle onClick={() => changeStateTrackSlice()}>
           <S.TrackTitleImg>
-            {(track.name === props.name && !isLoading) ||
-            loadingFavorites ||
-            loadingCollection ? (
+            {(track.name === props.name && !props.isLoading) ||
+            props.loadingFavorites ||
+            props.loadingCollection ? (
               <> {isPlayingTrack ? <S.PlayingDotActive /> : <S.PlayingDot />}</>
             ) : (
               ''
@@ -94,7 +89,9 @@ function ItemPlaylist(props) {
             </S.TrackTitleSvg>
           </S.TrackTitleImg>
           <div>
-            {isLoading || loadingFavorites || loadingCollection ? (
+            {props.isLoading ||
+            props.loadingFavorites ||
+            props.loadingCollection ? (
               <S.TrackAlbumLinkBones />
             ) : (
               <S.TrackTitleLink>
@@ -104,14 +101,18 @@ function ItemPlaylist(props) {
           </div>
         </S.TrackTitle>
         <S.TrackAuthor>
-          {isLoading || loadingFavorites || loadingCollection ? (
+          {props.isLoading ||
+          props.loadingFavorites ||
+          props.loadingCollection ? (
             <S.TrackAlbumLinkBones />
           ) : (
             <S.TrackAuthorLink>{props.author}</S.TrackAuthorLink>
           )}
         </S.TrackAuthor>
         <S.TrackAlbum>
-          {isLoading || loadingFavorites || loadingCollection ? (
+          {props.isLoading ||
+          props.loadingFavorites ||
+          props.loadingCollection ? (
             <S.TrackAlbumLinkBones />
           ) : (
             <S.TrackAlbumLink>{props.album}</S.TrackAlbumLink>
@@ -128,7 +129,9 @@ function ItemPlaylist(props) {
               )}
             </S.TrackTimeSvg>
           </S.TrackBlockTimeSvg>
-          {isLoading || loadingFavorites || loadingCollection ? (
+          {props.isLoading ||
+          props.loadingFavorites ||
+          props.loadingCollection ? (
             <S.TrackTimeText>00:00</S.TrackTimeText>
           ) : (
             <S.TrackTimeText>

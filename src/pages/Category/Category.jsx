@@ -13,8 +13,11 @@ import { selectNameTrackFilter } from '../../redux/slices/filterSlice';
 function Category() {
   const params = useParams();
   const category = categories.find((cat) => cat.id === params.id);
-  const { data: collectionTracks, error } =
-    tracksAPI.useFetchAllCollectionTracksQuery(category.id);
+  const {
+    data: collectionTracks,
+    isLoading: loadingCollection,
+    error,
+  } = tracksAPI.useFetchAllCollectionTracksQuery(category.id);
   const nameTrackFilter = useSelector(selectNameTrackFilter);
 
   const filteredTracks = collectionTracks?.items?.filter((track) => {
@@ -45,12 +48,18 @@ function Category() {
         {!collectionTracks
           ? tracks.map((track) => (
               // eslint-disable-next-line react/jsx-props-no-spreading
-              <ItemPlaylist {...track} key={track.id} />
+              <ItemPlaylist
+                {...track}
+                loadingCollection={loadingCollection}
+                key={track.id}
+              />
             ))
           : filteredTracks?.map((track) => (
               // eslint-disable-next-line react/jsx-props-no-spreading
               <ItemPlaylist
                 categoryId={category.id}
+                loadingCollection={loadingCollection}
+                collectionTracks={collectionTracks}
                 {...track}
                 key={track.id}
               />

@@ -1,3 +1,4 @@
+/* eslint-disable react/jsx-props-no-spreading */
 import { useSelector } from 'react-redux';
 import * as S from '../../components/Main/SectionMusicList.styles';
 import { CenterBlockHeading } from '../../components/Main/CenterBlockFilter.styles';
@@ -8,14 +9,14 @@ import { selectNameTrackFilter } from '../../redux/slices/filterSlice';
 
 function Favorites() {
   const {
-    data: tracks,
+    data: favoritesTracks,
     error,
-    isLoading,
+    isLoading: loadingFavorites,
   } = tracksAPI.useFetchAllFavoritesTrackQuery();
 
   const nameTrackFilter = useSelector(selectNameTrackFilter);
 
-  const filteredTracks = tracks?.filter((track) => {
+  const filteredTracks = favoritesTracks?.filter((track) => {
     const matchesNameTrack = track.name
       .toLowerCase()
       .includes(nameTrackFilter.toLowerCase());
@@ -43,14 +44,23 @@ function Favorites() {
       ) : (
         <S.ContentPlaylist>
           {error}
-          {isLoading && filteredTracks === undefined
+          {loadingFavorites && filteredTracks === undefined
             ? bonesTracks?.map((track) => (
                 // eslint-disable-next-line react/jsx-props-no-spreading
-                <ItemPlaylist {...track} key={track.id} />
+                <ItemPlaylist
+                  loadingFavorites={loadingFavorites}
+                  {...track}
+                  key={track.id}
+                />
               ))
             : filteredTracks?.map((track) => (
                 // eslint-disable-next-line react/jsx-props-no-spreading
-                <ItemPlaylist {...track} key={track.id} />
+                <ItemPlaylist
+                  tracks={favoritesTracks}
+                  loadingFavorites={loadingFavorites}
+                  {...track}
+                  key={track.id}
+                />
               ))}
         </S.ContentPlaylist>
       )}

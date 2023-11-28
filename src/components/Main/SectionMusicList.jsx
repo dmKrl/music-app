@@ -40,11 +40,17 @@ function SectionMusicList() {
               <ItemPlaylist
                 nameTrackFilter={nameTrackFilter}
                 {...track}
+                isLoading={isLoading}
                 key={track.id}
               />
             ))
           : filteredTracks?.map((track) => (
-              <ItemPlaylist {...track} key={track.id} />
+              <ItemPlaylist
+                allTracks={allTracks}
+                isLoading={isLoading}
+                {...track}
+                key={track.id}
+              />
             ))}
       </S.ContentPlaylist>
     </S.CenterBlockContent>
