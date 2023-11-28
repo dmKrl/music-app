@@ -13,7 +13,7 @@ import {
 } from '../../redux/slices/tracksSlice';
 import UserData from '../../context/UserData';
 import { tracksAPI } from '../../services/tracksService';
-import { getAccessTokenAPI } from '../../services/GetAccessTokenService';
+import { fetchAuthorization } from '../../services/GetAccessTokenService';
 
 function ItemPlaylist(props) {
   const { changeIsShowing } = useContext(MediaPlayerContext);
@@ -22,37 +22,21 @@ function ItemPlaylist(props) {
   const isPlayingTrack = useSelector(selectIsPlaying);
   const { data: allTracks, isLoading } = tracksAPI.useFetchAllTracksQuery();
   const { data: favoritesTracks, isLoading: loadingFavorites } =
-    tracksAPI.useFetchAllFavoritesTrackQuery();
+    fetchAuthorization.useFetchAllFavoritesTrackQuery();
   const { data: categoryTracks, isLoading: loadingCollection } =
     tracksAPI.useFetchAllCollectionTracksQuery(props.categoryId);
-  const [addLikeTrack, { error: addLikeError }] =
-    tracksAPI.useAddLikeTrackMutation();
-  const [deleteLikeTrack, { error: deleteLikeError }] =
-    tracksAPI.useDeleteLikeTrackMutation();
-  const [postRefreshAccessToken] =
-    getAccessTokenAPI.usePostRefreshAccessTokenMutation();
+  const [addLikeTrack] = fetchAuthorization.useAddLikeTrackMutation();
+  const [deleteLikeTrack] = fetchAuthorization.useDeleteLikeTrackMutation();
   const location = useLocation();
   const dispatch = useDispatch();
-
-  const refreshToken = () => {
-    if (addLikeError || deleteLikeError) {
-      postRefreshAccessToken(localStorage.getItem('accessRefreshToken')).then(
-        (response) => {
-          localStorage.setItem('accessToken', response.data.access);
-        },
-      );
-    }
-  };
 
   function toggleLikedTrack() {
     if (
       props?.stared_user?.find((user) => user.id === userInfo.id) ||
       location.pathname === '/favorites'
     ) {
-      refreshToken();
       deleteLikeTrack(props.id);
     } else {
-      refreshToken();
       addLikeTrack(props.id);
     }
   }

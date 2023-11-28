@@ -9,15 +9,6 @@ export const tracksAPI = createApi({
   }),
   tagTypes: ['Track'],
   endpoints: (build) => ({
-    fetchAllFavoritesTrack: build.query({
-      query: () => ({
-        url: '/track/favorite/all/',
-        headers: {
-          Authorization: `Bearer ${localStorage.getItem('accessToken')}`,
-        },
-      }),
-      providesTags: (result) => ['Track'],
-    }),
     fetchAllCollectionTracks: build.query({
       query: (id) => ({
         url: `/selection/${id}`,
@@ -29,26 +20,6 @@ export const tracksAPI = createApi({
         url: `/track/all/`,
       }),
       providesTags: (result) => ['Track'],
-    }),
-    addLikeTrack: build.mutation({
-      query: (id) => ({
-        method: 'POST',
-        url: `/track/${id}/favorite/`,
-        headers: {
-          Authorization: `Bearer ${localStorage.getItem('accessToken')}`,
-        },
-      }),
-      invalidatesTags: ['Track'],
-    }),
-    deleteLikeTrack: build.mutation({
-      query: (id) => ({
-        method: 'DELETE',
-        url: `/track/${id}/favorite/`,
-        headers: {
-          Authorization: `Bearer ${localStorage.getItem('accessToken')}`,
-        },
-      }),
-      invalidatesTags: ['Track'],
     }),
   }),
 });

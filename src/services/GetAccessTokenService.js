@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 /* eslint-disable import/prefer-default-export */
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 import { setAuth } from '../redux/slices/authSlice';
@@ -26,7 +27,7 @@ const baseQueryWithReauth = async (args, api, extraOptions) => {
   const forceLogout = () => {
     console.debug('Принудительная авторизация!');
     api.dispatch(setAuth(null));
-    window.location.navigate('/login');
+    window.location.navigate('/auth');
   };
 
   const { auth } = api.getState();
@@ -94,6 +95,34 @@ export const getAccessTokenAPI = createApi({
           'content-type': 'application/json',
         },
       }),
+    }),
+  }),
+});
+
+export const fetchAuthorization = createApi({
+  reducerPath: 'fetchAuthorization',
+  baseQuery: baseQueryWithReauth,
+  tagTypes: ['Track'],
+  endpoints: (build) => ({
+    fetchAllFavoritesTrack: build.query({
+      query: () => ({
+        url: 'catalog/track/favorite/all/',
+      }),
+      providesTags: (result) => ['Track'],
+    }),
+    addLikeTrack: build.mutation({
+      query: (id) => ({
+        method: 'POST',
+        url: `catalog/track/${id}/favorite/`,
+      }),
+      invalidatesTags: ['Track'],
+    }),
+    deleteLikeTrack: build.mutation({
+      query: (id) => ({
+        method: 'DELETE',
+        url: `catalog/track/${id}/favorite/`,
+      }),
+      invalidatesTags: ['Track'],
     }),
   }),
 });

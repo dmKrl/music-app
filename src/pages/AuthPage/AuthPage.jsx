@@ -46,8 +46,8 @@ function SignUp() {
       console.log(response);
       dispatch(
         setAuth({
-          access: response.access,
-          refresh: response.refresh,
+          access: response.data.access,
+          refresh: response.data.refresh,
           user: JSON.parse(localStorage.getItem('userDataInfo')),
         }),
       );

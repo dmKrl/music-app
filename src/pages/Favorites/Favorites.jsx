@@ -1,11 +1,9 @@
-import { useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import * as S from '../../components/Main/SectionMusicList.styles';
 import { CenterBlockHeading } from '../../components/Main/CenterBlockFilter.styles';
 import ItemPlaylist from '../../components/UI/ItemPlaylist';
 import bonesTracks from '../../data/tracks';
-import { tracksAPI } from '../../services/tracksService';
-import { getAccessTokenAPI } from '../../services/GetAccessTokenService';
+import { fetchAuthorization } from '../../services/GetAccessTokenService';
 import { selectNameTrackFilter } from '../../redux/slices/filterSlice';
 
 function Favorites() {
@@ -13,9 +11,7 @@ function Favorites() {
     data: tracks,
     error,
     isLoading,
-  } = tracksAPI.useFetchAllFavoritesTrackQuery();
-  const [postRefreshAccessToken] =
-    getAccessTokenAPI.usePostRefreshAccessTokenMutation();
+  } = fetchAuthorization.useFetchAllFavoritesTrackQuery();
 
   const nameTrackFilter = useSelector(selectNameTrackFilter);
 
@@ -25,16 +21,8 @@ function Favorites() {
       .includes(nameTrackFilter.toLowerCase());
     return matchesNameTrack;
   });
+  console.log(filteredTracks);
 
-  useEffect(() => {
-    if (error) {
-      postRefreshAccessToken(localStorage.getItem('accessRefreshToken')).then(
-        (response) => {
-          localStorage.setItem('accessToken', response.data.access);
-        },
-      );
-    }
-  }, []);
   return (
     <S.CenterBlockContent>
       <CenterBlockHeading>Мои треки</CenterBlockHeading>
@@ -48,20 +36,19 @@ function Favorites() {
           </S.PlaylistTitleSvg>
         </S.Col04>
       </S.ContentTitle>
-      {(bonesTracks.length === 0 && !isLoading) ||
-      typeof bonesTracks === 'string' ? (
+      {error ? (
         <CenterBlockHeading style={{ fontSize: '32px' }}>
-          Ошибка
+          Ошибка сервера
         </CenterBlockHeading>
       ) : (
         <S.ContentPlaylist>
           {error}
-          {isLoading && tracks === undefined
-            ? bonesTracks.map((track) => (
+          {isLoading && filteredTracks === undefined
+            ? bonesTracks?.map((track) => (
                 // eslint-disable-next-line react/jsx-props-no-spreading
                 <ItemPlaylist {...track} key={track.id} />
               ))
-            : filteredTracks.map((track) => (
+            : filteredTracks?.map((track) => (
                 // eslint-disable-next-line react/jsx-props-no-spreading
                 <ItemPlaylist {...track} key={track.id} />
               ))}
