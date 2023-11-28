@@ -22,7 +22,6 @@ function Favorites() {
       .includes(nameTrackFilter.toLowerCase());
     return matchesNameTrack;
   });
-  console.log(filteredTracks);
 
   return (
     <S.CenterBlockContent>

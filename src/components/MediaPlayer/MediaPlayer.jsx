@@ -36,7 +36,6 @@ function MediaPlayer() {
   const [deleteLikeTrack] = tracksAPI.useDeleteLikeTrackMutation();
   const dispatch = useDispatch();
   const audioRef = useRef(null);
-  console.log(dataTrack);
 
   const handleToggleTrack = () => {
     if (!isShuffled) {

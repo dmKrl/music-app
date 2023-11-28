@@ -2,7 +2,6 @@
 import { configureStore } from '@reduxjs/toolkit';
 import tracksReducer from './slices/tracksSlice';
 import switchTracksReducer from './slices/switchTracksSlice';
-import favoritesTracksReducer from './slices/favoritesTracksSlice';
 import filterReducer from './slices/filterSlice';
 import {
   getAccessTokenAPI,
@@ -16,7 +15,6 @@ const store = configureStore({
     filter: filterReducer,
     auth: authReducer,
     switchTrack: switchTracksReducer,
-    favorites: favoritesTracksReducer,
     [getAccessTokenAPI.reducerPath]: getAccessTokenAPI.reducer,
     [tracksAPI.reducerPath]: tracksAPI.reducer,
   },
