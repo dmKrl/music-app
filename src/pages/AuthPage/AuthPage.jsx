@@ -1,5 +1,6 @@
 import { useContext, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
 import * as S from '../../components/SignUp-In/SignComponent.styles';
 import {
   validationInputsLogin,
@@ -9,6 +10,7 @@ import { postRegister, postLogin } from '../../api/api';
 import MessageError from '../../components/UI/MessageError';
 import UserData from '../../context/UserData';
 import { getAccessTokenAPI } from '../../services/GetAccessTokenService';
+import { setAuth } from '../../redux/slices/authSlice';
 
 function SignUp() {
   const [email, setEmail] = useState('');
@@ -23,6 +25,7 @@ function SignUp() {
   const [isGettingData, setIsGettingData] = useState(false);
   const [isValidPasswords, setIsValidPasswords] = useState(false);
   const { changeUserInfo } = useContext(UserData);
+  const dispatch = useDispatch();
   const navigate = useNavigate();
   const [postAccessToken] = getAccessTokenAPI.usePostAccessTokenMutation();
 
@@ -37,6 +40,22 @@ function SignUp() {
       setMessageErrorAPI(data.password[0]);
     }
   };
+
+  const responseToken = () => {
+    postAccessToken({ email, password }).then((response) => {
+      console.log(response);
+      dispatch(
+        setAuth({
+          access: response.access,
+          refresh: response.refresh,
+          user: JSON.parse(localStorage.getItem('userDataInfo')),
+        }),
+      );
+      localStorage.setItem('access', response?.access);
+      localStorage.setItem('refresh', response?.refresh);
+    });
+  };
+
   const loginUser = (event) => {
     event.preventDefault();
     validationInputsLogin({
@@ -47,11 +66,6 @@ function SignUp() {
     });
     if (isFilledOut) {
       setIsGettingData(true);
-      postAccessToken({ email, password }).then((response) => {
-        console.log(response)
-        localStorage.setItem('accessToken', response.data.access);
-        localStorage.setItem('accessRefreshToken', response.data.refresh);
-      });
       postLogin({ email, password })
         .then((data) => {
           if (data.id) {
@@ -69,6 +83,7 @@ function SignUp() {
         .finally(() => {
           setIsGettingData(false);
         });
+      responseToken();
     }
   };
 

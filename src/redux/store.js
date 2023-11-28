@@ -6,11 +6,13 @@ import favoritesTracksReducer from './slices/favoritesTracksSlice';
 import filterReducer from './slices/filterSlice';
 import { getAccessTokenAPI } from '../services/GetAccessTokenService';
 import { tracksAPI } from '../services/tracksService';
+import { authReducer } from './slices/authSlice';
 
 const store = configureStore({
   reducer: {
     tracks: tracksReducer,
     filter: filterReducer,
+    auth: authReducer,
     switchTrack: switchTracksReducer,
     favorites: favoritesTracksReducer,
     [getAccessTokenAPI.reducerPath]: getAccessTokenAPI.reducer,
