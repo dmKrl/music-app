@@ -26,9 +26,19 @@ function SectionMusicList() {
     const matchesNameTrack = track.name
       .toLowerCase()
       .includes(nameTrackFilter.toLowerCase());
-    return matchesNameTrack;
+    const matchesAuthorTrack = !authorTrackFilter.length
+      ? track
+      : track.author.includes(
+          authorTrackFilter.find((author) => author === track.author),
+        );
+    const matchesGenreTrack = !genreTrackFilter.length
+      ? track
+      : track.genre.includes(
+          genreTrackFilter.find((genre) => genre === track.genre),
+        );
+    return matchesNameTrack && matchesAuthorTrack && matchesGenreTrack;
   });
-
+  console.log(allTracks);
   return (
     <S.CenterBlockContent>
       <S.ContentTitle>
