@@ -60,6 +60,29 @@ export const FilterButton = styled.button`
     cursor: pointer;
   }
 `;
+export const FilterButtonActive = styled.button`
+  font-style: normal;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 24px;
+  border: 1px solid #ffffff;
+  background: none;
+  border-radius: 60px;
+  padding: 6px 20px;
+  border-color: #ad61ff;
+  color: #ad61ff;
+  cursor: pointer;
+  :hover {
+    border-color: #d9b6ff;
+    color: #d9b6ff;
+    cursor: pointer;
+  }
+  :active {
+    border-color: #ad61ff;
+    color: white;
+    cursor: pointer;
+  }
+`;
 export const FilterTitle = styled.div`
   font-style: normal;
   font-weight: 400;

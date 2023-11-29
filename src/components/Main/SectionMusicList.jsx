@@ -22,7 +22,6 @@ function SectionMusicList() {
   const sortTrackFilter = useSelector(selectSortTrackFilter);
   const authorTrackFilter = useSelector(selectAuthorTrackFilter);
   const genreTrackFilter = useSelector(selectGenreTrackFilter);
-  console.log({ sortTrackFilter, authorTrackFilter, genreTrackFilter });
 
   const filteredTracks = allTracks?.filter((track) => {
     const matchesNameTrack = track.name
@@ -42,7 +41,6 @@ function SectionMusicList() {
   });
 
   const filteredAndSortTracks = () => {
-    console.log(sortTrackFilter.sort);
     if (sortTrackFilter.sort === 'сначала новые') {
       return filteredTracks
         .sort((a, b) => parseFloat(a.release_date) - parseFloat(b.release_date))
@@ -54,12 +52,10 @@ function SectionMusicList() {
       );
     }
     if (sortTrackFilter.sort === 'по умолчанию' || !sortTrackFilter.sort) {
-      console.log(3);
       return filteredTracks;
     }
   };
 
-  console.log(allTracks);
   return (
     <S.CenterBlockContent>
       <S.ContentTitle>

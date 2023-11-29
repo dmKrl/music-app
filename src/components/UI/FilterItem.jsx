@@ -16,7 +16,7 @@ function FilterItem(props) {
     genreTrackFilter,
     sortTrackFilter,
   } = props;
-  console.log(authorTrackFilter);
+
   return (
     <StyleFilterItem>
       {authorTrackFilter && !genreTrackFilter && !sortTrackFilter ? (
@@ -34,7 +34,9 @@ function FilterItem(props) {
       ) : (
         ''
       )}
-      <ButtonFilter onClick={onClick}>{children}</ButtonFilter>
+      <ButtonFilter isOpen={isOpen} onClick={onClick}>
+        {children}
+      </ButtonFilter>
       {isOpen && <PopupFilter key={id} id={id} track={tracks} />}
     </StyleFilterItem>
   );
