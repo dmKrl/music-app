@@ -5,7 +5,7 @@ function PopupFilter(props) {
   console.log(track);
   return (
     <Popup className="popup">
-      <PopupText className="popup-text" id={id} onClick={console.log('click')}>
+      <PopupText className="popup-text" id={id}>
         {track}
       </PopupText>
     </Popup>

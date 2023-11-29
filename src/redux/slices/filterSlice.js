@@ -22,17 +22,23 @@ const filterSlice = createSlice({
       state.filterSort.sort = action.payload;
     },
     setAuthorTrackFilter: (state, action) => {
-      if (state.filterAuthor.find((el) => el === action.payload)) {
-        return state.filterAuthor.filter((author) => author !== action.payload);
-      }
       state.filterAuthor.push(action.payload);
     },
+    deleteAuthorTrackFilter: (state, action) => ({
+      ...state,
+      filterAuthor: state.filterAuthor.filter(
+        (author) => author !== action.payload,
+      ),
+    }),
     setGenreTrackFilter: (state, action) => {
-      if (state.find((el) => el === action.payload)) {
-        return state.filterGenre.filter((genre) => genre !== action.payload);
-      }
       state.filterGenre.push(action.payload);
     },
+    deleteGenreTrackFilter: (state, action) => ({
+      ...state,
+      filterGenre: state.filterGenre.filter(
+        (genre) => genre !== action.payload,
+      ),
+    }),
   },
 });
 
@@ -41,12 +47,13 @@ export const {
   setSortTrackFilter,
   setAuthorTrackFilter,
   setGenreTrackFilter,
-  set,
+  deleteAuthorTrackFilter,
+  deleteGenreTrackFilter,
 } = filterSlice.actions;
 
 export const selectNameTrackFilter = (state) =>
   state.filter.filterSearchingInput.nameTrack;
-export const selectSortTrackFilter = (state) => state.filter.filterAuthor;
+export const selectSortTrackFilter = (state) => state.filter.filterSort;
 export const selectAuthorTrackFilter = (state) => state.filter.filterAuthor;
 export const selectGenreTrackFilter = (state) => state.filter.filterGenre;
 

@@ -4,7 +4,12 @@ import ItemPlaylist from '../UI/ItemPlaylist';
 import * as S from './SectionMusicList.styles';
 import bonesTracks from '../../data/tracks';
 import { tracksAPI } from '../../services/GetAccessTokenService';
-import { selectNameTrackFilter } from '../../redux/slices/filterSlice';
+import {
+  selectAuthorTrackFilter,
+  selectGenreTrackFilter,
+  selectNameTrackFilter,
+  selectSortTrackFilter,
+} from '../../redux/slices/filterSlice';
 
 function SectionMusicList() {
   const {
@@ -13,7 +18,10 @@ function SectionMusicList() {
     error,
   } = tracksAPI.useFetchAllTracksQuery();
   const nameTrackFilter = useSelector(selectNameTrackFilter);
-
+  const sortTrackFilter = useSelector(selectSortTrackFilter);
+  const authorTrackFilter = useSelector(selectAuthorTrackFilter);
+  const genreTrackFilter = useSelector(selectGenreTrackFilter);
+  console.log({ sortTrackFilter, authorTrackFilter, genreTrackFilter });
   const filteredTracks = allTracks?.filter((track) => {
     const matchesNameTrack = track.name
       .toLowerCase()

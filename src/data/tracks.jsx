@@ -81,4 +81,119 @@ const bonesTracks = [
     genre: 'Dubstep',
   },
 ];
+
+export const arrayAuthors = [
+  {
+    id: 1,
+    nameAuthor: 'Frank Schroter',
+  },
+  {
+    id: 2,
+    nameAuthor: 'Alexander Nakarada',
+  },
+  {
+    id: 3,
+    nameAuthor: 'Mixkit',
+  },
+  {
+    id: 4,
+    nameAuthor: '-',
+  },
+  {
+    id: 5,
+    nameAuthor: 'Waltz Piano',
+  },
+  {
+    id: 6,
+    nameAuthor: 'Winniethemoog',
+  },
+  {
+    id: 7,
+    nameAuthor: 'AFM',
+  },
+  {
+    id: 8,
+    nameAuthor: 'Bobby Marleni',
+  },
+  {
+    id: 9,
+    nameAuthor: 'Brian Holtz',
+  },
+  {
+    id: 10,
+    nameAuthor: 'Fanz',
+  },
+  {
+    id: 11,
+    nameAuthor: 'Luke',
+  },
+  {
+    id: 12,
+    nameAuthor: 'Ryan Craig Martin',
+  },
+  {
+    id: 13,
+    nameAuthor: 'Sascha Ende',
+  },
+  {
+    id: 14,
+    nameAuthor: 'Starforsh',
+  },
+  {
+    id: 15,
+    nameAuthor: 'Voisin',
+  },
+  {
+    id: 16,
+    nameAuthor: 'Wova',
+  },
+  {
+    id: 17,
+    nameAuthor: 'Kevin Macleod',
+  },
+  {
+    id: 18,
+    nameAuthor: ' Audionautix',
+  },
+  {
+    id: 19,
+    nameAuthor: 'MED',
+  },
+  {
+    id: 20,
+    nameAuthor: 'Tim Kulig',
+  },
+];
+
+export const arrayGenre = [
+  {
+    id: 1,
+    genreTrack: 'Классическая музыка',
+  },
+  {
+    id: 2,
+    genreTrack: 'Рок музыка',
+  },
+  {
+    id: 3,
+    genreTrack: 'Электронная музыка',
+  },
+];
+
+
+export const arrayDate = [
+  {
+    id: 1,
+    dateTrack: 'по умолчанию',
+  },
+  {
+    id: 2,
+    dateTrack: 'сначала старые',
+  },
+  {
+    id: 3,
+    dateTrack: 'сначала новые',
+  },
+];
+
 export default bonesTracks;
