@@ -1,3 +1,4 @@
+/* eslint-disable consistent-return */
 /* eslint-disable react/jsx-props-no-spreading */
 import { useSelector } from 'react-redux';
 import ItemPlaylist from '../UI/ItemPlaylist';
@@ -22,6 +23,7 @@ function SectionMusicList() {
   const authorTrackFilter = useSelector(selectAuthorTrackFilter);
   const genreTrackFilter = useSelector(selectGenreTrackFilter);
   console.log({ sortTrackFilter, authorTrackFilter, genreTrackFilter });
+
   const filteredTracks = allTracks?.filter((track) => {
     const matchesNameTrack = track.name
       .toLowerCase()
@@ -38,6 +40,25 @@ function SectionMusicList() {
         );
     return matchesNameTrack && matchesAuthorTrack && matchesGenreTrack;
   });
+
+  const filteredAndSortTracks = () => {
+    console.log(sortTrackFilter.sort);
+    if (sortTrackFilter.sort === 'сначала новые') {
+      return filteredTracks
+        .sort((a, b) => parseFloat(a.release_date) - parseFloat(b.release_date))
+        .reverse();
+    }
+    if (sortTrackFilter.sort === 'сначала старые') {
+      return filteredTracks.sort(
+        (a, b) => parseFloat(a.release_date) - parseFloat(b.release_date),
+      );
+    }
+    if (sortTrackFilter.sort === 'по умолчанию' || !sortTrackFilter.sort) {
+      console.log(3);
+      return filteredTracks;
+    }
+  };
+
   console.log(allTracks);
   return (
     <S.CenterBlockContent>
@@ -62,7 +83,7 @@ function SectionMusicList() {
                 key={track.id}
               />
             ))
-          : filteredTracks?.map((track) => (
+          : filteredAndSortTracks()?.map((track) => (
               <ItemPlaylist
                 allTracks={allTracks}
                 isLoading={isLoading}
