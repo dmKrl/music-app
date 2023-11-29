@@ -2,7 +2,7 @@
 /* eslint-disable no-dupe-else-if */
 /* eslint-disable import/no-extraneous-dependencies */
 /* eslint-disable jsx-a11y/media-has-caption */
-import { useRef, useState, useEffect, useContext } from 'react';
+import { useRef, useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import * as S from './MediaPlayer.styles.';
 import ProgressBar from '../ProgressBar/ProgressBar';
@@ -18,7 +18,6 @@ import {
   toggleIsShuffled,
 } from '../../redux/slices/switchTracksSlice';
 import shuffleTracks from '../../app/shuffleTracks';
-import UserData from '../../context/UserData';
 import { tracksAPI } from '../../services/GetAccessTokenService';
 
 function MediaPlayer() {
@@ -31,7 +30,6 @@ function MediaPlayer() {
   const isShuffled = useSelector(selectIsShuffled);
   const isPlayingTrack = useSelector(selectIsPlaying);
   const definiteArrayTracks = useSelector(selectArrayTracks);
-  const { userInfo } = useContext(UserData);
   const [addLikeTrack] = tracksAPI.useAddLikeTrackMutation();
   const [deleteLikeTrack] = tracksAPI.useDeleteLikeTrackMutation();
   const dispatch = useDispatch();
@@ -218,7 +216,9 @@ function MediaPlayer() {
                       alt="like"
                       onClick={() => addLikeTrack(dataTrack.id)}
                     >
-                      {dataTrack?.arrayStaredUser?.find(
+                      <use xlinkHref="/img/icon/sprite.svg#icon-like-no-active" />
+
+                      {/* {dataTrack?.arrayStaredUser?.find(
                         (user) => user.id === userInfo.id,
                       ) ||
                       dataTrack.isFavorite ||
@@ -228,7 +228,7 @@ function MediaPlayer() {
                         <use xlinkHref="/img/icon/sprite.svg#icon-like-active" />
                       ) : (
                         <use xlinkHref="/img/icon/sprite.svg#icon-like-no-active" />
-                      )}
+                      )} */}
                     </S.TrackPlaySvg>
                   </S.TrackPlayLike>
                   <S.TrackPlayDislike>

@@ -18,8 +18,7 @@ function CenterBlockFilter({ onClick, activeFilter }) {
   const sortTrackFilter = useSelector(selectSortTrackFilter);
   const authorTrackFilter = useSelector(selectAuthorTrackFilter);
   const genreTrackFilter = useSelector(selectGenreTrackFilter);
-  console.log(authorTrackFilter);
-  console.log(genreTrackFilter);
+
   const handleAuthorTrackFilter = (authorTrack) => {
     if (authorTrackFilter.includes(authorTrack)) {
       dispatch(deleteAuthorTrackFilter(authorTrack));
