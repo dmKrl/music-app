@@ -26,6 +26,18 @@ export const CenterBlockFilter = styled.div`
 export const StyleFilterItem = styled.div`
   display: flex;
   flex-direction: column;
+  position: relative;
+`;
+export const CounterFilters = styled.div`
+  width: 24px;
+  height: 24px;
+  text-align: center;
+  background-color: #ad61ff;
+  color: white;
+  border-radius: 12px;
+  position: absolute;
+  bottom: 24px;
+  right: 0;
 `;
 export const FilterButton = styled.button`
   font-style: normal;

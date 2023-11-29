@@ -43,6 +43,7 @@ function CenterBlockFilter({ onClick, activeFilter }) {
           onClick={() => onClick('musician')}
           isOpen={activeFilter === 'musician'}
           id="1"
+          authorTrackFilter={authorTrackFilter}
           tracks={arrayAuthors.map((author) => (
             <S.PopupTextInfo
               key={author.id}
@@ -58,6 +59,7 @@ function CenterBlockFilter({ onClick, activeFilter }) {
           onClick={() => onClick('genre')}
           isOpen={activeFilter === 'genre'}
           id="3"
+          genreTrackFilter={genreTrackFilter}
           tracks={arrayGenre.map((genre) => (
             <S.PopupTextInfo
               key={genre.id}
@@ -75,6 +77,7 @@ function CenterBlockFilter({ onClick, activeFilter }) {
           onClick={() => onClick('year')}
           isOpen={activeFilter === 'year'}
           id="2"
+          sortTrackFilter={sortTrackFilter}
           tracks={arrayDate.map((date) => (
             <S.PopupTextInfo
               key={date.id}
