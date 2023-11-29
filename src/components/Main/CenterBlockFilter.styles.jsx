@@ -120,7 +120,6 @@ export const Popup = styled.div`
 export const PopupText = styled.div`
   color: #fff;
   font-variant-numeric: lining-nums proportional-nums;
-  font-family: StratosSkyeng;
   font-size: 20px;
   font-style: normal;
   font-weight: 400;

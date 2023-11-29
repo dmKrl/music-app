@@ -4,8 +4,8 @@ function PopupFilter(props) {
   const { track, id } = props;
   console.log(track);
   return (
-    <Popup className="popup">
-      <PopupText className="popup-text" id={id}>
+    <Popup>
+      <PopupText id={id}>
         {track}
       </PopupText>
     </Popup>

@@ -37,8 +37,8 @@ function CenterBlockFilter({ onClick, activeFilter }) {
   return (
     <>
       <S.CenterBlockHeading>Треки</S.CenterBlockHeading>
-      <S.CenterBlockFilter className="centerblock__filter filter">
-        <S.FilterTitle className="filter__title">Искать по:</S.FilterTitle>
+      <S.CenterBlockFilter>
+        <S.FilterTitle>Искать по:</S.FilterTitle>
         <FilterItem
           onClick={() => onClick('musician')}
           isOpen={activeFilter === 'musician'}
