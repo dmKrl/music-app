@@ -19,17 +19,17 @@ function FilterItem(props) {
 
   return (
     <StyleFilterItem>
-      {authorTrackFilter && !genreTrackFilter && !sortTrackFilter ? (
+      {isOpen && authorTrackFilter && !genreTrackFilter && !sortTrackFilter ? (
         <CounterFilters>{authorTrackFilter.length}</CounterFilters>
       ) : (
         ''
       )}
-      {genreTrackFilter && !authorTrackFilter && !sortTrackFilter ? (
+      {isOpen && genreTrackFilter && !authorTrackFilter && !sortTrackFilter ? (
         <CounterFilters>{genreTrackFilter.length}</CounterFilters>
       ) : (
         ''
       )}
-      {sortTrackFilter && !authorTrackFilter && !genreTrackFilter ? (
+      {isOpen && sortTrackFilter && !authorTrackFilter && !genreTrackFilter ? (
         <CounterFilters>1</CounterFilters>
       ) : (
         ''
