@@ -2,12 +2,10 @@ import { Popup, PopupText } from '../Main/CenterBlockFilter.styles';
 
 function PopupFilter(props) {
   const { track, id } = props;
-  console.log(track);
+
   return (
     <Popup>
-      <PopupText id={id}>
-        {track}
-      </PopupText>
+      <PopupText id={id}>{track}</PopupText>
     </Popup>
   );
 }

@@ -17,7 +17,6 @@ function FilterItem(props) {
     sortTrackFilter,
   } = props;
 
-  console.log(authorTrackFilter);
   return (
     <StyleFilterItem>
       {!genreTrackFilter && !sortTrackFilter && authorTrackFilter.length ? (
@@ -41,7 +40,14 @@ function FilterItem(props) {
       <ButtonFilter isOpen={isOpen} onClick={onClick}>
         {children}
       </ButtonFilter>
-      {isOpen && <PopupFilter key={id} id={id} track={tracks} />}
+      {isOpen && (
+        <PopupFilter
+          filters={{ authorTrackFilter, genreTrackFilter, sortTrackFilter }}
+          key={id}
+          id={id}
+          track={tracks}
+        />
+      )}
     </StyleFilterItem>
   );
 }

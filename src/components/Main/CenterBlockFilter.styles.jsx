@@ -126,6 +126,15 @@ export const PopupText = styled.div`
   line-height: 24px;
   cursor: pointer;
 `;
+export const PopupTextActive = styled.div`
+  color: #b672ff;
+  font-variant-numeric: lining-nums proportional-nums;
+  font-size: 22px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 24px;
+  cursor: pointer;
+`;
 export const PopupTextInfo = styled.p`
   margin-bottom: 28px;
   :hover {
