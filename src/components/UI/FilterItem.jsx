@@ -17,19 +17,23 @@ function FilterItem(props) {
     sortTrackFilter,
   } = props;
 
+  console.log(authorTrackFilter);
   return (
     <StyleFilterItem>
-      {isOpen && authorTrackFilter && !genreTrackFilter && !sortTrackFilter ? (
+      {!genreTrackFilter && !sortTrackFilter && authorTrackFilter.length ? (
         <CounterFilters>{authorTrackFilter.length}</CounterFilters>
       ) : (
         ''
       )}
-      {isOpen && genreTrackFilter && !authorTrackFilter && !sortTrackFilter ? (
+      {!authorTrackFilter && !sortTrackFilter && genreTrackFilter.length ? (
         <CounterFilters>{genreTrackFilter.length}</CounterFilters>
       ) : (
         ''
       )}
-      {isOpen && sortTrackFilter && !authorTrackFilter && !genreTrackFilter ? (
+      {!authorTrackFilter &&
+      !genreTrackFilter &&
+      sortTrackFilter.sort !== '' &&
+      sortTrackFilter.sort !== 'по умолчанию' ? (
         <CounterFilters>1</CounterFilters>
       ) : (
         ''
