@@ -71,7 +71,9 @@ function CenterBlockFilter({ onClick, activeFilter }) {
         >
           жанру
         </FilterItem>
-        <S.FilterTitle>Сортировка:</S.FilterTitle>
+        <S.FilterTitle style={{ marginLeft: '400px' }}>
+          Сортировка:
+        </S.FilterTitle>
         <FilterItem
           style={{ position: 'absolute', right: 0 }}
           onClick={() => onClick('year')}
