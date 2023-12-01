@@ -93,7 +93,7 @@ function CenterBlockFilter({ onClick, activeFilter }) {
           tracks={arrayDate.map((date) => (
             <S.PopupTextInfo
               key={date.id}
-              $isActive={date.dateTrack.includes(sortTrackFilter.sort)}
+              $isActive={date.dateTrack === sortTrackFilter.sort}
               onClick={() => dispatch(setSortTrackFilter(date.dateTrack))}
             >
               {date.dateTrack}
