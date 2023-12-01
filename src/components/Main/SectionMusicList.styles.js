@@ -67,6 +67,7 @@ export const ContentTitle = styled.div`
   margin-bottom: 24px;
 `;
 export const ContentPlaylist = styled.div`
+  height: 1680px;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
