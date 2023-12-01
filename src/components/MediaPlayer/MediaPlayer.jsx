@@ -35,8 +35,6 @@ function MediaPlayer() {
   const dispatch = useDispatch();
   const audioRef = useRef(null);
 
-  console.log(definiteArrayTracks);
-
   const handleToggleTrack = () => {
     if (!isShuffled) {
       setRandomAllTracks(shuffleTracks(definiteArrayTracks));
