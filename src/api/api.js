@@ -3,8 +3,6 @@ const SignInUrl = 'https://skypro-music-api.skyeng.tech/user/login/';
 const getRefreshAccessTokenUrl =
   'https://skypro-music-api.skyeng.tech/user/token/refresh/';
 
-
-
 // Получение рефреш-токена
 export async function getRefreshAccessToken(token) {
   const response = await fetch(getRefreshAccessTokenUrl, {

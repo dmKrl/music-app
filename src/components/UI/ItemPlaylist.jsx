@@ -61,14 +61,14 @@ function ItemPlaylist(props) {
       dispatch(setArrayTracks(props.allTracks));
     }
     if (location.pathname === '/favorites') {
-      dispatch(setArrayTracks(props.favoritesTracks));
+      dispatch(setArrayTracks(props.tracks));
     }
     if (
       location.pathname === '/category/1' ||
       location.pathname === '/category/2' ||
       location.pathname === '/category/3'
     ) {
-      dispatch(setArrayTracks(props.collectionTracks));
+      dispatch(setArrayTracks(props.collectionTracks.items));
     }
   }
 

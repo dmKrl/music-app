@@ -82,8 +82,8 @@ function SignUp() {
         .catch((error) => error)
         .finally(() => {
           setIsGettingData(false);
+          responseToken();
         });
-      responseToken();
     }
   };
 
