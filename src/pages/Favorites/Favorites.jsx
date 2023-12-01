@@ -38,7 +38,8 @@ function Favorites() {
       </S.ContentTitle>
       {error ? (
         <CenterBlockHeading style={{ fontSize: '32px' }}>
-          Ошибка сервера
+          Ошибка загрузки треков, перезагрузите страницу или проверьте интернет
+          соединение
         </CenterBlockHeading>
       ) : (
         <S.ContentPlaylist>

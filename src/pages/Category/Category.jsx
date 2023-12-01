@@ -43,28 +43,33 @@ function Category() {
           </S.PlaylistTitleSvg>
         </S.Col04>
       </S.ContentTitle>
-      <S.ContentPlaylist>
-        {error}
-        {!collectionTracks
-          ? tracks.map((track) => (
-              // eslint-disable-next-line react/jsx-props-no-spreading
-              <ItemPlaylist
-                {...track}
-                loadingCollection={loadingCollection}
-                key={track.id}
-              />
-            ))
-          : filteredTracks?.map((track) => (
-              // eslint-disable-next-line react/jsx-props-no-spreading
-              <ItemPlaylist
-                categoryId={category.id}
-                loadingCollection={loadingCollection}
-                collectionTracks={collectionTracks}
-                {...track}
-                key={track.id}
-              />
-            ))}
-      </S.ContentPlaylist>
+      {error ? (
+        <CenterBlockHeading style={{ fontSize: '32px' }}>
+          Ошибка загрузки треков, перезагрузите страницу или проверьте интернет соединение
+        </CenterBlockHeading>
+      ) : (
+        <S.ContentPlaylist>
+          {!collectionTracks
+            ? tracks.map((track) => (
+                // eslint-disable-next-line react/jsx-props-no-spreading
+                <ItemPlaylist
+                  {...track}
+                  loadingCollection={loadingCollection}
+                  key={track.id}
+                />
+              ))
+            : filteredTracks?.map((track) => (
+                // eslint-disable-next-line react/jsx-props-no-spreading
+                <ItemPlaylist
+                  categoryId={category.id}
+                  loadingCollection={loadingCollection}
+                  collectionTracks={collectionTracks}
+                  {...track}
+                  key={track.id}
+                />
+              ))}
+        </S.ContentPlaylist>
+      )}
     </S.CenterBlockContent>
   );
 }

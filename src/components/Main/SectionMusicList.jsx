@@ -11,6 +11,7 @@ import {
   selectNameTrackFilter,
   selectSortTrackFilter,
 } from '../../redux/slices/filterSlice';
+import { CenterBlockHeading } from './CenterBlockFilter.styles';
 
 function SectionMusicList() {
   const {
@@ -68,26 +69,32 @@ function SectionMusicList() {
           </S.PlaylistTitleSvg>
         </S.Col04>
       </S.ContentTitle>
-      <S.ContentPlaylist>
-        {error}
-        {isLoading
-          ? bonesTracks.map((track) => (
-              <ItemPlaylist
-                nameTrackFilter={nameTrackFilter}
-                {...track}
-                isLoading={isLoading}
-                key={track.id}
-              />
-            ))
-          : filteredAndSortTracks()?.map((track) => (
-              <ItemPlaylist
-                allTracks={allTracks}
-                isLoading={isLoading}
-                {...track}
-                key={track.id}
-              />
-            ))}
-      </S.ContentPlaylist>
+      {error ? (
+        <CenterBlockHeading style={{ fontSize: '32px' }}>
+          Ошибка загрузки треков, перезагрузите страницу или проверьте интернет
+          соединение
+        </CenterBlockHeading>
+      ) : (
+        <S.ContentPlaylist>
+          {isLoading
+            ? bonesTracks.map((track) => (
+                <ItemPlaylist
+                  nameTrackFilter={nameTrackFilter}
+                  {...track}
+                  isLoading={isLoading}
+                  key={track.id}
+                />
+              ))
+            : filteredAndSortTracks()?.map((track) => (
+                <ItemPlaylist
+                  allTracks={allTracks}
+                  isLoading={isLoading}
+                  {...track}
+                  key={track.id}
+                />
+              ))}
+        </S.ContentPlaylist>
+      )}
     </S.CenterBlockContent>
   );
 }
