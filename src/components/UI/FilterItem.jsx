@@ -16,7 +16,7 @@ function FilterItem(props) {
     genreTrackFilter,
     sortTrackFilter,
   } = props;
-
+  console.log(tracks);
   return (
     <StyleFilterItem>
       {!genreTrackFilter && !sortTrackFilter && authorTrackFilter.length ? (

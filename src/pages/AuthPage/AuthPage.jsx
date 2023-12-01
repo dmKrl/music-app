@@ -39,7 +39,6 @@ function SignUp() {
   const responseToken = () => {
     postAccessToken({ email, password })
       .then((response) => {
-        console.log(response);
         dispatch(
           setAuth({
             access: response.data.access,
@@ -95,7 +94,6 @@ function SignUp() {
       setIsGettingData(true);
       postRegister({ email, password, username })
         .then((data) => {
-          console.log(data);
           if (data.id) {
             localStorage.setItem('userDataInfo', JSON.stringify(data));
             changeUserInfo(JSON.parse(localStorage.getItem('userDataInfo')));
@@ -103,7 +101,6 @@ function SignUp() {
             return navigate('/');
           }
           if (data.response && data.response.status === 400) {
-            console.log(data.responseData);
             returnsErrorMessageAPI(data.responseData);
             setIsError(true);
           }

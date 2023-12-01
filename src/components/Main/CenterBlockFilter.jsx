@@ -18,7 +18,7 @@ function CenterBlockFilter({ onClick, activeFilter }) {
   const sortTrackFilter = useSelector(selectSortTrackFilter);
   const authorTrackFilter = useSelector(selectAuthorTrackFilter);
   const genreTrackFilter = useSelector(selectGenreTrackFilter);
-
+  console.log(sortTrackFilter);
   const handleAuthorTrackFilter = (authorTrack) => {
     if (authorTrackFilter.includes(authorTrack)) {
       dispatch(deleteAuthorTrackFilter(authorTrack));
@@ -46,6 +46,11 @@ function CenterBlockFilter({ onClick, activeFilter }) {
           authorTrackFilter={authorTrackFilter}
           tracks={arrayAuthors.map((author) => (
             <S.PopupTextInfo
+              $isActive={author.nameAuthor.includes(
+                authorTrackFilter.find(
+                  (authorFilter) => authorFilter === author.nameAuthor,
+                ),
+              )}
               key={author.id}
               onClick={() => handleAuthorTrackFilter(author.nameAuthor)}
             >
@@ -63,6 +68,11 @@ function CenterBlockFilter({ onClick, activeFilter }) {
           tracks={arrayGenre.map((genre) => (
             <S.PopupTextInfo
               key={genre.id}
+              $isActive={genre.genreTrack.includes(
+                genreTrackFilter.find(
+                  (genreFilter) => genreFilter === genre.genreTrack,
+                ),
+              )}
               onClick={() => handleGenreTrackFilter(genre.genreTrack)}
             >
               {genre.genreTrack}
@@ -83,6 +93,7 @@ function CenterBlockFilter({ onClick, activeFilter }) {
           tracks={arrayDate.map((date) => (
             <S.PopupTextInfo
               key={date.id}
+              $isActive={date.dateTrack.includes(sortTrackFilter.sort)}
               onClick={() => dispatch(setSortTrackFilter(date.dateTrack))}
             >
               {date.dateTrack}

@@ -137,6 +137,8 @@ export const PopupTextActive = styled.div`
 `;
 export const PopupTextInfo = styled.p`
   margin-bottom: 28px;
+  color: ${(props) => (props.$isActive ? '#b672ff' : '#fff')};
+
   :hover {
     color: #b672ff;
     text-decoration-line: underline;
