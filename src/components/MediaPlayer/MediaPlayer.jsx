@@ -20,7 +20,6 @@ import {
 import shuffleTracks from '../../app/shuffleTracks';
 import { tracksAPI } from '../../services/GetAccessTokenService';
 import UserData from '../../context/UserData';
-import MediaPlayerContext from '../../context/MediaPlayerContext';
 
 function MediaPlayer() {
   const [volume, setVolume] = useState(1);
@@ -29,7 +28,6 @@ function MediaPlayer() {
   const [currentTime, setCurrentTime] = useState(0);
   const [randomAllTracks, setRandomAllTracks] = useState([]);
   const { userInfo } = useContext(UserData);
-  const { isShowing } = useContext(MediaPlayerContext);
   const dataTrack = useSelector(selectTracks);
   const isShuffled = useSelector(selectIsShuffled);
   const isPlayingTrack = useSelector(selectIsPlaying);
@@ -38,7 +36,7 @@ function MediaPlayer() {
   const [deleteLikeTrack] = tracksAPI.useDeleteLikeTrackMutation();
   const dispatch = useDispatch();
   const audioRef = useRef(null);
-  console.log(isShowing);
+
   const handleToggleTrack = () => {
     if (!isShuffled) {
       setRandomAllTracks(shuffleTracks(definiteArrayTracks));
