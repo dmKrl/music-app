@@ -2,7 +2,7 @@
 /* eslint-disable no-dupe-else-if */
 /* eslint-disable import/no-extraneous-dependencies */
 /* eslint-disable jsx-a11y/media-has-caption */
-import { useRef, useState, useEffect, useContext } from 'react';
+import { useRef, useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import * as S from './MediaPlayer.styles.';
 import ProgressBar from '../ProgressBar/ProgressBar';
@@ -19,7 +19,6 @@ import {
 } from '../../redux/slices/switchTracksSlice';
 import shuffleTracks from '../../app/shuffleTracks';
 import { tracksAPI } from '../../services/GetAccessTokenService';
-import UserData from '../../context/UserData';
 
 function MediaPlayer() {
   const [volume, setVolume] = useState(1);
@@ -27,7 +26,6 @@ function MediaPlayer() {
   const [isLoop, setIsLoop] = useState(false);
   const [currentTime, setCurrentTime] = useState(0);
   const [randomAllTracks, setRandomAllTracks] = useState([]);
-  const { userInfo } = useContext(UserData);
   const dataTrack = useSelector(selectTracks);
   const isShuffled = useSelector(selectIsShuffled);
   const isPlayingTrack = useSelector(selectIsPlaying);
@@ -90,18 +88,22 @@ function MediaPlayer() {
     dispatch(toggleIsPlaying(false));
   };
   const changeDuration = () => {
+    if (localStorage.getItem('userDataInfo') === null) {
+      audioRef.current.removeEventListener('loadedmetadata', changeDuration);
+    }
     setDuration(Math.floor(audioRef.current.duration));
   };
   const changeCurrentTime = () => {
+    if (localStorage.getItem('userDataInfo') === null) {
+      audioRef.current.removeEventListener('timeupdate', changeCurrentTime);
+    }
     setCurrentTime(Math.floor(audioRef.current.currentTime));
   };
 
   useEffect(() => {
     handleStartTrack();
     audioRef.current.addEventListener('loadedmetadata', changeDuration);
-    audioRef.current.removeEventListener('loadedmetadata', changeDuration);
     audioRef.current.addEventListener('timeupdate', changeCurrentTime);
-    audioRef.current.removeEventListener('timeupdate', changeCurrentTime);
   }, [dataTrack.track_file]);
 
   return (
@@ -208,7 +210,8 @@ function MediaPlayer() {
                       alt="like"
                       onClick={() => addLikeTrack(dataTrack.id)}
                     >
-                      {dataTrack?.arrayStaredUser?.find(
+                      <use xlinkHref="/img/icon/sprite.svg#icon-like-active" />
+                      {/* {dataTrack?.arrayStaredUser?.find(
                         (user) => user.id === userInfo.id,
                       ) ||
                       dataTrack.isFavorite ||
@@ -218,7 +221,7 @@ function MediaPlayer() {
                         <use xlinkHref="/img/icon/sprite.svg#icon-like-active" />
                       ) : (
                         <use xlinkHref="/img/icon/sprite.svg#icon-like-no-active" />
-                      )}
+                      )} */}
                     </S.TrackPlaySvg>
                   </S.TrackPlayLike>
                   <S.TrackPlayDislike>
