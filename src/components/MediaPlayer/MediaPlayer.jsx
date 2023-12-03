@@ -93,9 +93,11 @@ function MediaPlayer() {
     audioRef.current.removeEventListener('loadedmetadata', changeDuration);
   };
   const changeCurrentTime = () => {
-    audioRef.current === null
-      ? setCurrentTime(0)
-      : setCurrentTime(Math.floor(audioRef.current.currentTime));
+    if (audioRef.current === null) {
+      setCurrentTime(0);
+    } else {
+      setCurrentTime(Math.floor(audioRef.current.currentTime));
+    }
   };
 
   useEffect(() => {

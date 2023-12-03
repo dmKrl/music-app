@@ -1,3 +1,4 @@
+/* eslint-disable import/no-named-as-default-member */
 import { useContext, useState } from 'react';
 import { Outlet } from 'react-router-dom';
 import MediaPlayer from '../../components/MediaPlayer/MediaPlayer';
