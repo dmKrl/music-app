@@ -37,7 +37,7 @@ function Favorites() {
         </S.Col04>
       </S.ContentTitle>
       {error ? (
-        <CenterBlockHeading style={{ fontSize: '32px' }}>
+        <CenterBlockHeading style={{ fontSize: '32px', height: '1680px' }}>
           Ошибка загрузки треков, перезагрузите страницу или проверьте интернет
           соединение
         </CenterBlockHeading>
