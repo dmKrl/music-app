@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-expressions */
 /* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable no-dupe-else-if */
 /* eslint-disable import/no-extraneous-dependencies */
@@ -88,22 +89,22 @@ function MediaPlayer() {
     dispatch(toggleIsPlaying(false));
   };
   const changeDuration = () => {
-    if (localStorage.getItem('userDataInfo') === null) {
-      audioRef.current.removeEventListener('loadedmetadata', changeDuration);
-    }
     setDuration(Math.floor(audioRef.current.duration));
+    audioRef.current.removeEventListener('loadedmetadata', changeDuration);
   };
   const changeCurrentTime = () => {
-    if (localStorage.getItem('userDataInfo') === null) {
-      audioRef.current.removeEventListener('timeupdate', changeCurrentTime);
-    }
-    setCurrentTime(Math.floor(audioRef.current.currentTime));
+    audioRef.current === null
+      ? setCurrentTime(0)
+      : setCurrentTime(Math.floor(audioRef.current.currentTime));
   };
 
   useEffect(() => {
     handleStartTrack();
     audioRef.current.addEventListener('loadedmetadata', changeDuration);
     audioRef.current.addEventListener('timeupdate', changeCurrentTime);
+    return () => {
+      audioRef.current?.removeEventListener('timeupdate', changeCurrentTime);
+    };
   }, [dataTrack.track_file]);
 
   return (
