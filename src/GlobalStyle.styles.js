@@ -1,6 +1,4 @@
 import { createGlobalStyle, css } from 'styled-components';
-import myFontUrlWoff from './fonts/StratosSkyeng.woff';
-import myFontUrlWoff2 from './fonts/StratosSkyeng.woff2';
 
 const FontFaces = css`
   @font-face {
@@ -8,8 +6,8 @@ const FontFaces = css`
     src:
       local('StratosSkyeng'),
       local('StratosSkyeng'),
-      url(${myFontUrlWoff2}) format('woff2'),
-      url(${myFontUrlWoff}) format('woff');
+      url('../fonts/StratosSkyeng.woff2') format('woff2'),
+      url('../fonts/StratosSkyeng.woff') format('woff');
     font-weight: 400;
     font-style: normal;
   }

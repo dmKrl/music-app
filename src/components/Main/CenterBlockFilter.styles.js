@@ -11,7 +11,7 @@ export const CenterBlockHeading = styled.h2`
 export const CenterBlockFilter = styled.div`
   display: -webkit-box;
   display: -ms-flexbox;
-  display: flex;
+  display: flexbox;
   gap: 10px;
   -webkit-box-orient: horizontal;
   -webkit-box-direction: normal;
@@ -26,6 +26,18 @@ export const CenterBlockFilter = styled.div`
 export const StyleFilterItem = styled.div`
   display: flex;
   flex-direction: column;
+  position: relative;
+`;
+export const CounterFilters = styled.div`
+  width: 24px;
+  height: 24px;
+  text-align: center;
+  background-color: #ad61ff;
+  color: white;
+  border-radius: 12px;
+  position: absolute;
+  bottom: 24px;
+  right: 0;
 `;
 export const FilterButton = styled.button`
   font-style: normal;
@@ -45,6 +57,29 @@ export const FilterButton = styled.button`
   :active {
     border-color: #ad61ff;
     color: #ad61ff;
+    cursor: pointer;
+  }
+`;
+export const FilterButtonActive = styled.button`
+  font-style: normal;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 24px;
+  border: 1px solid #ffffff;
+  background: none;
+  border-radius: 60px;
+  padding: 6px 20px;
+  border-color: #ad61ff;
+  color: #ad61ff;
+  cursor: pointer;
+  :hover {
+    border-color: #d9b6ff;
+    color: #d9b6ff;
+    cursor: pointer;
+  }
+  :active {
+    border-color: #ad61ff;
+    color: white;
     cursor: pointer;
   }
 `;
@@ -85,14 +120,25 @@ export const Popup = styled.div`
 export const PopupText = styled.div`
   color: #fff;
   font-variant-numeric: lining-nums proportional-nums;
-  font-family: StratosSkyeng;
   font-size: 20px;
   font-style: normal;
   font-weight: 400;
   line-height: 24px;
   cursor: pointer;
 `;
+export const PopupTextActive = styled.div`
+  color: #b672ff;
+  font-variant-numeric: lining-nums proportional-nums;
+  font-size: 22px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 24px;
+  cursor: pointer;
+`;
 export const PopupTextInfo = styled.p`
+  margin-bottom: 28px;
+  color: ${(props) => (props.$isActive ? '#b672ff' : '#fff')};
+
   :hover {
     color: #b672ff;
     text-decoration-line: underline;

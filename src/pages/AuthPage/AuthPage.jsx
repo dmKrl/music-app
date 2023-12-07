@@ -1,14 +1,12 @@
 import { useContext, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
 import * as S from '../../components/SignUp-In/SignComponent.styles';
-import {
-  validationInputsLogin,
-  validationInputsRegister,
-} from '../../app/validate';
 import { postRegister, postLogin } from '../../api/api';
 import MessageError from '../../components/UI/MessageError';
 import UserData from '../../context/UserData';
-import getToken from '../../app/getToken';
+import { getAccessTokenAPI } from '../../services/GetAccessTokenService';
+import { setAuth } from '../../redux/slices/authSlice';
 
 function SignUp() {
   const [email, setEmail] = useState('');
@@ -16,14 +14,16 @@ function SignUp() {
   const [username, setUsername] = useState('');
   const [repeatPassword, setRepeatPassword] = useState('');
   const [messageErrorAPI, setMessageErrorAPI] = useState('');
-  const [isFilledOut, setIsFiledOut] = useState(false);
   const [isError, setIsError] = useState(false);
   const [isValidData, setIsValidData] = useState(false);
   const [isLoginMode, setIsLoginMode] = useState(false);
   const [isGettingData, setIsGettingData] = useState(false);
   const [isValidPasswords, setIsValidPasswords] = useState(false);
   const { changeUserInfo } = useContext(UserData);
+  const dispatch = useDispatch();
   const navigate = useNavigate();
+  const [postAccessToken] = getAccessTokenAPI.usePostAccessTokenMutation();
+
   const returnsErrorMessageAPI = (data) => {
     if (data.username) {
       setMessageErrorAPI(data.username.join());
@@ -35,25 +35,36 @@ function SignUp() {
       setMessageErrorAPI(data.password[0]);
     }
   };
+
+  const responseToken = () => {
+    postAccessToken({ email, password })
+      .then((response) => {
+        dispatch(
+          setAuth({
+            access: response.data.access,
+            refresh: response.data.refresh,
+            user: JSON.parse(localStorage.getItem('userDataInfo')),
+          }),
+        );
+        localStorage.setItem('access', response?.access);
+        localStorage.setItem('refresh', response?.refresh);
+      })
+      .catch((error) => console.error(error));
+  };
+
   const loginUser = (event) => {
     event.preventDefault();
-    validationInputsLogin({
-      email,
-      password,
-      setIsFiledOut,
-      setIsValidData,
-    });
-    if (isFilledOut) {
+    if (!email || !password) {
+      setIsValidData(true);
+    } else {
+      setIsValidData(false);
       setIsGettingData(true);
-      getToken({ email, password });
-      setInterval(() => {
-        getToken({ email, password });
-      }, 190000);
       postLogin({ email, password })
         .then((data) => {
           if (data.id) {
             localStorage.setItem('userDataInfo', JSON.stringify(data));
             changeUserInfo(JSON.parse(localStorage.getItem('userDataInfo')));
+            responseToken();
             return navigate('/');
           }
           if (data.detail) {
@@ -71,23 +82,22 @@ function SignUp() {
 
   const registrationUser = (event) => {
     event.preventDefault();
-    validationInputsRegister({
-      email,
-      password,
-      username,
-      repeatPassword,
-      setIsValidData,
-      setIsValidPasswords,
-      setIsFiledOut,
-    });
-    if (isFilledOut) {
+    if (!email || !password || !repeatPassword || !username) {
+      setIsValidData(true);
+      setIsValidPasswords(false);
+    } else if (password !== repeatPassword) {
+      setIsValidPasswords(true);
+      setIsValidData(false);
+    } else {
+      setIsValidPasswords(false);
+      setIsValidData(false);
       setIsGettingData(true);
-      getToken({ email, password });
       postRegister({ email, password, username })
         .then((data) => {
           if (data.id) {
             localStorage.setItem('userDataInfo', JSON.stringify(data));
             changeUserInfo(JSON.parse(localStorage.getItem('userDataInfo')));
+            responseToken();
             return navigate('/');
           }
           if (data.response && data.response.status === 400) {
@@ -193,11 +203,7 @@ function SignUp() {
               ) : (
                 ''
               )}
-              {isError && isFilledOut ? (
-                <MessageError>{messageErrorAPI}</MessageError>
-              ) : (
-                ''
-              )}
+              {isError ? <MessageError>{messageErrorAPI}</MessageError> : ''}
               <S.ModalBtnSignUpEnt
                 onClick={registrationUser}
                 disabled={isGettingData}

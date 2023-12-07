@@ -16,7 +16,7 @@ export const PlayingDot = styled.div`
   background-color: #b672ff;
   border-radius: 8px;
   display: block;
-  left: 4%;
+  left: 36%;
 `;
 export const PlayingDotActive = styled.div`
   position: absolute;
@@ -26,7 +26,7 @@ export const PlayingDotActive = styled.div`
   border-radius: 8px;
   display: block;
   animation: bubble_out 0.6s ease-in-out infinite both;
-  left: 4%;
+  left: 36%;
   @keyframes bubble_out {
     0%,
     to {
@@ -37,6 +37,10 @@ export const PlayingDotActive = styled.div`
     }
   }
 `;
+export const HighLight = styled.span`
+  background-color: rgb(150, 64, 200);
+`;
+
 export const CenterBlockContent = styled.div`
   display: -webkit-box;
   display: -ms-flexbox;
@@ -63,6 +67,7 @@ export const ContentTitle = styled.div`
   margin-bottom: 24px;
 `;
 export const ContentPlaylist = styled.div`
+  height: 1680px;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -140,7 +145,6 @@ export const TrackTitle = styled.div`
   -ms-flex-align: center;
   align-items: center;
   width: 447px;
-  position: relative;
   :hover {
     cursor: pointer;
   }
@@ -161,6 +165,7 @@ export const TrackTitleImg = styled.div`
   -ms-flex-pack: center;
   justify-content: center;
   margin-right: 17px;
+  position: relative;
 `;
 
 export const TrackTitleSvg = styled.svg`
@@ -216,15 +221,18 @@ export const TrackAlbumLinkBones = styled.div`
   height: 19px;
   background: #313131;
 `;
+export const TrackBlockTimeSvg = styled.div`
+  padding: 5px;
+  :hover {
+    cursor: pointer;
+  }
+`;
 export const TrackTimeSvg = styled.svg`
   width: 14px;
   height: 12px;
   margin-right: 17px;
   fill: transparent;
   stroke: #696969;
-  :hover {
-    cursor: pointer;
-  }
 `;
 export const TrackTimeText = styled.span`
   font-style: normal;

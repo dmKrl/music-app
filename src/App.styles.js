@@ -26,7 +26,7 @@ export const Main = styled.main`
   justify-content: space-between;
 `;
 export const MainCnterBlock = styled.main`
-  width: auto;
+  max-width: 1136px;
   -webkit-box-flex: 3;
   -ms-flex-positive: 3;
   flex-grow: 3;

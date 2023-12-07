@@ -1,14 +1,53 @@
 import ButtonFilter from './ButtonFilter';
 import PopupFilter from './PopupFilter';
-import { StyleFilterItem } from '../Main/CenterBlockFilter.styles';
+import {
+  StyleFilterItem,
+  CounterFilters,
+} from '../Main/CenterBlockFilter.styles';
 
 function FilterItem(props) {
-  const { onClick, isOpen, children, id, tracks } = props;
+  const {
+    onClick,
+    isOpen,
+    children,
+    id,
+    tracks,
+    authorTrackFilter,
+    genreTrackFilter,
+    sortTrackFilter,
+  } = props;
 
   return (
     <StyleFilterItem>
-      <ButtonFilter onClick={onClick}>{children}</ButtonFilter>
-      {isOpen && <PopupFilter id={id} track={tracks} />}
+      {!genreTrackFilter && !sortTrackFilter && authorTrackFilter.length ? (
+        <CounterFilters>{authorTrackFilter.length}</CounterFilters>
+      ) : (
+        ''
+      )}
+      {!authorTrackFilter && !sortTrackFilter && genreTrackFilter.length ? (
+        <CounterFilters>{genreTrackFilter.length}</CounterFilters>
+      ) : (
+        ''
+      )}
+      {!authorTrackFilter &&
+      !genreTrackFilter &&
+      sortTrackFilter.sort !== '' &&
+      sortTrackFilter.sort !== 'по умолчанию' ? (
+        <CounterFilters>1</CounterFilters>
+      ) : (
+        ''
+      )}
+      <ButtonFilter isOpen={isOpen} onClick={onClick}>
+        {children}
+      </ButtonFilter>
+      {isOpen && (
+        <PopupFilter
+          filters={{ authorTrackFilter, genreTrackFilter, sortTrackFilter }}
+          key={id}
+          id={id}
+          track={tracks}
+        />
+      )}
     </StyleFilterItem>
   );
 }

@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-expressions */
 /* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable no-dupe-else-if */
 /* eslint-disable import/no-extraneous-dependencies */
@@ -7,40 +8,37 @@ import { useDispatch, useSelector } from 'react-redux';
 import * as S from './MediaPlayer.styles.';
 import ProgressBar from '../ProgressBar/ProgressBar';
 import {
+  selectArrayTracks,
   selectIsPlaying,
   selectTracks,
   setTrack,
   toggleIsPlaying,
 } from '../../redux/slices/tracksSlice';
 import {
-  selectAllTracks,
   selectIsShuffled,
   toggleIsShuffled,
 } from '../../redux/slices/switchTracksSlice';
 import shuffleTracks from '../../app/shuffleTracks';
-import { selectFavoritesTracks } from '../../redux/slices/favoritesTracksSlice';
+import { tracksAPI } from '../../services/GetAccessTokenService';
 
 function MediaPlayer() {
-  const dispatch = useDispatch();
-  const dataTrack = useSelector(selectTracks);
-  const allTracks = useSelector(selectAllTracks);
-  const isShuffled = useSelector(selectIsShuffled);
-  const isPlayingTrack = useSelector(selectIsPlaying);
-  const favoritesTracks = useSelector(selectFavoritesTracks);
-  const [isLiked, setIsLiked] = useState(false);
-  const [isLoop, setIsLoop] = useState(false);
-  const [currentTime, setCurrentTime] = useState(0);
   const [volume, setVolume] = useState(1);
   const [duration, setDuration] = useState(0);
+  const [isLoop, setIsLoop] = useState(false);
+  const [currentTime, setCurrentTime] = useState(0);
   const [randomAllTracks, setRandomAllTracks] = useState([]);
+  const dataTrack = useSelector(selectTracks);
+  const isShuffled = useSelector(selectIsShuffled);
+  const isPlayingTrack = useSelector(selectIsPlaying);
+  const definiteArrayTracks = useSelector(selectArrayTracks);
+  const [addLikeTrack] = tracksAPI.useAddLikeTrackMutation();
+  const [deleteLikeTrack] = tracksAPI.useDeleteLikeTrackMutation();
+  const dispatch = useDispatch();
   const audioRef = useRef(null);
 
-  
   const handleToggleTrack = () => {
-    if (dataTrack.isFavorite) {
-      setRandomAllTracks(shuffleTracks(favoritesTracks));
-    } else if (!isShuffled) {
-      setRandomAllTracks(shuffleTracks(allTracks));
+    if (!isShuffled) {
+      setRandomAllTracks(shuffleTracks(definiteArrayTracks));
     } else {
       setRandomAllTracks([]);
     }
@@ -57,10 +55,8 @@ function MediaPlayer() {
     }
   }
   const handleNextTrack = () => {
-    if (dataTrack.isFavorite && !isShuffled) {
-      nextTracks(favoritesTracks);
-    } else if (!isShuffled) {
-      nextTracks(allTracks);
+    if (!isShuffled) {
+      nextTracks(definiteArrayTracks);
     } else {
       nextTracks(randomAllTracks);
     }
@@ -77,10 +73,8 @@ function MediaPlayer() {
   }
 
   const handlePrevTrack = () => {
-    if (dataTrack.isFavorite && !isShuffled) {
-      prevTracks(favoritesTracks);
-    } else if (!isShuffled) {
-      prevTracks(allTracks);
+    if (!isShuffled) {
+      prevTracks(definiteArrayTracks);
     } else {
       prevTracks(randomAllTracks);
     }
@@ -96,26 +90,22 @@ function MediaPlayer() {
   };
   const changeDuration = () => {
     setDuration(Math.floor(audioRef.current.duration));
+    audioRef.current.removeEventListener('loadedmetadata', changeDuration);
   };
   const changeCurrentTime = () => {
-    setCurrentTime(Math.floor(audioRef.current.currentTime));
+    if (audioRef.current === null) {
+      setCurrentTime(0);
+    } else {
+      setCurrentTime(Math.floor(audioRef.current.currentTime));
+    }
   };
 
   useEffect(() => {
     handleStartTrack();
-    audioRef.current.addEventListener('loadedmetadata', () => {
-      changeDuration();
-    });
-    audioRef.current.addEventListener('timeupdate', () => {
-      changeCurrentTime();
-    });
+    audioRef.current.addEventListener('loadedmetadata', changeDuration);
+    audioRef.current.addEventListener('timeupdate', changeCurrentTime);
     return () => {
-      audioRef.current.removeEventListener('loadedmetadata', () => {
-        changeDuration();
-      });
-      audioRef.current.removeEventListener('timeupdate', () => {
-        changeCurrentTime();
-      });
+      audioRef.current?.removeEventListener('timeupdate', changeCurrentTime);
     };
   }, [dataTrack.track_file]);
 
@@ -150,7 +140,7 @@ function MediaPlayer() {
                   }}
                 >
                   <S.PlayerBtnPrevSvg alt="prev">
-                    <use xlinkHref="img/icon/sprite.svg#icon-prev" />
+                    <use xlinkHref="/img/icon/sprite.svg#icon-prev" />
                   </S.PlayerBtnPrevSvg>
                 </S.PlayerBtnPrev>
                 <S.PlayerBtnPlay>
@@ -161,15 +151,15 @@ function MediaPlayer() {
                     }
                   >
                     {isPlayingTrack ? (
-                      <use xlinkHref="img/icon/sprite.svg#icon-pause" />
+                      <use xlinkHref="/img/icon/sprite.svg#icon-pause" />
                     ) : (
-                      <use xlinkHref="img/icon/sprite.svg#icon-play" />
+                      <use xlinkHref="/img/icon/sprite.svg#icon-play" />
                     )}
                   </S.PlayerBtnPlaySvg>
                 </S.PlayerBtnPlay>
                 <S.PlayerBtnNext onClick={handleNextTrack}>
                   <S.PlayerBtnNextSvg alt="next">
-                    <use xlinkHref="img/icon/sprite.svg#icon-next" />
+                    <use xlinkHref="/img/icon/sprite.svg#icon-next" />
                   </S.PlayerBtnNextSvg>
                 </S.PlayerBtnNext>
                 <S.PlayerBtnRepeat>
@@ -178,9 +168,9 @@ function MediaPlayer() {
                     onClick={() => setIsLoop(!isLoop)}
                   >
                     {isLoop ? (
-                      <use xlinkHref="img/icon/sprite.svg#icon-repeatA" />
+                      <use xlinkHref="/img/icon/sprite.svg#icon-repeatA" />
                     ) : (
-                      <use xlinkHref="img/icon/sprite.svg#icon-repeat" />
+                      <use xlinkHref="/img/icon/sprite.svg#icon-repeat" />
                     )}
                   </S.PlayerBtnRepeatSvg>
                 </S.PlayerBtnRepeat>
@@ -190,9 +180,9 @@ function MediaPlayer() {
                     onClick={() => handleToggleTrack()}
                   >
                     {isShuffled ? (
-                      <use xlinkHref="img/icon/sprite.svg#icon-shuffle-active" />
+                      <use xlinkHref="/img/icon/sprite.svg#icon-shuffle-active" />
                     ) : (
-                      <use xlinkHref="img/icon/sprite.svg#icon-shuffle" />
+                      <use xlinkHref="/img/icon/sprite.svg#icon-shuffle" />
                     )}
                   </S.PlayerBtnShuffleSvg>
                 </S.PlayerBtnShuffle>
@@ -202,7 +192,7 @@ function MediaPlayer() {
                 <S.TrackPlayContain>
                   <S.TrackPlayImage>
                     <S.TrackPlaySvg alt="music">
-                      <use xlinkHref="img/icon/sprite.svg#icon-note" />
+                      <use xlinkHref="/img/icon/sprite.svg#icon-note" />
                     </S.TrackPlaySvg>
                   </S.TrackPlayImage>
                   <S.TrackPlayAuthor>
@@ -221,18 +211,28 @@ function MediaPlayer() {
                   <S.TrackPlayLike>
                     <S.TrackPlaySvg
                       alt="like"
-                      onClick={() => setIsLiked(!isLiked)}
+                      onClick={() => addLikeTrack(dataTrack.id)}
                     >
-                      {!isLiked ? (
-                        <use xlinkHref="img/icon/sprite.svg#icon-like-no-active" />
+                      <use xlinkHref="/img/icon/sprite.svg#icon-like-active" />
+                      {/* {dataTrack?.arrayStaredUser?.find(
+                        (user) => user.id === userInfo.id,
+                      ) ||
+                      dataTrack.isFavorite ||
+                      dataTrack?.stared_user?.find(
+                        (user) => user.id === userInfo.id,
+                      ) ? (
+                        <use xlinkHref="/img/icon/sprite.svg#icon-like-active" />
                       ) : (
-                        <use xlinkHref="img/icon/sprite.svg#icon-like-active" />
-                      )}
+                        <use xlinkHref="/img/icon/sprite.svg#icon-like-no-active" />
+                      )} */}
                     </S.TrackPlaySvg>
                   </S.TrackPlayLike>
                   <S.TrackPlayDislike>
-                    <S.TrackPlayDislikeSvg alt="dislike">
-                      <use xlinkHref="img/icon/sprite.svg#icon-dislike" />
+                    <S.TrackPlayDislikeSvg
+                      alt="dislike"
+                      onClick={() => deleteLikeTrack(dataTrack.id)}
+                    >
+                      <use xlinkHref="/img/icon/sprite.svg#icon-dislike" />
                     </S.TrackPlayDislikeSvg>
                   </S.TrackPlayDislike>
                 </S.TrackPlayLikeDis>
@@ -242,7 +242,7 @@ function MediaPlayer() {
               <S.VolumeContent>
                 <S.VolumeImg>
                   <S.VolumeSvg alt="volume">
-                    <use xlinkHref="img/icon/sprite.svg#icon-volume" />
+                    <use xlinkHref="/img/icon/sprite.svg#icon-volume" />
                   </S.VolumeSvg>
                 </S.VolumeImg>
                 <S.VolumeProgress>

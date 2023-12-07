@@ -1,13 +1,6 @@
-import { getAccessToken, getRefreshAccessToken } from '../api/api';
+import { getRefreshAccessToken } from '../api/api';
 
-export default function getToken({ email, password }) {
-  getAccessToken({ email, password }).then((response) => {
-    localStorage.setItem('accessToken', response.access);
-    localStorage.setItem('accessRefreshToken', response.refresh);
-    console.log(localStorage.getItem('accessRefreshToken'));
-  });
-}
-
+// eslint-disable-next-line import/prefer-default-export
 export function refreshAccessToken() {
   getRefreshAccessToken(localStorage.getItem('accessRefreshToken')).then(
     (responseToken) => {
@@ -16,3 +9,5 @@ export function refreshAccessToken() {
     },
   );
 }
+
+

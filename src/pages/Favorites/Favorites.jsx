@@ -1,33 +1,28 @@
-import { useContext, useEffect, useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+/* eslint-disable react/jsx-props-no-spreading */
+import { useSelector } from 'react-redux';
 import * as S from '../../components/Main/SectionMusicList.styles';
 import { CenterBlockHeading } from '../../components/Main/CenterBlockFilter.styles';
 import ItemPlaylist from '../../components/UI/ItemPlaylist';
-import IsLoadingPageContext from '../../context/IsLoadingPageContext';
-import tracks from '../../data/tracks';
-import {
-  fetchFavoritesTracks,
-  selectFavoritesTracks,
-} from '../../redux/slices/favoritesTracksSlice';
+import bonesTracks from '../../data/tracks';
+import { tracksAPI } from '../../services/GetAccessTokenService';
+import { selectNameTrackFilter } from '../../redux/slices/filterSlice';
 
 function Favorites() {
-  const { isLoading, isLoadingError } = useContext(IsLoadingPageContext);
-  const favoritesTracks = useSelector(selectFavoritesTracks);
-  const [error, setError] = useState('У вас нет избранных треков');
-  const dispatch = useDispatch();
+  const {
+    data: favoritesTracks,
+    error,
+    isLoading: loadingFavorites,
+  } = tracksAPI.useFetchAllFavoritesTrackQuery();
 
-  useEffect(() => {
-    if (typeof favoritesTracks === 'string') {
-      setError(
-        'Произошла ошибка запроса, обновите страницу или перезайдите в приложение',
-      );
-    }
-    dispatch(
-      fetchFavoritesTracks(
-        'https://skypro-music-api.skyeng.tech/catalog/track/favorite/all/',
-      ),
-    );
-  }, []);
+  const nameTrackFilter = useSelector(selectNameTrackFilter);
+
+  const filteredTracks = favoritesTracks?.filter((track) => {
+    const matchesNameTrack = track.name
+      .toLowerCase()
+      .includes(nameTrackFilter.toLowerCase());
+    return matchesNameTrack;
+  });
+
   return (
     <S.CenterBlockContent>
       <CenterBlockHeading>Мои треки</CenterBlockHeading>
@@ -41,22 +36,31 @@ function Favorites() {
           </S.PlaylistTitleSvg>
         </S.Col04>
       </S.ContentTitle>
-      {(favoritesTracks.length === 0 && !isLoading) ||
-      typeof favoritesTracks === 'string' ? (
-        <CenterBlockHeading style={{ fontSize: '32px' }}>
-          {error}
+      {error ? (
+        <CenterBlockHeading style={{ fontSize: '32px', height: '1680px' }}>
+          Ошибка загрузки треков, перезагрузите страницу или проверьте интернет
+          соединение
         </CenterBlockHeading>
       ) : (
         <S.ContentPlaylist>
-          {isLoadingError}
-          {isLoading
-            ? tracks.map((track) => (
+          {error}
+          {loadingFavorites && filteredTracks === undefined
+            ? bonesTracks?.map((track) => (
                 // eslint-disable-next-line react/jsx-props-no-spreading
-                <ItemPlaylist {...track} key={track.id} />
+                <ItemPlaylist
+                  loadingFavorites={loadingFavorites}
+                  {...track}
+                  key={track.id}
+                />
               ))
-            : favoritesTracks.map((track) => (
+            : filteredTracks?.map((track) => (
                 // eslint-disable-next-line react/jsx-props-no-spreading
-                <ItemPlaylist {...track} key={track.id} />
+                <ItemPlaylist
+                  tracks={favoritesTracks}
+                  loadingFavorites={loadingFavorites}
+                  {...track}
+                  key={track.id}
+                />
               ))}
         </S.ContentPlaylist>
       )}
