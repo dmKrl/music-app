@@ -1,5 +1,5 @@
 import styled, { css } from 'styled-components';
-import ModalInput from '../UI/ModalInput';
+import ModalInput from '../UI/ModalInput/ModalInput';
 
 const ModalInputStyles = css`
   width: 100%;

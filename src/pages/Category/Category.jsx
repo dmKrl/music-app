@@ -1,14 +1,14 @@
 /* eslint-disable react/jsx-props-no-spreading */
 import { useParams } from 'react-router-dom';
 import { useSelector } from 'react-redux';
-import * as S from '../../components/Main/SectionMusicList.styles';
-import { CenterBlockHeading } from '../../components/Main/CenterBlockFilter.styles';
-import ItemPlaylist from '../../components/UI/ItemPlaylist';
+import * as S from '../../components/Main/SectionMusicList/SectionMusicList.styles';
+import { CenterBlockHeading } from '../../components/Main/CenterBlockFilter/CenterBlockFilter.styles';
+import ItemPlaylist from '../../components/UI/ItemPlaylist/ItemPlaylist';
 import categories from '../../data/categories';
 import NotFound from '../NotFound/NotFound';
 import tracks from '../../data/tracks';
 import { tracksAPI } from '../../services/GetAccessTokenService';
-import { selectNameTrackFilter } from '../../redux/slices/filterSlice';
+import { selectNameTrackFilter } from '../../redux/slices/filterSlice/filterSlice';
 
 function Category() {
   const params = useParams();

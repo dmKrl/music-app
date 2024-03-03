@@ -2,7 +2,7 @@
 import {
   FilterButton,
   FilterButtonActive,
-} from '../Main/CenterBlockFilter.styles';
+} from '../../Main/CenterBlockFilter/CenterBlockFilter.styles';
 
 function ButtonFilter(props) {
   const { children, onClick, isOpen } = props;

@@ -1,17 +1,17 @@
 /* eslint-disable consistent-return */
 /* eslint-disable react/jsx-props-no-spreading */
 import { useSelector } from 'react-redux';
-import ItemPlaylist from '../UI/ItemPlaylist';
+import ItemPlaylist from '../../UI/ItemPlaylist/ItemPlaylist';
 import * as S from './SectionMusicList.styles';
-import bonesTracks from '../../data/tracks';
-import { tracksAPI } from '../../services/GetAccessTokenService';
+import bonesTracks from '../../../data/tracks';
+import { tracksAPI } from '../../../services/GetAccessTokenService';
 import {
   selectAuthorTrackFilter,
   selectGenreTrackFilter,
   selectNameTrackFilter,
   selectSortTrackFilter,
-} from '../../redux/slices/filterSlice';
-import { CenterBlockHeading } from './CenterBlockFilter.styles';
+} from '../../../redux/slices/filterSlice/filterSlice';
+import { CenterBlockHeading } from '../CenterBlockFilter/CenterBlockFilter.styles';
 
 function SectionMusicList() {
   const {

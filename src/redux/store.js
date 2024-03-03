@@ -1,13 +1,13 @@
 // eslint-disable-next-line import/no-extraneous-dependencies
 import { configureStore } from '@reduxjs/toolkit';
-import tracksReducer from './slices/tracksSlice';
-import switchTracksReducer from './slices/switchTracksSlice';
-import filterReducer from './slices/filterSlice';
+import tracksReducer from './slices/tracksSlice/tracksSlice';
+import switchTracksReducer from './slices/switchTracksSlice/switchTracksSlice';
+import filterReducer from './slices/filterSlice/filterSlice';
 import {
   getAccessTokenAPI,
   tracksAPI,
 } from '../services/GetAccessTokenService';
-import { authReducer } from './slices/authSlice';
+import { authReducer } from './slices/authSlice/authSlice';
 
 const store = configureStore({
   reducer: {

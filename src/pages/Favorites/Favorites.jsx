@@ -1,11 +1,11 @@
 /* eslint-disable react/jsx-props-no-spreading */
 import { useSelector } from 'react-redux';
-import * as S from '../../components/Main/SectionMusicList.styles';
-import { CenterBlockHeading } from '../../components/Main/CenterBlockFilter.styles';
-import ItemPlaylist from '../../components/UI/ItemPlaylist';
+import * as S from '../../components/Main/SectionMusicList/SectionMusicList.styles';
+import { CenterBlockHeading } from '../../components/Main/CenterBlockFilter/CenterBlockFilter.styles';
+import ItemPlaylist from '../../components/UI/ItemPlaylist/ItemPlaylist';
 import bonesTracks from '../../data/tracks';
 import { tracksAPI } from '../../services/GetAccessTokenService';
-import { selectNameTrackFilter } from '../../redux/slices/filterSlice';
+import { selectNameTrackFilter } from '../../redux/slices/filterSlice/filterSlice';
 
 function Favorites() {
   const {

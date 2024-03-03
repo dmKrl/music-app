@@ -3,10 +3,10 @@ import { Link, useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import * as S from '../../components/SignUp-In/SignComponent.styles';
 import { postRegister, postLogin } from '../../api/api';
-import MessageError from '../../components/UI/MessageError';
+import MessageError from '../../components/UI/MessageError/MessageError';
 import UserData from '../../context/UserData';
 import { getAccessTokenAPI } from '../../services/GetAccessTokenService';
-import { setAuth } from '../../redux/slices/authSlice';
+import { setAuth } from '../../redux/slices/authSlice/authSlice';
 
 function SignUp() {
   const [email, setEmail] = useState('');

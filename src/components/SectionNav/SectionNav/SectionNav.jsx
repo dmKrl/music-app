@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom';
 import * as S from './SectionNav.styles';
-import SectionNavItem from './SectionNavItem';
+import SectionNavItem from '../SectionNavItem/SectionNavItem';
 
 function SectionsNav({ onClick, visible, handleLogout }) {
   return (

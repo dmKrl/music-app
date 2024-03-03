@@ -13,11 +13,11 @@ import {
   selectTracks,
   setTrack,
   toggleIsPlaying,
-} from '../../redux/slices/tracksSlice';
+} from '../../redux/slices/tracksSlice/tracksSlice';
 import {
   selectIsShuffled,
   toggleIsShuffled,
-} from '../../redux/slices/switchTracksSlice';
+} from '../../redux/slices/switchTracksSlice/switchTracksSlice';
 import shuffleTracks from '../../app/shuffleTracks';
 import { tracksAPI } from '../../services/GetAccessTokenService';
 
@@ -124,7 +124,8 @@ function MediaPlayer() {
           <ProgressBar
             currentTime={currentTime}
             audioRef={audioRef}
-            duration={duration}З
+            duration={duration}
+            З
             setCurrentTime={setCurrentTime}
           />
           <S.BarPlayerBlock>

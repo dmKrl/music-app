@@ -1,6 +1,6 @@
 import { useLocation } from 'react-router-dom';
 import { useContext } from 'react';
-import SideBarItem from '../UI/SideBarItem';
+import SideBarItem from '../UI/SideBarItem/SideBarItem';
 import * as S from './SideBar.styles';
 import categories from '../../data/categories';
 import UserData from '../../context/UserData';

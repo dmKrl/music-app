@@ -2,17 +2,17 @@
 import { useContext } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useLocation } from 'react-router-dom';
-import * as S from '../Main/SectionMusicList.styles';
-import MediaPlayerContext from '../../context/MediaPlayerContext';
-import changeSecondsToMinutes from '../../app/changeSecondsToMinutes';
+import * as S from '../../Main/SectionMusicList/SectionMusicList.styles';
+import MediaPlayerContext from '../../../context/MediaPlayerContext';
+import changeSecondsToMinutes from '../../../app/changeSecondsToMinutes';
 import {
   selectIsPlaying,
   selectTracks,
   setTrack,
   setArrayTracks,
-} from '../../redux/slices/tracksSlice';
-import UserData from '../../context/UserData';
-import { tracksAPI } from '../../services/GetAccessTokenService';
+} from '../../../redux/slices/tracksSlice/tracksSlice';
+import UserData from '../../../context/UserData';
+import { tracksAPI } from '../../../services/GetAccessTokenService';
 
 function ItemPlaylist(props) {
   const { changeIsShowing } = useContext(MediaPlayerContext);

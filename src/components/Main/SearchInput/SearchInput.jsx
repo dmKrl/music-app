@@ -3,7 +3,7 @@ import * as S from './SearchInput.styles';
 import {
   selectNameTrackFilter,
   setNameTrackFilter,
-} from '../../redux/slices/filterSlice';
+} from '../../../redux/slices/filterSlice/filterSlice';
 
 function SearchInput() {
   const dispatch = useDispatch();

@@ -1,7 +1,7 @@
 /* eslint-disable no-unused-vars */
 /* eslint-disable import/prefer-default-export */
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
-import { setAuth } from '../redux/slices/authSlice';
+import { setAuth } from '../redux/slices/authSlice/authSlice';
 
 const baseQueryWithReauth = async (args, api, extraOptions) => {
   const baseQuery = fetchBaseQuery({

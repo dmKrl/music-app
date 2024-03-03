@@ -2,8 +2,8 @@
 import { useContext, useState } from 'react';
 import { Outlet } from 'react-router-dom';
 import MediaPlayer from '../../components/MediaPlayer/MediaPlayer';
-import SearchInput from '../../components/Main/SearchInput';
-import SectionsNav from '../../components/SectionNav/SectionsNav';
+import SearchInput from '../../components/Main/SearchInput/SearchInput';
+import SectionsNav from '../../components/SectionNav/SectionNav/SectionNav';
 import SideBar from '../../components/SideBar/SideBar';
 import GlobalStyle from '../../GlobalStyle.styles';
 import * as S from '../../App.styles';
@@ -37,7 +37,6 @@ function MainPage() {
             <SideBar onClick={handleLogout} />
           </S.Main>
           {isShowing ? <MediaPlayer /> : ''}
-          <footer />
         </S.Container>
       </S.Wrapper>
     </>

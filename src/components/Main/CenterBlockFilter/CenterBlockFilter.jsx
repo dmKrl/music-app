@@ -1,6 +1,6 @@
 import { useDispatch, useSelector } from 'react-redux';
-import { arrayAuthors, arrayDate, arrayGenre } from '../../data/tracks';
-import FilterItem from '../UI/FilterItem';
+import { arrayAuthors, arrayDate, arrayGenre } from '../../../data/tracks';
+import FilterItem from '../../UI/FilterItem/FilterItem';
 import * as S from './CenterBlockFilter.styles';
 import {
   selectSortTrackFilter,
@@ -11,7 +11,7 @@ import {
   deleteGenreTrackFilter,
   selectAuthorTrackFilter,
   selectGenreTrackFilter,
-} from '../../redux/slices/filterSlice';
+} from '../../../redux/slices/filterSlice/filterSlice';
 
 function CenterBlockFilter({ onClick, activeFilter }) {
   const dispatch = useDispatch();

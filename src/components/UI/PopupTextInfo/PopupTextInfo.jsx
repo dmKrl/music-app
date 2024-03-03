@@ -1,6 +1,6 @@
 /* eslint-disable react/jsx-no-useless-fragment */
 import { useState } from 'react';
-import * as S from '../Main/CenterBlockFilter.styles';
+import * as S from '../../Main/CenterBlockFilter/CenterBlockFilter.styles';
 
 function PopupTextInfo(props) {
   const { isActive, setIsActive } = useState();

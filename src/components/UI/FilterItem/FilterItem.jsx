@@ -1,9 +1,9 @@
-import ButtonFilter from './ButtonFilter';
-import PopupFilter from './PopupFilter';
+import ButtonFilter from '../ButtonFilter/ButtonFilter';
+import PopupFilter from '../PopupFilter/PopupFilter';
 import {
   StyleFilterItem,
   CounterFilters,
-} from '../Main/CenterBlockFilter.styles';
+} from '../../Main/CenterBlockFilter/CenterBlockFilter.styles';
 
 function FilterItem(props) {
   const {

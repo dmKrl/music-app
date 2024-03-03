@@ -1,5 +1,5 @@
-import { tracksAPI } from '../../services/GetAccessTokenService';
-import * as S from '../SideBar/SideBar.styles';
+import { tracksAPI } from '../../../services/GetAccessTokenService';
+import * as S from '../../SideBar/SideBar.styles';
 
 function SideBarItem(props) {
   const { image, to } = props;
