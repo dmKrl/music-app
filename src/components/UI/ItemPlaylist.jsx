@@ -85,7 +85,7 @@ function ItemPlaylist(props) {
               ''
             )}
             <S.TrackTitleSvg alt="music">
-              <use xlinkHref="/img/icon/sprite.svg#icon-note" />
+              <use xlinkHref="img/icon/sprite.svg#icon-note" />
             </S.TrackTitleSvg>
           </S.TrackTitleImg>
           <div>
@@ -123,9 +123,9 @@ function ItemPlaylist(props) {
             <S.TrackTimeSvg alt="time">
               {location.pathname === '/favorites' ||
               props?.stared_user?.find((user) => user.id === userInfo.id) ? (
-                <use xlinkHref="/img/icon/sprite.svg#icon-like-active" />
+                <use xlinkHref="img/icon/sprite.svg#icon-like-active" />
               ) : (
-                <use xlinkHref="/img/icon/sprite.svg#icon-like-no-active" />
+                <use xlinkHref="img/icon/sprite.svg#icon-like-no-active" />
               )}
             </S.TrackTimeSvg>
           </S.TrackBlockTimeSvg>

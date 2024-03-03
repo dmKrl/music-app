@@ -1,5 +1,5 @@
 import { useContext, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import * as S from '../../components/SignUp-In/SignComponent.styles';
 import { postRegister, postLogin } from '../../api/api';
@@ -61,6 +61,7 @@ function SignUp() {
       setIsGettingData(true);
       postLogin({ email, password })
         .then((data) => {
+          console.log(data);
           if (data.id) {
             localStorage.setItem('userDataInfo', JSON.stringify(data));
             changeUserInfo(JSON.parse(localStorage.getItem('userDataInfo')));
@@ -119,11 +120,11 @@ function SignUp() {
         <S.ModalBlock>
           {!isLoginMode ? (
             <S.ModalFormLogin>
-              <a href="../">
+              <Link href="/">
                 <S.ModalLogo>
                   <img src="./img/logo_modal.png" alt="logo" />
                 </S.ModalLogo>
-              </a>
+              </Link>
               <S.ModalLogin
                 value={email}
                 onChange={(event) => setEmail(event.target.value)}
@@ -158,9 +159,9 @@ function SignUp() {
             </S.ModalFormLogin>
           ) : (
             <S.ModalFormLogin>
-              <a href="../">
+              <a href="/">
                 <S.ModalLogo>
-                  <img src="../img/logo_modal.png" alt="logo" />
+                  <img src="img/logo_modal.png" alt="logo" />
                 </S.ModalLogo>
               </a>
               <S.ModalLogin

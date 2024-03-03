@@ -7,7 +7,7 @@ function SectionsNav({ onClick, visible, handleLogout }) {
     <S.MainNav>
       <S.NavLogo>
         <Link to="/">
-          <S.LogoImg src="/img/logo.png" alt="logo" />
+          <S.LogoImg src="img/logo.png" alt="logo" />
         </Link>
       </S.NavLogo>
       <S.NavBurger onClick={onClick} type="button">

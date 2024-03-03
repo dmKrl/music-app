@@ -124,7 +124,7 @@ function MediaPlayer() {
           <ProgressBar
             currentTime={currentTime}
             audioRef={audioRef}
-            duration={duration}
+            duration={duration}З
             setCurrentTime={setCurrentTime}
           />
           <S.BarPlayerBlock>

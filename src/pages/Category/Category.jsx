@@ -26,6 +26,7 @@ function Category() {
       .includes(nameTrackFilter.toLowerCase());
     return matchesNameTrack;
   });
+  console.log(collectionTracks);
 
   if (!category || Number(params.id) > 3) {
     return <NotFound />;
@@ -45,7 +46,8 @@ function Category() {
       </S.ContentTitle>
       {error ? (
         <CenterBlockHeading style={{ fontSize: '32px', height: '1680px' }}>
-          Ошибка загрузки треков, перезагрузите страницу или проверьте интернет соединение
+          Ошибка загрузки треков, перезагрузите страницу или проверьте интернет
+          соединение
         </CenterBlockHeading>
       ) : (
         <S.ContentPlaylist>

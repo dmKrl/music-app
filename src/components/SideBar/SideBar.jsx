@@ -14,7 +14,7 @@ function SideBar({ onClick }) {
         <S.SideBarPersonalName>{userInfo.username}</S.SideBarPersonalName>
         <S.SideBarIcon onClick={onClick} to="/auth">
           <svg alt="logout">
-            <use xlinkHref="/img/icon/sprite.svg#logout" />
+            <use xlinkHref="img/icon/sprite.svg#logout" />
           </svg>
         </S.SideBarIcon>
       </S.SideBarPersonal>
