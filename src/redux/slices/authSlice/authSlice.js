@@ -7,19 +7,14 @@ function getAuthFromLocalStorage() {
   try {
     return JSON.parse(localStorage.getItem(AUTH_INFO));
   } catch (error) {
-    console.error(error);
     return null;
   }
 }
-
-console.log(JSON.parse(localStorage.getItem(AUTH_INFO)));
 
 const initialState = {
   access: '',
   refresh: '',
 };
-
-console.log(initialState);
 
 const authSlice = createSlice({
   name: 'auth',

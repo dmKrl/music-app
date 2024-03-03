@@ -1,6 +1,7 @@
 import { useContext, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
+// import { useForm } from 'react-hook-form';
 import * as S from '../../components/SignUp-In/SignComponent.styles';
 import { postRegister, postLogin } from '../../api/api';
 import MessageError from '../../components/UI/MessageError/MessageError';
@@ -23,6 +24,13 @@ function SignUp() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const [postAccessToken] = getAccessTokenAPI.usePostAccessTokenMutation();
+
+  // const {
+  //   register,
+  //   formState: { errors },
+  //   handleSubmit,
+  //   reset,
+  // } = useForm();
 
   const returnsErrorMessageAPI = (data) => {
     if (data.username) {
