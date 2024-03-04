@@ -1,5 +1,5 @@
 import styled, { css } from 'styled-components';
-import ModalInput from '../UI/ModalInput/ModalInput';
+import { Link } from 'react-router-dom';
 
 const ModalInputStyles = css`
   width: 100%;
@@ -91,18 +91,18 @@ export const ModalLogo = styled.div`
     height: auto;
   }
 `;
-export const ModalLogin = styled(ModalInput)`
+export const ModalLogin = styled.input`
   margin-bottom: 30px;
   ${ModalInputStyles}
 `;
-export const ModalUsername = styled(ModalInput)`
+export const ModalUsername = styled.input`
   margin-bottom: 30px;
   ${ModalInputStyles}
 `;
-export const ModalPassword = styled(ModalInput)`
+export const ModalPassword = styled.input`
   ${ModalInputStyles}
 `;
-export const ModalPasswordDouble = styled(ModalInput)`
+export const ModalPasswordDouble = styled.input`
   margin-top: 30px;
   ${ModalInputStyles}
 `;
@@ -149,7 +149,7 @@ export const ModalBtnEnter = styled.button`
     justify-content: center;
   }
 `;
-export const ModaBtnlSignUp = styled.button`
+export const ModaBtnlSignUp = styled(Link)`
   width: 278px;
   height: 52px;
   background-color: transparent;
