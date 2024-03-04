@@ -15,11 +15,11 @@
 
 
 ## Технический стек:
-React
-Redux
-RTK Query
-Styled components
-React Router
+React  
+Redux  
+RTK Query  
+Styled components  
+React Router  
 
 ## Установка и запуск проекта:
 Необходимо кланировать репозиторий: git repo clone dm_krl/music-app;  
