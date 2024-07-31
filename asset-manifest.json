@@ -1,10 +1,10 @@
 {
   "files": {
-    "main.js": "/music-app/static/js/main.f0ccddec.js",
+    "main.js": "/music-app/static/js/main.db12b50d.js",
     "index.html": "/music-app/index.html",
-    "main.f0ccddec.js.map": "/music-app/static/js/main.f0ccddec.js.map"
+    "main.db12b50d.js.map": "/music-app/static/js/main.db12b50d.js.map"
   },
   "entrypoints": [
-    "static/js/main.f0ccddec.js"
+    "static/js/main.db12b50d.js"
   ]
 }
